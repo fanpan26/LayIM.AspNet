@@ -1,0 +1,2 @@
+/** layui-v0.0.7 跨设备模块化前端框架@LGPL www.layui.com By 贤心 */
+;layui.define(function(e){e("util",{stope:function(e){e=e||window.event,e.stopPropagation?e.stopPropagation():e.cancelBubble=!0},focusInsert:function(e,t){var n,o=e.value;e.focus(),document.selection?(n=document.selection.createRange(),document.selection.empty(),n.text=t):(n=[o.substring(0,e.selectionStart),t,o.substr(e.selectionEnd)],e.focus(),e.value=n.join(""))}})});

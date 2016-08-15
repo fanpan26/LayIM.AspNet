@@ -1,0 +1,81 @@
+﻿using LayIM.DAL.DB;
+using LayIM.Utils.Extension;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LayIM.DAL
+{
+    public class LayimUserDAL : BaseDB
+    {
+        #region  获取用户基本信息，个人信息，群组信息，好友组信息等
+        /// <summary>
+        /// 获取用户基本信息，个人信息，群组信息，好友组信息等
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        public DataSet GetChatRoomBaseInfo(int userid)
+        {
+            const string procedureName = "Proc_LayIM_GetUserInitInfo";
+            var parameters = new SqlParameter[] { MakeParameterInt("userid", userid) };
+            return ExecuteDataSetStoreProcedure(procedureName, parameters);
+        }
+        #endregion
+
+        #region 获取用户的群组的群员信息
+        public DataSet GetGroupMembers(int groupid)
+        {
+            const string procedureName = "Proc_LayIM_GetGroupMembers";
+            var parameters = new SqlParameter[] { MakeParameterInt("groupid", groupid) };
+            return ExecuteDataSetStoreProcedure(procedureName, parameters);
+        }
+        #endregion
+
+        #region 用户登录或者注册流程
+        /// <summary>
+        /// 用户登陆或者注册，返回用户id如果为 0 说明密码错误
+        /// </summary>
+        /// <param name="loginName"></param>
+        /// <param name="loginPwd"></param>
+        /// <param name="nickName"></param>
+        /// <returns></returns>
+        public DataSet UserLoginOrRegister(string loginName, string loginPwd,string nickName="")
+        {
+            const string procedureName = "Proc_LayIM_UserLoginOrRegister";
+            var parameters = new SqlParameter[] {
+                MakeParameterVarChar("loginname",loginName ),
+                MakeParameterVarChar("loginpwd",loginPwd),
+                MakeParameterVarChar("nickname",nickName)
+            };
+            var ds = ExecuteDataSetStoreProcedure(procedureName, parameters);
+            return ds;
+        }
+        #endregion
+
+        #region 用户创建群
+        public DataTable CreateGroup(string groupName, string groupDesc, int userid)
+        {
+            const string procedureName = "Proc_LayIM_CreateGroup";
+            var parameters = new SqlParameter[] {
+                MakeParameterVarChar("groupname",groupName ),
+                MakeParameterVarChar("groupdesc",groupDesc),
+                MakeParameterInt("userid",userid)
+            };
+            return ExecuteDataTableStoreProcedure(procedureName, parameters);
+        }
+        #endregion
+
+        #region 获取与用户有关的消息
+        public DataTable GetUserApplyMessage(int userid)
+        {
+            string procedureName = "Proc_LayIM_GetUserApplyRecord";
+            var parameters = new SqlParameter[] { MakeParameterInt("userid", userid) };
+            return ExecuteDataTableStoreProcedure(procedureName, parameters);
+        }
+        #endregion
+    }
+}

@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>Use this area to provide additional information.</p>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
+<script src="~/Scripts/signalr/autohub.old.js"></script>
+<script src="~/Scripts/signalr/client.hub.js"></script>
+<script>
+    csClient.init({
+        serverUrl: 'http://localhost:8496/layim'
+    });
+</script>

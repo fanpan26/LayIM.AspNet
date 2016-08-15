@@ -1,0 +1,98 @@
+﻿{
+    "100000": {
+        "chatlog": {
+            "friend198909151014": [
+                {
+                    "username": "Hi",
+                    "avatar": "http://tva1.sinaimg.cn/crop.7.0.736.736.50/bd986d61jw8f5x8bqtp00j20ku0kgabx.jpg",
+                    "id": "198909151014",
+                    "type": "friend",
+                    "content": "临时：1470215618170",
+                    "timestamp": 1470215618170
+                },
+                {
+                    "username": "Hi",
+                    "avatar": "http://tva1.sinaimg.cn/crop.7.0.736.736.50/bd986d61jw8f5x8bqtp00j20ku0kgabx.jpg",
+                    "id": "198909151014",
+                    "type": "friend",
+                    "content": "临时：1470217435448",
+                    "timestamp": 1470217435449
+                },
+                {
+                    "username": "Hi",
+                    "avatar": "http://tva1.sinaimg.cn/crop.7.0.736.736.50/bd986d61jw8f5x8bqtp00j20ku0kgabx.jpg",
+                    "id": "198909151014",
+                    "type": "friend",
+                    "content": "临时：1470217438089",
+                    "timestamp": 1470217438089
+                }
+            ],
+            "friend100001": [
+                {
+                    "username": "贤心",
+                    "avatar": "http://tp1.sinaimg.cn/1571889140/180/40030060651/1",
+                    "id": "100001",
+                    "type": "friend",
+                    "content": "嗨，你好！欢迎体验LayIM。演示标记：1470215618173",
+                    "timestamp": 1470215618173
+                },
+                {
+                    "username": "贤心",
+                    "avatar": "http://tp1.sinaimg.cn/1571889140/180/40030060651/1",
+                    "id": "100001",
+                    "type": "friend",
+                    "content": "嗨，你好！欢迎体验LayIM。演示标记：1470217435464",
+                    "timestamp": 1470217435464
+                },
+                {
+                    "username": "贤心",
+                    "avatar": "http://tp1.sinaimg.cn/1571889140/180/40030060651/1",
+                    "id": "100001",
+                    "type": "friend",
+                    "content": "嗨，你好！欢迎体验LayIM。演示标记：1470217438093",
+                    "timestamp": 1470217438093
+                }
+            ],
+            "friend108101": [
+                {
+                    "username": "纸飞机",
+                    "avatar": "http://cdn.firstlinkapp.com/upload/2016_6/1465575923433_33812.jpg",
+                    "id": "108101",
+                    "type": "friend",
+                    "content": "干活哈",
+                    "timestamp": 1470217595522,
+                    "mine": true
+                },
+                {
+                    "username": "Z_子晴",
+                    "avatar": "http://tva3.sinaimg.cn/crop.0.0.512.512.180/8693225ajw8f2rt20ptykj20e80e8weu.jpg",
+                    "id": "108101",
+                    "type": "friend",
+                    "content": "face[威武] face[威武] face[威武] face[威武] ",
+                    "timestamp": 1470217596524
+                }
+            ]
+        },
+        "spread0": "true",
+        "history": {
+            "friend100001": {
+                "username": "贤心",
+                "id": "100001",
+                "avatar": "http://tp1.sinaimg.cn/1571889140/180/40030060651/1",
+                "sign": "这些都是测试数据，实际使用请严格按照该格式返回",
+                "type": "friend",
+                "name": "贤心",
+                "historyTime": 1470215622382
+            },
+            "friend108101": {
+                "username": "Z_子晴",
+                "id": "108101",
+                "avatar": "http://tva3.sinaimg.cn/crop.0.0.512.512.180/8693225ajw8f2rt20ptykj20e80e8weu.jpg",
+                "sign": "微电商达人",
+                "name": "Z_子晴",
+                "type": "friend",
+                "historyTime": 1470217592841
+            }
+        }
+    }
+}

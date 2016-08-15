@@ -1,0 +1,45 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+        $(function () {
+            var uid = localStorage.getItem('currentUserId');
+            if (uid) {
+                location.href = '/';
+            } else {
+                $(document).on('click', '#btnLogin', function () {
+                    $.post('/userlogin', { username: $('#txtUserName').val(), password: $('#txtUserPwd').val() }, function (result) {
+                        if (result.code == 0) {
+                            var uid = result.data.userid;
+                            if (uid <= 0) {
+                                alert('用户名或者密码错误');
+                            } else {
+                                localStorage.setItem('currentUserId', uid);
+                                location.href = '/';
+                            }
+                        }
+                    });
+                });
+            }
+        });
+
+
+        var test = function () {
+           
+                $.post('/userlogin', { username: 'testes' +Math.random.toString().substr(2,3), password: '123456' }, function (result) {
+                    console.log(result);
+                });
+        }
+    </script>
+</head>
+<body>
+   <input type="text" placeholder="User Name" id="txtUserName"/>
+    <input type="password" placeholder="Password" id="txtUserPwd"/>
+    <input type="button" id="btnLogin" value="Login"/>
+</body>
+</html>

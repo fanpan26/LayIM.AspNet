@@ -1,0 +1,11 @@
+﻿
+/*签名样式*/
+.layim-sign-box{
+	width:95%
+}
+.layim-sign-hide{
+  border:none;background-color:#F5F5F5;
+}
+
+/*历史记录样式*/
+.layim-chat-history {text-align:center;padding-left:0;}
