@@ -7,22 +7,127 @@
     <link rel="stylesheet" href="/layui/css/layui.css">
     <link href="~/layui/css/pc/layim/layim.css" rel="stylesheet" />
     <link href="~/layui/css/pc/layer/layer.css" rel="stylesheet" />
+    <link href="~/css/search.css" rel="stylesheet" />
+    <script src="~/source/layui/layui.js"></script>
+    <script>
+        var content;
+        layui.use(['jquery', 'laytpl','layer'], function (j, l,ly) {
+            var $ = j;
+            var laytpl = l;
+            var layer = ly;
+            var config = {
+                pageindex: 1,
+                pagesize: 50
+            };
+            var events = {
+                search: function (obj) {
+                    if (obj) {
+                        config.pageindex = 1;
+                    }
+                    var keyword = $('#userKeyWord').val();
+                    var val = $('input:radio[name="findtype"]:checked').val();
+                    var isfile = false;
+                    var isimg = false;
+                    if (val == 1) { isimg = true; }
+                    if (val == 2) { isfile = true;}
+                    var starttime = $('#starttime').val();
+                    var endtime = $('#endtime').val();
+
+                    //
+                    var container =  $('#ul_chathistory');
+                    if (config.pageindex == 1) {
+                        container.html('');
+                    }
+                    $.get('/search/history', {
+                        keyword: keyword,
+                        starttime: starttime,
+                        endtime: endtime,
+                        isfile: isfile,
+                        isimg: isimg,
+                        pageindex: config.pageindex,
+                        pagesize: config.pagesize
+                    }, function (result) {
+                        if (result.data.list && result.data.list.length) {
+
+                            var gettpl = $('#template_history').html();
+                            laytpl(gettpl).render(result.data, function (html) {
+                                if (config.pageindex == 1) {
+                                    container.html(html);
+                                } else {
+                                    container.append(html);
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+
+            $(function () {
+                events.search();
+                window.search = events.search;
+                content = layui.laytpl.content;
+                console.log(content);
+            });
+        });
+
+        function contentReplace(content) {
+           return parent.global.content(content);
+        }
+    </script>
     <style>
         .layim-chat-main {
-            height:100%;
-             }
-        b {
-        color:red;
+            height: 100%;
         }
+
+        em {
+            color: red;
+        }
+
         .layui-layim-search {
-            position:relative;
-            top:5px;
+            position: relative;
+            top: 5px;
         }
     </style>
 </head>
-<body>
-    <div style="margin-top:10px;margin-left:5px;width:95%;height:50px;left:25px;"><input type="text" style="height:30px;width:100%" title="关键字/昵称/时间搜索（按Enter键）tips:输入 [图片] 或者 [文件] 有惊喜哦" placeholder="关键字/昵称/时间搜索（按Enter键）"></div>
-
-    <div class="layim-chat-main"><ul><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-6 2:02:40</i>小小小丶<b>盘子</b></cite></div><div class="layim-chat-text">11</div></li><li><div class="layim-chat-user"><img src="http://f.hiphotos.baidu.com/baike/s%3D220/sign=4c6f24534ec2d562f608d7efd71190f3/a9d3fd1f4134970ac5199a1c94cad1c8a7865d9f.jpg"><cite>test1<i>2016-8-6 2:02:52</i></cite></div><div class="layim-chat-text">11</div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-6 2:02:57</i>小小小丶盘子</cite></div><div class="layim-chat-text">大<b>锅饭</b></div></li><li><div class="layim-chat-user"><img src="http://f.hiphotos.baidu.com/baike/s%3D220/sign=4c6f24534ec2d562f608d7efd71190f3/a9d3fd1f4134970ac5199a1c94cad1c8a7865d9f.jpg"><cite>test1<i>2016-8-6 2:03:02</i></cite></div><div class="layim-chat-text">哈哈</div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-6 2:03:08</i>小小小丶盘子</cite></div><div class="layim-chat-text">恩，终于成功了</div></li><li><div class="layim-chat-user"><img src="http://f.hiphotos.baidu.com/baike/s%3D220/sign=4c6f24534ec2d562f608d7efd71190f3/a9d3fd1f4134970ac5199a1c94cad1c8a7865d9f.jpg"><cite>test1<i>2016-8-6 2:03:16</i></cite></div><div class="layim-chat-text">halo</div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-6 2:03:19</i>小小小丶盘子</cite></div><div class="layim-chat-text">水电费</div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-6 2:03:32</i>小小小丶盘子</cite></div><div class="layim-chat-text">水电费</div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-6 2:03:55</i>小小小丶盘子</cite></div><div class="layim-chat-text">的</div></li><li><div class="layim-chat-user"><img src="http://f.hiphotos.baidu.com/baike/s%3D220/sign=4c6f24534ec2d562f608d7efd71190f3/a9d3fd1f4134970ac5199a1c94cad1c8a7865d9f.jpg"><cite>test1<i>2016-8-6 10:55:08</i></cite></div><div class="layim-chat-text">123</div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-6 10:55:12</i>小小小丶盘子</cite></div><div class="layim-chat-text">456</div></li><li><div class="layim-chat-user"><img src="http://f.hiphotos.baidu.com/baike/s%3D220/sign=4c6f24534ec2d562f608d7efd71190f3/a9d3fd1f4134970ac5199a1c94cad1c8a7865d9f.jpg"><cite>test1<i>2016-8-6 10:55:17</i></cite></div><div class="layim-chat-text">789</div></li><li><div class="layim-chat-user"><img src="http://f.hiphotos.baidu.com/baike/s%3D220/sign=4c6f24534ec2d562f608d7efd71190f3/a9d3fd1f4134970ac5199a1c94cad1c8a7865d9f.jpg"><cite>test1<i>2016-8-6 10:55:18</i></cite></div><div class="layim-chat-text">12312313132</div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-6 10:55:27</i>小小小丶盘子</cite></div><div class="layim-chat-text">65456<img alt="[亲亲]" title="[亲亲]" src="http://localhost:8496/source/layui/images/face/14.gif"> </div></li><li><div class="layim-chat-user"><img src="http://f.hiphotos.baidu.com/baike/s%3D220/sign=4c6f24534ec2d562f608d7efd71190f3/a9d3fd1f4134970ac5199a1c94cad1c8a7865d9f.jpg"><cite>test1<i>2016-8-6 10:55:36</i></cite></div><div class="layim-chat-text">45456<img alt="[兔子]" title="[兔子]" src="http://localhost:8496/source/layui/images/face/51.gif"> </div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-6 11:26:26</i>小小小丶盘子</cite></div><div class="layim-chat-text"><img class="layui-layim-photos" src="/upload/501fbffc-3434-49d3-8d8c-164c1a95c45a.png"></div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-6 11:43:42</i>小小小丶盘子</cite></div><div class="layim-chat-text"><img class="layui-layim-photos" src="/upload/4d948ce5-94b0-4901-b0c7-b1d9f264bfd3.png">12312123</div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-6 11:43:57</i>小小小丶盘子</cite></div><div class="layim-chat-text"><a class="layui-layim-file" href="/upload/10dab218-3d38-4f14-afbe-85c498afcbd2.txt" target="_blank"><i class="layui-icon"></i><cite>cmd命令.txt</cite></a></div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-6 11:45:05</i>小小小丶盘子</cite></div><div class="layim-chat-text"><a class="layui-layim-file" href="/upload/2dd83ff8-26aa-4c7d-99b3-2182f3a5a4a7.rar" target="_blank"><i class="layui-icon"></i><cite>开发文件截图.rar</cite></a></div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-6 11:56:23</i>小小小丶盘子</cite></div><div class="layim-chat-text">5</div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-7 1:13:06</i>小小小丶盘子</cite></div><div class="layim-chat-text">111</div></li><li><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite>小小小丶盘子<i>2016-8-7 1:13:06</i></cite></div><div class="layim-chat-text">111</div></li><li><div class="layim-chat-user"><img src="http://f.hiphotos.baidu.com/baike/s%3D220/sign=4c6f24534ec2d562f608d7efd71190f3/a9d3fd1f4134970ac5199a1c94cad1c8a7865d9f.jpg"><cite>test1<i>2016-8-7 1:15:56</i></cite></div><div class="layim-chat-text">你好，小小小盘子</div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-7 1:16:11</i>小小小丶盘子</cite></div><div class="layim-chat-text">你好呀</div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-7 2:10:22</i>小小小丶盘子</cite></div><div class="layim-chat-text">123</div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-7 2:14:01</i>小小小丶盘子</cite></div><div class="layim-chat-text">123</div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-7 2:17:42</i>小小小丶盘子</cite></div><div class="layim-chat-text">的</div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-7 2:23:11</i>小小小丶盘子</cite></div><div class="layim-chat-text">1231</div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-7 2:24:01</i>小小小丶盘子</cite></div><div class="layim-chat-text">1470507791204</div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-7 2:24:54</i>小小小丶盘子</cite></div><div class="layim-chat-text">1470507841321</div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-7 2:26:15</i>小小小丶盘子</cite></div><div class="layim-chat-text">123311</div></li><li ><div class="layim-chat-user"><img src="//qlogo3.store.qq.com/qzone/645857874/645857874/100?1440900705"><cite><i>2016-8-7 2:39:05</i>小小小丶盘子</cite></div><div class="layim-chat-text">213</div></li><div class="layim-chat-system"><span>以上是43分钟前历史消息</span></div></ul></div>
+<body style="height:700px;">
+    <div style="margin-top:10px;margin-left:5px;width:95%;height:50px;left:25px;">
+        <input type="text" id="userKeyWord" style="height:30px;width:35%" title="关键字" placeholder="关键字">&nbsp;&nbsp;
+        <input type="radio" name="findtype" checked="checked" value="0" />所有
+        <input type="radio" name="findtype" id="radio_findpeople" value="1" />图片
+        <input type="radio" name="findtype" value="2" />文件
+    </div>
+    <div style="margin-top:2px;margin-left:5px;width:95%;height:50px;left:25px;">
+        <input type="text" id="starttime" style="height:30px;width:35%" placeholder="开始日期" />--
+        <input id="endtime" type="text" style="height:30px;width:35%" placeholder="结束日期" />
+        <button data-event="search" class="layui-form-button" onclick="search()">查询</button>
+    </div>
+    <div class="layim-chat-main">
+        <ul id="ul_chathistory">
+            @*<div class="layim-chat-system">
+                    <span>
+                        暂无历史纪录哦
+                    </span>
+                </div>*@
+        </ul>
+    </div>
 </body>
 </html>
+
+<script type="text/html" id="template_history">
+    {{# for(var i = 0, len = d.list.length; i < len; i++){ }}
+    <li>
+        <div class="layim-chat-user">
+            <img src="{{ d.list[i].avatar }}">
+            <cite>
+                <i>
+                    {{ d.list[i].addtimestr }}
+                </i>
+                {{ d.list[i].nickname }}
+            </cite>
+        </div>
+        <div class="layim-chat-text">
+            {{ d.list[i].isimg||d.list[i].isfile? contentReplace(d.list[i].content): d.list[i].content }}
+        </div>
+    </li>
+    {{# } }}
+</script>
