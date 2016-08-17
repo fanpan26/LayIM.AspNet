@@ -282,5 +282,69 @@ namespace LayIM.BLL
             return JsonResultHelper.CreateJson(list, true);
         }
         #endregion
+        #region 读取历史纪录 根据条件 开始时间，结束时间  聊天关键字  组
+
+        private ElasticChat eschat
+        {
+            get
+            {
+                var _es = new ElasticChat();
+                _es.SetIndexInfo("layim", "chatinfo");
+
+                return _es;
+            }
+        }
+        public JsonResultModel SearchHistoryMsg(string groupId, DateTime? starttime = null, DateTime? endtime = null, string keyword = null, bool isfile = false, bool isimg = false, int pageIndex = 1, int pageSize = 20)
+        {
+            string st = starttime == null ? "" : starttime.Value.ToString("yyyy-MM-dd");
+            string et = endtime == null ? "" : endtime.Value.ToString("yyyy-MM-dd");
+            int from = (pageIndex - 1) * pageSize;
+            //某个聊天组查询
+            string queryGroup = "{\"query\": {\"match\": { \"roomid\": \"FRIEND_14895_14894\" }}}";
+            //关键字查询
+            string queryKeyWord = "{ \"query\": {\"match_phrase\": {\"content\": {\"query\": \"" + keyword + "\",\"slop\": 0} } }}";
+            //是否图片 查询
+            string queryImg = "{ \"term\": {\"isimg\": true }}";
+            //是否包含文件查询
+            string queryFile = "{ \"term\": {\"isfile\": true }}";
+            //大于小于某个时间段查询
+            string queryTimeRange = "{\"range\": {\"addtime\": { \"gt\": \"" + st + "\",\"lt\": \"" + et + "\" }} }";
+            //大于某个时间
+            string queryTimeRangeGt = "{\"range\": {\"addtime\": { \"gt\": \"" + st + "\"}} }";
+            //小于某个时间
+            string queryTimeRangeLt = "{\"range\": {\"addtime\": { \"lt\": \"" + et + "\" }} }";
+            string queryAnd = queryGroup;
+            if (starttime != null && endtime != null)
+            {
+                queryAnd += "," + queryTimeRange;
+            }
+            if (starttime != null)
+            {
+                queryAnd += "," + queryTimeRangeGt;
+            }
+            if (endtime != null)
+            {
+                queryAnd += "," + queryTimeRangeLt;
+            }
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                queryAnd += "," + queryKeyWord;
+            }
+            if (isfile)
+            {
+                queryAnd += "," + queryFile;
+            }
+            if (isimg)
+            {
+                queryAnd += "," + queryImg;
+            }
+            //最终查询语句
+            string query = "  {\"query\": {\"filtered\": {\"filter\": {\"and\": [" + queryAnd + "] }}},\"from\": " + from + ",\"size\": " + pageSize + ",\"sort\": {\"addtime\": { \"order\": \"asc\"}},\"highlight\": {\"fields\": { \"content\": {}} }}";
+
+
+            var result = eschat.QueryBayConditions(query);
+            return JsonResultHelper.CreateJson(result, true);
+        }
+        #endregion
     }
 }
