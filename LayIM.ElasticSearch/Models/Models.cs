@@ -1,4 +1,6 @@
-﻿using Macrosage.ElasticSearch.Model;
+﻿using Macrosage.ElasticSearch.Core;
+using Macrosage.ElasticSearch.Model;
+using PlainElastic.Net.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -150,5 +152,23 @@ namespace Macrosage.ElasticSearch.Models
         /// </summary>
         Quartz = 2
 
+    }
+
+    public class ElasticChat : Elastic<ChatInfo>
+    {
+        public override IEnumerable<ChatInfo> HitsToList(SearchResult<ChatInfo>.SearchHits hits)
+        {
+            var result = new List<ChatInfo>();
+
+            var hitsList = hits.hits.ToList();
+            hitsList.ForEach(x => {
+                if (x.highlight != null)
+                {
+                    x._source.content = x.highlight["content"][0];
+                }
+                result.Add(x._source);
+            });
+            return result;
+        }
     }
 }
