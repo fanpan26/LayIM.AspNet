@@ -20,7 +20,8 @@
         var global = {
             hub: null,
             layim: null,
-            other:null
+            other: null,
+            ready:false
         };
         var currentUser = {
             userid: 0
@@ -47,7 +48,8 @@
         });
         //监听连接服务器成功
         hub.on('ready', function (data) {
-            console.log('signalr server is rununig...');
+            global.ready = true;
+            console.log('signalr server is running...');
         });
         //监听连接服务器失败
         hub.on('failed', function (data) {
@@ -181,7 +183,14 @@
             var to = data.data.id;
             //调用hub连接方法,
             if (global.hub) {
-                global.hub.server.ctoc(currentUser.userid, data.data.id, t);
+                var interval = setInterval(function () {
+                    console.log(global.ready);
+                    if (global.ready === true) {
+                        global.hub.server.ctoc(currentUser.userid, data.data.id, t);
+                        clearInterval(interval);
+                    }
+                }, 500);
+            
             } else {
                 alert('聊天室初始化失败，请刷新页面重试');
             }
