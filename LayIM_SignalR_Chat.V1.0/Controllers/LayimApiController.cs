@@ -18,6 +18,7 @@ using System.Web.Mvc;
 
 namespace LayIM_SignalR_Chat.V1._0.Controllers
 {
+    [UserAuthorize]
     public class LayimApiController : Controller
     {
         // GET: Layim

@@ -13,10 +13,10 @@
     </style>
 </head>
 <body>
-  
+
+    <script src="~/Scripts/login.js"></script>
     <script src="~/source/layui/layui.js"></script>
     <script>
-        var uid = localStorage.getItem('currentUserId');
         var global = {
             hub: null,
             layim: null,
@@ -24,13 +24,10 @@
             ready:false
         };
         var currentUser = {
-            userid: 0
+            userid:  localStorage.getItem('currentUserId')
         };
-        if (uid) {
-            currentUser.userid = uid;
-        } else {
-            location.href = '/home/login';
-        }
+        console.log(currentUser);
+       
     </script>
 <script>
     //自定义模块

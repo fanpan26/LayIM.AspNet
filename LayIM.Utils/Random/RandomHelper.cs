@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace LayIM.Utils.Random
 {
-   public class RandomHelper
+    public class RandomHelper
     {
         #region 随机昵称
-       static readonly string[] names = new string[] {
+        static readonly string[] names = new string[] {
                  "早茶月光",
 
                 "、凭凑不齐",
@@ -150,6 +150,22 @@ namespace LayIM.Utils.Random
             var next = random.Next(0, len - 1);
             return names[next];
 
+        }
+        #endregion
+
+        #region 生成用户登录token
+        static readonly string[] alpha = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+        static  System.Random r = new System.Random();
+        public static string GetUserToken()
+        {
+
+            StringBuilder str = new StringBuilder("");
+            var len = alpha.Length;
+            for (int i = 0; i < 64; i++)
+            {
+                str.Append(alpha[r.Next(0, len - 1)]);
+            }
+            return str.ToString();
         }
         #endregion
     }

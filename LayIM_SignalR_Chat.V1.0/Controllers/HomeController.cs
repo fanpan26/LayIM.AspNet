@@ -1,8 +1,10 @@
 ﻿using LayIM.BLL;
+using LayIM.Cache;
 using LayIM.Utils.Consts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -23,14 +25,14 @@ namespace LayIM_SignalR_Chat.V1._0.Controllers
         }
 
         [HttpPost]
-        public JsonResult UserLogin(string username, string password)
+        public  async Task<JsonResult> UserLogin(string username, string password)
         {
             int userid = 0;
             var result = LayimUserBLL.Instance.UserLoginOrRegister(username, password, out userid);
             var context = HttpContext.Response;
             if (userid > 0)
             {
-                context.Cookies.Add(new HttpCookie(LayIMConst.LayIM_SignalR_UserId) { Value = userid.ToString() });
+              await LayIMCache.Instance.CacheUserAfterLogin(userid);
             }
             return Json(result, JsonRequestBehavior.DenyGet);
         }

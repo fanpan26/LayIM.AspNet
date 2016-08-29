@@ -1,4 +1,5 @@
-﻿using LayIM.Utils.Consts;
+﻿using LayIM.Cache;
+using LayIM.Utils.Consts;
 using LayIM.Utils.Extension;
 using LayIM.Utils.JsonResult;
 using System;
@@ -14,9 +15,8 @@ namespace LayIM_SignalR_Chat.V1._0.Filters
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            string url = HttpContext.Current.Request.Url.AbsoluteUri;
-            var userid = HttpContext.Current.Request.Cookies[LayIMConst.LayIM_SignalR_UserId];
-            if (userid == null || userid.Value.ToInt() == 0)
+            var userid = LayIMCache.Instance.GetCurrentUserId();
+            if (string.IsNullOrWhiteSpace(userid))
             {
                 filterContext.Result = new JsonResult
                 {
@@ -27,7 +27,7 @@ namespace LayIM_SignalR_Chat.V1._0.Filters
             }
             else
             {
-                filterContext.ActionParameters["userid"] = userid.Value.ToInt();
+                filterContext.ActionParameters["userid"] = userid.ToInt();
             }
 
             base.OnActionExecuting(filterContext);

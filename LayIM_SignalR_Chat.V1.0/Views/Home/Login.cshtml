@@ -6,12 +6,9 @@
     <meta name="viewport" content="width=device-width" />
     <title>Login</title>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/login.js"></script>
     <script>
         $(function () {
-            var uid = localStorage.getItem('currentUserId');
-            if (uid) {
-                location.href = '/';
-            } else {
                 $(document).on('click', '#btnLogin', function () {
                     $.post('/userlogin', { username: $('#txtUserName').val(), password: $('#txtUserPwd').val() }, function (result) {
                         if (result.code == 0) {
@@ -25,16 +22,7 @@
                         }
                     });
                 });
-            }
         });
-
-
-        var test = function () {
-           
-                $.post('/userlogin', { username: 'testes' +Math.random.toString().substr(2,3), password: '123456' }, function (result) {
-                    console.log(result);
-                });
-        }
     </script>
 </head>
 <body>
