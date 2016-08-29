@@ -13,6 +13,8 @@ using StackExchange.Redis.Extensions.Core;
 using LayIM.Utils.Consts;
 using LayIM.Utils.Random;
 using LayIM.Utils.Cookie;
+using LayIM.Model.Online;
+using System.Web;
 
 namespace LayIM.Cache
 {
@@ -50,15 +52,28 @@ namespace LayIM.Cache
         }
         #endregion
 
-
         #region 获取当前登录用户的用户id
 
-        public string GetCurrentUserId()
+        public string GetCurrentUserId(HttpContextBase contextBase = null)
         {
             var key = LayIMConst.LayIM_Cache_UserLoginToken;
-            string token = CookieHelper.GetCookieValue(key);
+            string token = CookieHelper.GetCookieValue(key,contextBase);
             var userid = cacheClient.HashGet<string>(key, token);
             return userid;
+        }
+        #endregion
+
+        #region 在线用户处理
+        public void OperateOnlineUser(OnlineUser user, bool isDelete = false)
+        {
+            if (isDelete)
+            {
+                cacheClient.HashDelete(LayIMConst.LayIM_All_OnlineUsers, user.userid);
+            }
+            else
+            {
+                cacheClient.HashSetAsync(LayIMConst.LayIM_All_OnlineUsers, user.userid, user.connectionid);
+            }
         }
         #endregion
     }
