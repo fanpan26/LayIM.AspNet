@@ -315,9 +315,9 @@ layui.define(['jquery', 'layer', 'laytpl', 'upload'], function(exports){
           ,dataType: options.dataType || 'json'
           ,cache: false
           ,success: function(res){
-              res.code == 0 
-                ? callback && callback(res.data||{})
-              : layer.msg(res.msg || ((tips||'Error') + ': LAYIM_NOT_GET_DATA'), {
+              res.code == 0
+                ? callback && callback(res.data || {})
+              : res.msg == 'unauthorized' ? (function () { location.href = '/home/login?msg=' + res.msg; })() : layer.msg(res.msg || ((tips || 'Error') + ': LAYIM_NOT_GET_DATA'), {
                   time: 5000
               });
           },error: function(err, msg){

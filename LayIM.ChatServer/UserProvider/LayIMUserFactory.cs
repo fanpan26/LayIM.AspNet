@@ -1,4 +1,5 @@
-﻿using LayIM.Utils.Consts;
+﻿using LayIM.Cache;
+using LayIM.Utils.Consts;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,7 @@ namespace LayIM.ChatServer.UserProvider
         public string GetUserId(IRequest request)
         {
             //直接读取Cookie中的userid，然后将userid返回，否则返回空，未登录
-            if (request.GetHttpContext().Request.Cookies[LayIMConst.LayIM_SignalR_UserId] != null)
-            {
-                return request.GetHttpContext().Request.Cookies[LayIMConst.LayIM_SignalR_UserId].Value;
-            }
-            return "";
+            return LayIMCache.Instance.GetCurrentUserId();
         }
     }
 }

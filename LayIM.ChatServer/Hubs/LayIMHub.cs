@@ -1,5 +1,6 @@
 ﻿using LayIM.BLL;
 using LayIM.BLL.Messages;
+using LayIM.Cache;
 using LayIM.ChatServer.Core;
 using LayIM.Model.Enum;
 using LayIM.Model.Message;
@@ -30,10 +31,7 @@ namespace LayIM.ChatServer.Hubs
         {
             get
             {
-                
-                var cookie = Context.Request.GetHttpContext().Request.Cookies[LayIMConst.LayIM_SignalR_UserId];
-                if (cookie != null) { return cookie.Value; }
-                return "";
+                return LayIMCache.Instance.GetCurrentUserId();
             }
         }
         private OnlineUser CurrentOnlineUser
@@ -49,23 +47,17 @@ namespace LayIM.ChatServer.Hubs
         }
         public override Task OnConnected()
         {
-            //增加（更新）在线人员 （connectionid每刷新都会变）
-            OnlineCache.SetUserOnline(CurrentOnlineUser);
             return Clients.Caller.receiveMessage("连接成功");
         }
 
         public override Task OnDisconnected(bool stopCalled)
         {
-            //提除在线人员
-            OnlineCache.SetUserOffline(CurrentOnlineUser);
             return Clients.Caller.receiveMessage("失去连接");
         }
 
 
         public override Task OnReconnected()
         {
-            //增加在线人员
-            OnlineCache.SetUserOnline(CurrentOnlineUser);
             return Clients.Caller.receiveMessage("重新连接");
         }
 

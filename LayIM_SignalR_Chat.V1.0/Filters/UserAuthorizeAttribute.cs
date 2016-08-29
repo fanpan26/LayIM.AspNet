@@ -22,7 +22,7 @@ namespace LayIM_SignalR_Chat.V1._0.Filters
                 {
                     ContentType = "application/json",
                     JsonRequestBehavior = JsonRequestBehavior.AllowGet,
-                    Data = JsonResultHelper.CreateJson(null, false, "用户没有登录")
+                    Data = JsonResultHelper.CreateJson(null, false, "unauthorized")
                 };
             }
             else

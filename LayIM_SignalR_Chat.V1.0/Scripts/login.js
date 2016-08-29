@@ -6,8 +6,25 @@
         return null;
 }
 
+function clearCookie(name) {
+    document.cookie = name + '=0;expires=' + new Date(0).toUTCString();
+}
+function getQueryParameter(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
+}
+
 function init() {
-    var uid = getCookie('user_login_token');
+    var key = 'user_login_token';
+
+    var msg = getQueryParameter('msg');
+    if (msg == 'unauthorized') {
+        clearCookie(key);
+        return;
+    }
+
+    var uid = getCookie(key);
     var loginPage = location.href.toLocaleLowerCase().split('?')[0].indexOf('login') > -1;
     if (!uid) {
         if (!loginPage) {

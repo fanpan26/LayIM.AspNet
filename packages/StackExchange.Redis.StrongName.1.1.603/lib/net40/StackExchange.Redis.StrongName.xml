@@ -1183,11 +1183,6 @@
             A server replied with an error message;
             </summary>
         </member>
-        <member name="M:StackExchange.Redis.ConnectionMultiplexer.ExportConfiguration(System.IO.Stream,StackExchange.Redis.ExportOptions)">
-            <summary>
-            Write the configuration of all servers to an output stream
-            </summary>
-        </member>
         <member name="P:StackExchange.Redis.ConnectionMultiplexer.LogSyncLock">
             <summary>
             Used internally to synchronize loggine without depending on locking the log instance
