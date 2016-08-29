@@ -35,6 +35,7 @@
         signalr: '/scripts/signalr/signalr',
         autohub: '/scripts/signalr/autohub',//自动生成的
         hub: '/Scripts/signalr/hub',
+        gray:'/scripts/gray'
            
     });
     //如果前边几个都不引用的话，IE浏览器就没法接受消息，只能发消息，都引用上才可以
@@ -106,9 +107,10 @@
             ApplySendedToClient: 6
         };
     });
-    layui.use(['jquery','layim'], function (j,l) {
+    layui.use(['jquery','layim','gray'], function (j,l,g) {
         var layim = l;
         var $ = j;
+        var grayscale = g;
         var autoReplay = ['您好，我现在有事不在，一会再和您联系。', '你没发错吧？face[微笑] ', '洗澡中，请勿打扰，偷窥请购票，个体四十，团体八折，订票电话：一般人我不告诉他！face[哈哈] ', '你好，我是主人的美女秘书，有什么事就跟我说吧，等他回来我会转告他的。face[心] face[心] face[心] ', 'face[威武] face[威武] face[威武] face[威武] ', '<（￣︶￣）>', '你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。', 'face[黑线]  你慢慢说，别急……', '(*^__^*) face[嘻嘻] ，是贤心吗？'];
         //基础配置
         layim.config({
@@ -163,6 +165,10 @@
             other.initModifySign();
             //获取我的申请
             other.getMyApply();
+            //初始化图标颜色
+            setTimeout(function () {
+                grayscale($("img"));
+            }, 2000);
         });
         //监听查看群员
         layim.on('members', function (data) {

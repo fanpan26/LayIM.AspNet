@@ -76,5 +76,14 @@ namespace LayIM.Cache
             }
         }
         #endregion
+
+        #region 根据用户ID判断某个用户是否在线
+
+        public bool IsOnline(int userid)
+        {
+            string result = cacheClient.HashGet<string>(LayIMConst.LayIM_All_OnlineUsers, userid.ToString());
+            return !string.IsNullOrEmpty(result);
+        }
+        #endregion
     }
 }
