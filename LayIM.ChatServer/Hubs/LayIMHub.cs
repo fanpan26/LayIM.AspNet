@@ -31,9 +31,13 @@ namespace LayIM.ChatServer.Hubs
         {
             get
             {
-                return LayIMCache.Instance.GetCurrentUserId();
+               var contextBase = Context.Request.GetHttpContext();
+                return LayIMCache.Instance.GetCurrentUserId(contextBase);
             }
         }
+        /// <summary>
+        /// 获取当前用户信息
+        /// </summary>
         private OnlineUser CurrentOnlineUser
         {
             get
@@ -45,19 +49,36 @@ namespace LayIM.ChatServer.Hubs
                 };
             }
         }
+        /// <summary>
+        /// 建立连接
+        /// </summary>
+        /// <returns></returns>
         public override Task OnConnected()
         {
+            //将当前用户添加到redis在线用户缓存中
+            LayIMCache.Instance.OperateOnlineUser(CurrentOnlineUser);
             return Clients.Caller.receiveMessage("连接成功");
         }
-
+        /// <summary>
+        /// 失去连接
+        /// </summary>
+        /// <param name="stopCalled"></param>
+        /// <returns></returns>
         public override Task OnDisconnected(bool stopCalled)
         {
+            //将当前用户从在线用户列表中剔除
+            LayIMCache.Instance.OperateOnlineUser(CurrentOnlineUser, isDelete: true);
             return Clients.Caller.receiveMessage("失去连接");
         }
 
-
+        /// <summary>
+        /// 重新连接
+        /// </summary>
+        /// <returns></returns>
         public override Task OnReconnected()
         {
+            //将当前用户添加到redis在线用户缓存中
+            LayIMCache.Instance.OperateOnlineUser(CurrentOnlineUser);
             return Clients.Caller.receiveMessage("重新连接");
         }
 
