@@ -15,22 +15,12 @@
             var $ = j;
             var laytpl = l;
             var layer = ly;
-            var userid = getCookie("layim_userid") || 0;
-            if (!userid) {
-                localStorage.clear();
-              window.parent.location.href = '/home/login';
-            }
             var config = {
                 pageindex: 1,
                 pagesize: 50
             };
-            function getCookie(name) {
-                var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-                if (arr = document.cookie.match(reg))
-                    return unescape(arr[2]);
-                else
-                    return null;
-            }
+           
+            var userid = localStorage.getItem('currentUserId');
             var events = {
                 search: function (obj) {
                     if (obj) {

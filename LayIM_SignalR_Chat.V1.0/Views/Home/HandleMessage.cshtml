@@ -18,19 +18,8 @@
             var $ = j;
             var laytpl = l;
             var layer = ly;
-            userid = getCookie("layim_userid") || 0;
-            if (!userid) {
-                localStorage.clear();
-                window.parent.location.href = '/home/login';
-            }
-
-            function getCookie(name) {
-                var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-                if (arr = document.cookie.match(reg))
-                    return unescape(arr[2]);
-                else
-                    return null;
-            }
+            userid = localStorage.getItem('currentUserId');
+           
             var events = {
                 getmsg: function () {
                     $.get('/layimapi/msg?userid=' + userid, function (result) {
@@ -108,7 +97,7 @@
                 <button class="layui-form-button btn-ignore" data-result="3" data-type="{{ d[i].applytype }}" data-event="handle" data-userid="{{ d[i].userid }}" data-id="{{ d[i].applyid }}">忽略</button>
             </div>
             {{# } else{ }}
-            {{# if(d[i].userid!=userid)  { }}
+            {{# if(!d[i].isself)  { }}
             <div class="btn-container">
                 <button class="layui-form-button btn-add">{{  d[i].result==1?'已同意':'已拒绝' }}</button>
             </div>
