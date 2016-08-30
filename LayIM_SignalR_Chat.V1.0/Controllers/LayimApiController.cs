@@ -1,5 +1,6 @@
 ﻿using LayIM.BLL;
 using LayIM.ChatServer.Hubs;
+using LayIM.ChatServer.HubServer;
 using LayIM.Model.Enum;
 using LayIM.Model.Message;
 using LayIM.Utils.Consts;
@@ -7,7 +8,6 @@ using LayIM.Utils.Extension;
 using LayIM.Utils.FileUpload;
 using LayIM.Utils.JsonResult;
 using LayIM_SignalR_Chat.V1._0.Filters;
-using LayIM_SignalR_Chat.V1._0.HubServer;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.Generic;
