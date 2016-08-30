@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace LayIM_SignalR_Chat.V1._0.HubServer
+namespace LayIM.ChatServer.HubServer
 {
     public class HubServerHelper
     {
