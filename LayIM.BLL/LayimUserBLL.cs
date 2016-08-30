@@ -284,6 +284,28 @@ namespace LayIM.BLL
             return JsonResultHelper.CreateJson(list, true);
         }
         #endregion
+
+        #region 获取某个用户的好友列表
+        /// <summary>
+        /// 获取某个用户的好友列表
+        /// </summary>
+        /// <param name="userid">用户ID</param>
+        /// <returns>返回格式如下 ""或者 "10001,10002,10003"</returns>
+        public string GetUserFriends(int userid)
+        {
+            //先读取缓存
+            var friends = LayIMCache.Instance.GetUserFriendList(userid);
+            //如果缓存中没有
+            if (friends == "")
+            {
+                //从数据库读取，在保存到缓存中
+                friends = _dal.GetUserFriends(userid);
+                LayIMCache.Instance.SetUserFriendList(userid, friends);
+            }
+            return friends;
+        }
+        #endregion
+
         #region 读取历史纪录 根据条件 开始时间，结束时间  聊天关键字  组
 
         private ElasticChat eschat
