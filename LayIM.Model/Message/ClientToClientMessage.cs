@@ -125,4 +125,23 @@ namespace LayIM.Model.Message
         public UserFriendAddedMessage friend { get; set; }
         public UserFriendAddedMessage mine { get; set; }
     }
+
+    /// <summary>
+    /// 用户上下线消息
+    /// </summary>
+    public class UserOnOffLineMessage
+    {
+        /// <summary>
+        /// 当前用户id
+        /// </summary>
+        public int userid { get; set; }
+        /// <summary>
+        /// 用户头像
+        /// </summary>
+        public string avatar { get; set; }
+        /// <summary>
+        /// 是否在线
+        /// </summary>
+        public bool online { get; set; }
+    }
 }

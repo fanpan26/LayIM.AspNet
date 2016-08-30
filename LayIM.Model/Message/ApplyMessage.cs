@@ -18,6 +18,7 @@ namespace LayIM.Model.Message
         public string addtime { get; set; }
         public int result { get; set; }
         public int applytype { get; set; }
+        public bool isself { get; set; }
 
     }
 }
