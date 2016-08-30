@@ -18,6 +18,7 @@ using LayIM.Model.Message;
 using LayIM.Model.Enum;
 using LayIM.Utils.Consts;
 using Macrosage.ElasticSearch.Model;
+using LayIM.Cache;
 
 namespace LayIM.BLL
 {
@@ -55,8 +56,8 @@ namespace LayIM.BLL
                     remarkname = x["remarkname"].ToString(),
                     username = x["nickname"].ToString(),
                     sign = x["sign"].ToString(),
-                    status = ""
-                });
+                    status = LayIMCache.Instance.IsOnline(x["uid"].ToInt()) ? "online" : "hide"
+                }).OrderByDescending(x => x.status);
                 //用户组信息，执行分组
                 var friend = ds.Tables[1].Rows.Cast<DataRow>().Select(x => new FriendGroupEntity
                 {
@@ -276,8 +277,9 @@ namespace LayIM.BLL
                 applyim = x["applyim"].ToInt(),
                 targetid = x["targetid"].ToInt(),
                 userid = x["userid"].ToInt(),
-                result =x["result"].ToInt(),
-                applytype=x["applytype"].ToInt()
+                result = x["result"].ToInt(),
+                applytype = x["applytype"].ToInt(),
+                isself = userid == x["userid"].ToInt()
             });
             return JsonResultHelper.CreateJson(list, true);
         }
@@ -294,6 +296,7 @@ namespace LayIM.BLL
                 return _es;
             }
         }
+
         public JsonResultModel SearchHistoryMsg(string groupId, DateTime? starttime = null, DateTime? endtime = null, string keyword = null, bool isfile = false, bool isimg = false, int pageIndex = 1, int pageSize = 20)
         {
             string st = starttime == null ? "" : starttime.Value.ToString("yyyy-MM-dd");
