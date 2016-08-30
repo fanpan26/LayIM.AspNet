@@ -83,7 +83,7 @@ namespace LayIM.DAL.DB
         }
 
         /// <summary>
-        /// SQL语句返回dataSet
+        /// SQL语句返回DataSet
         /// </summary>
         /// <param name="sql"></param>
         /// <param name="parameters"></param>
