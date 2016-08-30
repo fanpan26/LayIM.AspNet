@@ -1,6 +1,8 @@
-﻿using LayIM.ChatServer.Hubs;
+﻿using LayIM.BLL;
+using LayIM.ChatServer.Hubs;
 using LayIM.Model.Enum;
 using LayIM.Model.Message;
+using LayIM.Utils.Extension;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,14 @@ namespace LayIM.ChatServer.HubServer
 {
     public class HubServerHelper
     {
+        //获取当前的Hub对象
+       static IHubContext hub
+        {
+            get
+            {
+                return GlobalHost.ConnectionManager.GetHubContext<LayIMHub>();
+            }
+        }
         public static void SendMessage(object message, string userId, ChatToClientType type, bool moreUser = false)
         {
             //构造消息体
@@ -20,8 +30,7 @@ namespace LayIM.ChatServer.HubServer
                 msgtype = type,
                 other = null
             };
-            //获取当前的Hub对象
-            IHubContext hub = GlobalHost.ConnectionManager.GetHubContext<LayIMHub>();
+           
             // 给多个用户发送消息
             if (moreUser)
             {
@@ -34,6 +43,10 @@ namespace LayIM.ChatServer.HubServer
             }
         }
 
+        /// <summary>
+        /// 发送请求被处理的消息
+        /// </summary>
+        /// <param name="message"></param>
         public static void SendMessage(ApplyHandledMessgae message)
         {
             short agreeFlag = 1;
@@ -68,6 +81,34 @@ namespace LayIM.ChatServer.HubServer
                     }
 
                 }
+            }
+        }
+
+        /// <summary>
+        /// 发送用户上下线的消息
+        /// </summary>
+        public static void SendUserOnOffLineMessage(string userId,bool online=true)
+        {
+            int userid = userId.ToInt();
+            //1.获取用户的所有好友
+
+            var users = LayimUserBLL.Instance.GetUserFriends(userid);
+            //没有好友，不发消息
+            var friends = users.Split(new string[] { "$LAYIM$" }, StringSplitOptions.RemoveEmptyEntries);
+            if (friends.Length == 2)
+            {
+                var avatar = friends[0];
+                var notifyUsers = friends[1];
+
+
+                //2.发送用户上下线通知
+                UserOnOffLineMessage message = new UserOnOffLineMessage
+                {
+                    avatar = avatar,
+                    online = online,
+                    userid = userid
+                };
+                SendMessage(message, notifyUsers, ChatToClientType.UserOnOffLineToClient, true);
             }
         }
     }

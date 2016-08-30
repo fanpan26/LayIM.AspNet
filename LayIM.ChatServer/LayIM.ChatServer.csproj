@@ -51,6 +51,7 @@
     <Compile Include="Core\GroupHelper.cs" />
     <Compile Include="Core\IGroup.cs" />
     <Compile Include="Core\OnlineCache.cs" />
+    <Compile Include="HubServer\HubServerHelper.cs" />
     <Compile Include="Hubs\LayIMHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserProvider\LayIMUserFactory.cs" />
