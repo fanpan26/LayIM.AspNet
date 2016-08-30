@@ -51,6 +51,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LayIM.Cache\LayIM.Cache.csproj">
+      <Project>{eaba5fcb-3ea4-4893-b3d4-fc709c53a768}</Project>
+      <Name>LayIM.Cache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LayIM.DAL\LayIM.DAL.csproj">
       <Project>{dc88773f-9880-44c0-ba42-4ecab7489303}</Project>
       <Name>LayIM.DAL</Name>

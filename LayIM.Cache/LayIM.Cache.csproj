@@ -49,6 +49,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -65,6 +66,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LayIM.Model\LayIM.Model.csproj">
+      <Project>{0aae7a54-1f23-49aa-a3ba-b03d1e399346}</Project>
+      <Name>LayIM.Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LayIM.Utils\LayIM.Utils.csproj">
       <Project>{868de914-eea2-4b14-b2cd-216e1a890ef0}</Project>
       <Name>LayIM.Utils</Name>
