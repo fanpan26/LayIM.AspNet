@@ -77,5 +77,35 @@ namespace LayIM.DAL
             return ExecuteDataTableStoreProcedure(procedureName, parameters);
         }
         #endregion
+
+        #region 获取某个用户的好友列表
+        /// <summary>
+        /// 获取某个用户的好友列表
+        /// </summary>
+        /// <param name="userid">用户ID</param>
+        /// <returns>返回格式如下 ""或者 "10001,10002,10003"</returns>
+        public string GetUserFriends(int userid)
+        {
+            string sql = "SELECT CONVERT(VARCHAR(20),friendid)+',' FROM dbo.v_layim_friend_group_detail_info WHERE userid=@userid FOR XML PATH('');  SELECT headphoto AS avatar FROM dbo.layim_user WHERE id=@userid ";
+            var parameters = new SqlParameter[] {
+                MakeParameterInt("userid",userid)
+            };
+            var ds = ExecuteDataSetSQL(sql, parameters);
+            var dt = ds.Tables[0];
+            string friends = "";
+            if (dt.Rows.Count > 0)
+            {
+                var ids = dt.Rows[0][0].ToString();
+                if (ids.Length > 0)
+                {
+                    //去掉最后一个逗号
+                    friends = ids.Substring(0, ids.Length - 1);
+                }
+            }
+            var avatar = ds.Tables[1].Rows[0][0].ToString();
+            return avatar + "$LAYIM$" + friends;
+           
+        }
+        #endregion
     }
 }
