@@ -51,7 +51,11 @@ namespace LayIM.Model.Enum
         /// <summary>
         /// 申请发送之后发送给对方的消息
         /// </summary>
-        ApplySendedToClient = 6
+        ApplySendedToClient = 6,
+        /// <summary>
+        /// 用户上下线发送给好友的消息
+        /// </summary>
+        UserOnOffLineToClient = 7
     }
     #endregion
 

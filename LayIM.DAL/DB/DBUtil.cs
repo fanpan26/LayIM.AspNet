@@ -83,6 +83,17 @@ namespace LayIM.DAL.DB
         }
 
         /// <summary>
+        /// SQL语句返回dataSet
+        /// </summary>
+        /// <param name="sql"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
+        public static DataSet ExecuteDataSetSQL(string sql, params SqlParameter[] parameters)
+        {
+            return SqlHelper.ExecuteDataset(SqlConnectionString, CommandType.Text, sql, parameters);
+        }
+
+        /// <summary>
         /// 查询DataTable
         /// </summary>
         /// <param name="commandType"></param>

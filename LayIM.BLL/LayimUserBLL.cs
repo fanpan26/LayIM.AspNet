@@ -56,8 +56,9 @@ namespace LayIM.BLL
                     remarkname = x["remarkname"].ToString(),
                     username = x["nickname"].ToString(),
                     sign = x["sign"].ToString(),
+                    //status之前的字段是为空的，现在我们把他的在线状态加上，IsOnline方法接收一个userid参数，从Redis缓存中读取该用户是否在线并返回
                     status = LayIMCache.Instance.IsOnline(x["uid"].ToInt()) ? "online" : "hide"
-                }).OrderByDescending(x => x.status);
+                }).OrderByDescending(x => x.status);//这里要根据用户是否在线这个字段排序，保证在线用户都在好友列表最上边
                 //用户组信息，执行分组
                 var friend = ds.Tables[1].Rows.Cast<DataRow>().Select(x => new FriendGroupEntity
                 {
