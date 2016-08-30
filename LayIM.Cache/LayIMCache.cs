@@ -57,7 +57,7 @@ namespace LayIM.Cache
         public string GetCurrentUserId(HttpContextBase contextBase = null)
         {
             var key = LayIMConst.LayIM_Cache_UserLoginToken;
-            string token = CookieHelper.GetCookieValue(key,contextBase);
+            string token = CookieHelper.GetCookieValue(key, contextBase);
             var userid = cacheClient.HashGet<string>(key, token);
             return userid;
         }
@@ -83,6 +83,46 @@ namespace LayIM.Cache
         {
             string result = cacheClient.HashGet<string>(LayIMConst.LayIM_All_OnlineUsers, userid.ToString());
             return !string.IsNullOrEmpty(result);
+        }
+        #endregion
+
+        #region 缓存用户好友列表
+        /// <summary>
+        /// 缓存用户好友列表
+        /// </summary>
+        /// <param name="userId">用户ID</param>
+        /// <param name="list">好友列表 1,2,3,4 （不知道好友列表长度会不会超过限制，如果超过限制，就不能用string存储了）</param>
+        /// <returns>返回是否成功 true  false</returns>
+        public bool SetUserFriendList(int userId, string list)
+        {
+            if (string.IsNullOrEmpty(list))
+            {
+                return true;
+            }
+            //用户好友列表key
+            var key = string.Format(LayIMConst.LayIM_All_UserFriends, userId);
+            //如果key已经存在，先remove掉
+            if (cacheClient.Exists(key))
+            {
+                cacheClient.Remove(key);
+            }
+            //一天过期
+            return cacheClient.Add<string>(key, list, DateTimeOffset.Now.AddDays(1));
+        }
+        #endregion
+
+        #region 获取用户好友列表
+        public string GetUserFriendList(int userId)
+        {
+            //用户好友列表key
+            var key = string.Format(LayIMConst.LayIM_All_UserFriends, userId);
+            //一天过期
+            string list = cacheClient.Get<string>(key);
+            if (string.IsNullOrEmpty(list))
+            {
+                return "";
+            }
+            return list;
         }
         #endregion
     }
