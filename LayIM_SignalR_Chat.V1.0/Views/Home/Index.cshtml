@@ -166,9 +166,7 @@
             //获取我的申请
             other.getMyApply();
             //初始化图标颜色
-            setTimeout(function () {
-                grayscale($("img"));
-            }, 2000);
+            other.initStatus();
         });
         //监听查看群员
         layim.on('members', function (data) {
@@ -216,7 +214,8 @@
             api: {
                 getmyapply:'/layimapi/myapply'
             },
-            msgTipInterval:null,
+            msgTipInterval: null,
+            userAvatarInterval:null,
             //更改签名
             initModifySign: function () {
                 var signObj = $('#layim_user_sign_box');
@@ -237,6 +236,23 @@
                     }
                 });
             },
+            //将不在线的用户图标置黑白
+            initStatus: function () {
+                //循环检测需要置为黑白的头像
+                this.userAvatarInterval = setInterval(function () {
+                    var imgs = $("img[data-status='hide']");
+                    if (imgs.length) {
+                        grayscale(imgs);
+                        clearInterval(other.userAvatarInterval);
+                    }
+                }, 200);
+                //超过五秒后停止
+                setTimeout(function () {
+                    clearInterval(other.userAvatarInterval);
+                }, 5000);
+
+            },
+            //
             getMyApply: function () {
                 var url = this.api.getmyapply;
                 $.get(url, { userid: currentUser.userid }, function (result) {
