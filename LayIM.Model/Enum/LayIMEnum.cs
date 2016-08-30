@@ -53,7 +53,7 @@ namespace LayIM.Model.Enum
         /// </summary>
         ApplySendedToClient = 6,
         /// <summary>
-        /// 用户上下线发送给好友的消息
+        /// 用户上下线发送给好友的消息1
         /// </summary>
         UserOnOffLineToClient = 7
     }
