@@ -57,6 +57,10 @@ namespace LayIM.ChatServer.Hubs
         {
             //将当前用户添加到redis在线用户缓存中
             LayIMCache.Instance.OperateOnlineUser(CurrentOnlineUser);
+
+            //发送用户上线消息
+            HubServer.HubServerHelper.SendUserOnOffLineMessage(CurrentUserId);
+
             return Clients.Caller.receiveMessage("连接成功");
         }
         /// <summary>
@@ -68,6 +72,10 @@ namespace LayIM.ChatServer.Hubs
         {
             //将当前用户从在线用户列表中剔除
             LayIMCache.Instance.OperateOnlineUser(CurrentOnlineUser, isDelete: true);
+
+            //发送用户下线消息
+            HubServer.HubServerHelper.SendUserOnOffLineMessage(CurrentUserId, online: false);
+
             return Clients.Caller.receiveMessage("失去连接");
         }
 
@@ -79,6 +87,10 @@ namespace LayIM.ChatServer.Hubs
         {
             //将当前用户添加到redis在线用户缓存中
             LayIMCache.Instance.OperateOnlineUser(CurrentOnlineUser);
+
+            //发送用户上线消息
+            HubServer.HubServerHelper.SendUserOnOffLineMessage(CurrentUserId);
+
             return Clients.Caller.receiveMessage("重新连接");
         }
 
