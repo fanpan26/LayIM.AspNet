@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace LayIM_SignalR_Chat.V1._0.Controllers
 {
+    //from home
     public class HomeController : Controller
     {
         public ActionResult Index()
