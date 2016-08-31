@@ -22,7 +22,7 @@
            
             var events = {
                 getmsg: function () {
-                    $.get('/layimapi/msg?userid=' + userid, function (result) {
+                    $.get('/layimapi/msg?t='+Math.random()+'&userid=' + userid, function (result) {
                         if (result.data) {
                             var gettpl = $('#template_msg_list').html();
                             laytpl(gettpl).render(result.data, function (html) {

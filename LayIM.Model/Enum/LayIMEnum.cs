@@ -55,7 +55,15 @@ namespace LayIM.Model.Enum
         /// <summary>
         /// 用户上下线发送给好友的消息1
         /// </summary>
-        UserOnOffLineToClient = 7
+        UserOnOffLineToClient = 7,
+        /// <summary>
+        /// 对方是否在线的消息
+        /// </summary>
+        UserIsOnLineToClient = 8,
+        /// <summary>
+        /// 用户加入群消息
+        /// </summary>
+        UserJoinGroupToClient = 9
     }
     #endregion
 

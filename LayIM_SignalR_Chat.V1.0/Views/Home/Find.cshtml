@@ -35,7 +35,7 @@
                     if (config.pageindex == 1) {
                         $('.layui-layim-list').html('');
                     }
-                    $.get('/search/users?type=' + val + '&pageindex=' + config.pageindex + '&pagesiz=' + config.pagesize + '&keyword=' + encodeURIComponent(keyword), function (result) {
+                    $.get('/search/users?t=' + Math.random() + '+&type=' + val + '&pageindex=' + config.pageindex + '&pagesiz=' + config.pagesize + '&keyword=' + encodeURIComponent(keyword), function (result) {
                         if (result.data.list && result.data.list.length) {
 
                             var gettpl = $('#tempalte_' + temp).html();

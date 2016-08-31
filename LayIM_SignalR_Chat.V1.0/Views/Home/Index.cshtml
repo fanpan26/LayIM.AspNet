@@ -89,6 +89,23 @@
                     console.log("收到申请消息");
                     global.other.startTips(result.msg.msg);
                     break;
+                case chatType.UserIsOnLineToClient:
+                    console.log('收到用户是否在线的消息');
+                    if (result.other.online === false) {
+                        global.layim.sysmsg(result.msg);
+                    }
+                    break;
+                case chatType.UserJoinGroupToClient:
+                    console.log('收到用户加群消息');
+                    global.layim.getMessage({
+                     username: "系统消息"
+                   , avatar: ""
+                   , id: result.other.groupid
+                   , type: "group"
+                   , system: true
+                   , content: result.msg
+                    });
+                    break;
             }
         });
 
@@ -104,7 +121,11 @@
             //消息处理完毕
             ApplyHandledToClient: 5,
             //申请发送
-            ApplySendedToClient: 6
+            ApplySendedToClient: 6,
+            //用户是否在线的消息
+            UserIsOnLineToClient: 8,
+            //用户加群消息
+            UserJoinGroupToClient:9
         };
     });
     layui.use(['jquery','layim','gray'], function (j,l,g) {

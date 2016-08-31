@@ -97,6 +97,11 @@ namespace LayIM.BLL
                         memebers = x["members"].ToInt(),
                         type = LayIMConst.LayIMGroupType
                     }).FirstOrDefault();
+                    //增加申请人的姓名
+                    message.friend = new UserFriendAddedMessage
+                    {
+                        username = ds.Tables[1].Rows[0]["applyusername"].ToString()
+                    };
                 }
                 #endregion
             }
