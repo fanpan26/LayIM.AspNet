@@ -1,0 +1,11 @@
+F:\GitHub\LayIM_NetClient\LayIM.DAL\bin\Debug\LayIM.DAL.dll
+F:\GitHub\LayIM_NetClient\LayIM.DAL\bin\Debug\LayIM.DAL.pdb
+F:\GitHub\LayIM_NetClient\LayIM.DAL\bin\Debug\LayIM.Model.dll
+F:\GitHub\LayIM_NetClient\LayIM.DAL\bin\Debug\LayIM.Utils.dll
+F:\GitHub\LayIM_NetClient\LayIM.DAL\bin\Debug\Newtonsoft.Json.dll
+F:\GitHub\LayIM_NetClient\LayIM.DAL\bin\Debug\LayIM.Model.pdb
+F:\GitHub\LayIM_NetClient\LayIM.DAL\bin\Debug\LayIM.Utils.pdb
+F:\GitHub\LayIM_NetClient\LayIM.DAL\bin\Debug\Newtonsoft.Json.xml
+F:\GitHub\LayIM_NetClient\LayIM.DAL\obj\Debug\LayIM.DAL.csprojResolveAssemblyReference.cache
+F:\GitHub\LayIM_NetClient\LayIM.DAL\obj\Debug\LayIM.DAL.dll
+F:\GitHub\LayIM_NetClient\LayIM.DAL\obj\Debug\LayIM.DAL.pdb

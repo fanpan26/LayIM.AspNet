@@ -1,0 +1,2048 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StackExchange.Redis.Extensions.Core</name>
+    </assembly>
+    <members>
+        <member name="T:StackExchange.Redis.Extensions.Core.Configuration.IRedisCachingConfiguration">
+            <summary>
+            Handle Redis Configuration
+            </summary>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.IRedisCachingConfiguration.RedisHosts">
+            <summary>
+            The host of Redis Server
+            </summary>
+            <value>
+            The ip or name
+            </value>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.IRedisCachingConfiguration.ServerEnumerationStrategy">
+            <summary>
+            The strategy to use when executing server wide commands
+            </summary>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.IRedisCachingConfiguration.AllowAdmin">
+            <summary>
+            Specify if the connection can use Admin commands like flush database
+            </summary>
+            <value>
+              <c>true</c> if can use admin commands; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.IRedisCachingConfiguration.Ssl">
+            <summary>
+            Specify if the connection is a secure connection or not.
+            </summary>
+            <value>
+              <c>true</c> if is secure; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.IRedisCachingConfiguration.ConnectTimeout">
+            <summary>
+            The connection timeout
+            </summary>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.IRedisCachingConfiguration.AbortOnConnectFail">
+            <summary>
+            If true, Connect will not create a connection while no servers are available
+            </summary>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.IRedisCachingConfiguration.Database">
+            <summary>
+            Database Id
+            </summary>
+            <value>
+            The database id, the default value is 0
+            </value>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.IRedisCachingConfiguration.Password">
+            <summary>
+            The password or access key
+            </summary>
+        </member>
+        <member name="T:StackExchange.Redis.Extensions.Core.Configuration.RedisCachingSectionHandler">
+            <summary>
+            The implementation of <see cref="T:StackExchange.Redis.Extensions.Core.Configuration.IRedisCachingConfiguration"/>
+            </summary>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.RedisCachingSectionHandler.RedisHosts">
+            <summary>
+            The host of Redis Server
+            </summary>
+            <value>
+            The ip or name
+            </value>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.RedisCachingSectionHandler.ServerEnumerationStrategy">
+            <summary>
+            The strategy to use when executing server wide commands
+            </summary>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.RedisCachingSectionHandler.AllowAdmin">
+            <summary>
+            Specify if the connection can use Admin commands like flush database
+            </summary>
+            <value>
+              <c>true</c> if can use admin commands; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.RedisCachingSectionHandler.Ssl">
+            <summary>
+            Specify if the connection is a secure connection or not.
+            </summary>
+            <value>
+              <c>true</c> if is secure; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.RedisCachingSectionHandler.ConnectTimeout">
+            <summary>
+            The connection timeout
+            </summary>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.RedisCachingSectionHandler.AbortOnConnectFail">
+            <summary>
+            If true, Connect will not create a connection while no servers are available
+            </summary>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.RedisCachingSectionHandler.Database">
+            <summary>
+            Database Id
+            </summary>
+            <value>
+            The database id, the default value is 0
+            </value>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.RedisCachingSectionHandler.Password">
+            <summary>
+            The password or access key
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.Configuration.RedisCachingSectionHandler.GetConfig">
+            <summary>
+            Gets the configuration.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:StackExchange.Redis.Extensions.Core.Configuration.RedisHost">
+            <summary>
+            Configuration element for Redis Host
+            </summary>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.RedisHost.Host">
+            <summary>
+            Gets the Redis host.
+            </summary>
+            <value>
+            The host.
+            </value>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.RedisHost.CachePort">
+            <summary>
+            Gets the port.
+            </summary>
+            <value>
+            The port.
+            </value>
+        </member>
+        <member name="T:StackExchange.Redis.Extensions.Core.Configuration.RedisHostCollection">
+            <summary>
+            Configuration Element Collection for <see cref="T:StackExchange.Redis.Extensions.Core.Configuration.RedisHost"/>
+            </summary>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.Configuration.RedisHostCollection.Item(System.Int32)">
+            <summary>
+            Gets or sets the <see cref="T:StackExchange.Redis.Extensions.Core.Configuration.RedisHost"/> at the specified index.
+            </summary>
+            <value>
+            The <see cref="T:StackExchange.Redis.Extensions.Core.Configuration.RedisHost"/>.
+            </value>
+            <param name="index">The index.</param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.Configuration.RedisHostCollection.CreateNewElement">
+            <summary>
+            Creates the new element.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.Configuration.RedisHostCollection.GetElementKey(System.Configuration.ConfigurationElement)">
+            <summary>
+            Gets the element key.
+            </summary>
+            <param name="element">The element.</param>
+            <returns></returns>
+        </member>
+        <member name="T:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient">
+            <summary>
+                The implementation of <see cref="T:StackExchange.Redis.Extensions.Core.ICacheClient" />
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.#ctor(StackExchange.Redis.Extensions.Core.ISerializer,StackExchange.Redis.Extensions.Core.Configuration.IRedisCachingConfiguration)">
+            <summary>
+                Initializes a new instance of the <see cref="T:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient" /> class.
+            </summary>
+            <param name="serializer">The serializer.</param>
+            <param name="configuration">The configuration.</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.#ctor(StackExchange.Redis.Extensions.Core.ISerializer,System.String,System.Int32)">
+            <summary>
+                Initializes a new instance of the <see cref="T:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient" /> class.
+            </summary>
+            <param name="serializer">The serializer.</param>
+            <param name="connectionString">The connection string.</param>
+            <param name="database">The database.</param>
+            <exception cref="T:System.ArgumentNullException">serializer</exception>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.#ctor(StackExchange.Redis.IConnectionMultiplexer,StackExchange.Redis.Extensions.Core.ISerializer,System.Int32)">
+            <summary>
+                Initializes a new instance of the <see cref="T:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient" /> class.
+            </summary>
+            <param name="connectionMultiplexer">The connection multiplexer.</param>
+            <param name="serializer">The serializer.</param>
+            <param name="database">The database.</param>
+            <exception cref="T:System.ArgumentNullException">
+                connectionMultiplexer
+                or
+                serializer
+            </exception>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.Dispose">
+            <summary>
+                Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.Database">
+            <summary>
+                Return the instance of <see cref="T:StackExchange.Redis.IDatabase" /> used be ICacheClient implementation
+            </summary>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.Serializer">
+            <summary>
+                Gets the serializer.
+            </summary>
+            <value>
+                The serializer.
+            </value>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.Exists(System.String)">
+            <summary>
+                Verify that the specified cache key exists
+            </summary>
+            <param name="key">The cache key.</param>
+            <returns>
+                True if the key is present into Redis. Othwerwise False
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.ExistsAsync(System.String)">
+            <summary>
+                Verify that the specified cache key exists
+            </summary>
+            <param name="key">The cache key.</param>
+            <returns>
+                True if the key is present into Redis. Othwerwise False
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.Remove(System.String)">
+            <summary>
+                Removes the specified key from Redis Database
+            </summary>
+            <param name="key">The key.</param>
+            <returns>
+                True if the key has removed. Othwerwise False
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.RemoveAsync(System.String)">
+            <summary>
+                Removes the specified key from Redis Database
+            </summary>
+            <param name="key">The key.</param>
+            <returns>
+                True if the key has removed. Othwerwise False
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.RemoveAll(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+                Removes all specified keys from Redis Database
+            </summary>
+            <param name="keys">The key.</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.RemoveAllAsync(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+                Removes all specified keys from Redis Database
+            </summary>
+            <param name="keys">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.Get``1(System.String)">
+            <summary>
+                Get the object with the specified key from Redis database
+            </summary>
+            <typeparam name="T">The type of the expected object</typeparam>
+            <param name="key">The cache key.</param>
+            <returns>
+                Null if not present, otherwise the instance of T.
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.GetAsync``1(System.String)">
+            <summary>
+                Get the object with the specified key from Redis database
+            </summary>
+            <typeparam name="T">The type of the expected object</typeparam>
+            <param name="key">The cache key.</param>
+            <returns>
+                Null if not present, otherwise the instance of T.
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.Add``1(System.String,``0)">
+            <summary>
+                Adds the specified instance to the Redis database.
+            </summary>
+            <typeparam name="T">The type of the class to add to Redis</typeparam>
+            <param name="key">The cache key.</param>
+            <param name="value">The instance of T.</param>
+            <returns>
+                True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.AddAsync``1(System.String,``0)">
+            <summary>
+                Adds the specified instance to the Redis database.
+            </summary>
+            <typeparam name="T">The type of the class to add to Redis</typeparam>
+            <param name="key">The cache key.</param>
+            <param name="value">The instance of T.</param>
+            <returns>
+                True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.Replace``1(System.String,``0)">
+            <summary>
+                Replaces the object with specified key into Redis database.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <param name="value">The instance of T</param>
+            <returns>
+                True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.ReplaceAsync``1(System.String,``0)">
+            <summary>
+                Replaces the object with specified key into Redis database.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <param name="value">The instance of T</param>
+            <returns>
+                True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.Add``1(System.String,``0,System.DateTimeOffset)">
+            <summary>
+                Adds the specified instance to the Redis database.
+            </summary>
+            <typeparam name="T">The type of the class to add to Redis</typeparam>
+            <param name="key">The cache key.</param>
+            <param name="value">The instance of T.</param>
+            <param name="expiresAt">Expiration time.</param>
+            <returns>
+                True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.AddAsync``1(System.String,``0,System.DateTimeOffset)">
+            <summary>
+                Adds the specified instance to the Redis database.
+            </summary>
+            <typeparam name="T">The type of the class to add to Redis</typeparam>
+            <param name="key">The cache key.</param>
+            <param name="value">The instance of T.</param>
+            <param name="expiresAt">Expiration time.</param>
+            <returns>
+                True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.Replace``1(System.String,``0,System.DateTimeOffset)">
+            <summary>
+                Replaces the object with specified key into Redis database.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <param name="value">The instance of T</param>
+            <param name="expiresAt">Expiration time.</param>
+            <returns>
+                True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.ReplaceAsync``1(System.String,``0,System.DateTimeOffset)">
+            <summary>
+                Replaces the object with specified key into Redis database.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <param name="value">The instance of T</param>
+            <param name="expiresAt">Expiration time.</param>
+            <returns>
+                True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.Add``1(System.String,``0,System.TimeSpan)">
+            <summary>
+                Adds the specified instance to the Redis database.
+            </summary>
+            <typeparam name="T">The type of the class to add to Redis</typeparam>
+            <param name="key">The cache key.</param>
+            <param name="value">The instance of T.</param>
+            <param name="expiresIn">The duration of the cache using Timespan.</param>
+            <returns>
+                True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.AddAsync``1(System.String,``0,System.TimeSpan)">
+            <summary>
+                Adds the specified instance to the Redis database.
+            </summary>
+            <typeparam name="T">The type of the class to add to Redis</typeparam>
+            <param name="key">The cache key.</param>
+            <param name="value">The instance of T.</param>
+            <param name="expiresIn">The duration of the cache using Timespan.</param>
+            <returns>
+                True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.Replace``1(System.String,``0,System.TimeSpan)">
+            <summary>
+                Replaces the object with specified key into Redis database.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <param name="value">The instance of T</param>
+            <param name="expiresIn">The duration of the cache using Timespan.</param>
+            <returns>
+                True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.ReplaceAsync``1(System.String,``0,System.TimeSpan)">
+            <summary>
+                Replaces the object with specified key into Redis database.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <param name="value">The instance of T</param>
+            <param name="expiresIn">The duration of the cache using Timespan.</param>
+            <returns>
+                True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.GetAll``1(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+                Get the objects with the specified keys from Redis database with one roundtrip
+            </summary>
+            <typeparam name="T">The type of the expected object</typeparam>
+            <param name="keys">The keys.</param>
+            <returns>
+                Empty list if there are no results, otherwise the instance of T.
+                If a cache key is not present on Redis the specified object into the returned Dictionary will be null
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.GetAllAsync``1(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+                Get the objects with the specified keys from Redis database with one roundtrip
+            </summary>
+            <typeparam name="T">The type of the expected object</typeparam>
+            <param name="keys">The keys.</param>
+            <returns>
+                Empty list if there are no results, otherwise the instance of T.
+                If a cache key is not present on Redis the specified object into the returned Dictionary will be null
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.AddAll``1(System.Collections.Generic.IList{System.Tuple{System.String,``0}})">
+            <summary>
+                Adds all.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="items">The items.</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.AddAllAsync``1(System.Collections.Generic.IList{System.Tuple{System.String,``0}})">
+            <summary>
+                Adds all asynchronous.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="items">The items.</param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.SetAdd(System.String,System.String)">
+            <summary>
+                Run SADD command see http://redis.io/commands/sadd
+            </summary>
+            <param name="memberName">Name of the member.</param>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.SetAddAsync(System.String,System.String)">
+            <summary>
+                Run SADD command see http://redis.io/commands/sadd
+            </summary>
+            <param name="memberName">Name of the member.</param>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.SetAdd``1(System.String,``0)">
+            <summary>
+                Run SADD command http://redis.io/commands/sadd
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.SetAddAsync``1(System.String,``0)">
+            <summary>
+                Run SADD command http://redis.io/commands/sadd"
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key"></param>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.SetMember(System.String)">
+            <summary>
+                Run SMEMBERS command http://redis.io/commands/SMEMBERS
+            </summary>
+            <param name="memberName">Name of the member.</param>
+            <returns></returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.SetMemberAsync(System.String)">
+            <summary>
+                Run SMEMBERS command see http://redis.io/commands/SMEMBERS
+            </summary>
+            <param name="memberName">Name of the member.</param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.SetMembers``1(System.String)">
+            <summary>
+                Run SMEMBERS command see http://redis.io/commands/SMEMBERS
+                Deserializes the results to T
+            </summary>
+            <typeparam name="T">The type of the expected objects in the set</typeparam>
+            <param name="key">The key</param>
+            <returns>An array of objects in the set</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.SetMembersAsync``1(System.String)">
+            <summary>
+                Run SMEMBERS command see http://redis.io/commands/SMEMBERS
+                Deserializes the results to T
+            </summary>
+            <typeparam name="T">The type of the expected objects</typeparam>
+            <param name="key">The key</param>
+            <returns>An array of objects in the set</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.SearchKeys(System.String)">
+            <summary>
+                Searches the keys from Redis database
+            </summary>
+            <remarks>
+                Consider this as a command that should only be used in production environments with extreme care. It may ruin
+                performance when it is executed against large databases
+            </remarks>
+            <param name="pattern">The pattern.</param>
+            <example>
+                if you want to return all keys that start with "myCacheKey" uses "myCacheKey*"
+                if you want to return all keys that contain with "myCacheKey" uses "*myCacheKey*"
+                if you want to return all keys that end with "myCacheKey" uses "*myCacheKey"
+            </example>
+            <returns>A list of cache keys retrieved from Redis database</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.SearchKeysAsync(System.String)">
+            <summary>
+                Searches the keys from Redis database
+            </summary>
+            <remarks>
+                Consider this as a command that should only be used in production environments with extreme care. It may ruin
+                performance when it is executed against large databases
+            </remarks>
+            <param name="pattern">The pattern.</param>
+            <example>
+                if you want to return all keys that start with "myCacheKey" uses "myCacheKey*"
+                if you want to return all keys that contain with "myCacheKey" uses "*myCacheKey*"
+                if you want to return all keys that end with "myCacheKey" uses "*myCacheKey"
+            </example>
+            <returns>A list of cache keys retrieved from Redis database</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.FlushDb">
+            <summary>
+                Flushes the database.
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.FlushDbAsync">
+            <summary>
+                Flushes the database asynchronous.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.Save(StackExchange.Redis.SaveType)">
+            <summary>
+                Save the DB in background.
+            </summary>
+            <param name="saveType"></param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.SaveAsync(StackExchange.Redis.SaveType)">
+            <summary>
+                Save the DB in background asynchronous.
+            </summary>
+            <param name="saveType"></param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.GetInfo">
+            <summary>
+                Gets the information about redis.
+                More info see http://redis.io/commands/INFO
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.GetInfoAsync">
+            <summary>
+                Gets the information about redis.
+                More info see http://redis.io/commands/INFO
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.Publish``1(StackExchange.Redis.RedisChannel,``0,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Publishes a message to a channel.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="channel"></param>
+            <param name="message"></param>
+            <param name="flags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.PublishAsync``1(StackExchange.Redis.RedisChannel,``0,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Publishes a message to a channel.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="channel"></param>
+            <param name="message"></param>
+            <param name="flags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.Subscribe``1(StackExchange.Redis.RedisChannel,System.Action{``0},StackExchange.Redis.CommandFlags)">
+            <summary>
+                Registers a callback handler to process messages published to a channel.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="channel"></param>
+            <param name="handler"></param>
+            <param name="flags"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.SubscribeAsync``1(StackExchange.Redis.RedisChannel,System.Func{``0,System.Threading.Tasks.Task},StackExchange.Redis.CommandFlags)">
+            <summary>
+                Registers a callback handler to process messages published to a channel.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="channel"></param>
+            <param name="handler"></param>
+            <param name="flags"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.Unsubscribe``1(StackExchange.Redis.RedisChannel,System.Action{``0},StackExchange.Redis.CommandFlags)">
+            <summary>
+                Unregisters a callback handler to process messages published to a channel.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="channel"></param>
+            <param name="handler"></param>
+            <param name="flags"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.UnsubscribeAsync``1(StackExchange.Redis.RedisChannel,System.Func{``0,System.Threading.Tasks.Task},StackExchange.Redis.CommandFlags)">
+            <summary>
+                Unregisters a callback handler to process messages published to a channel.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="channel"></param>
+            <param name="handler"></param>
+            <param name="flags"></param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.UnsubscribeAll(StackExchange.Redis.CommandFlags)">
+            <summary>
+                Unregisters all callback handlers on a channel.
+            </summary>
+            <param name="flags"></param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.UnsubscribeAllAsync(StackExchange.Redis.CommandFlags)">
+            <summary>
+                Unregisters all callback handlers on a channel.
+            </summary>
+            <param name="flags"></param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.ListAddToLeft``1(System.String,``0)">
+            <summary>
+                Insert the specified value at the head of the list stored at key. If key does not exist, it is created as empty
+                list before performing the push operations.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <param name="item">The item.</param>
+            <returns>
+                the length of the list after the push operations.
+            </returns>
+            <exception cref="T:System.ArgumentException">key cannot be empty.;key</exception>
+            <exception cref="T:System.ArgumentNullException">item;item cannot be null.</exception>
+            <remarks>
+                http://redis.io/commands/lpush
+            </remarks>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.ListAddToLeftAsync``1(System.String,``0)">
+            <summary>
+                Lists the add to left asynchronous.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <param name="item">The item.</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">key cannot be empty.;key</exception>
+            <exception cref="T:System.ArgumentNullException">item;item cannot be null.</exception>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.ListGetFromRight``1(System.String)">
+            <summary>
+                Removes and returns the last element of the list stored at key.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">key cannot be empty.;key</exception>
+            <remarks>
+                http://redis.io/commands/rpop
+            </remarks>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.ListGetFromRightAsync``1(System.String)">
+            <summary>
+                Removes and returns the last element of the list stored at key.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentException">key cannot be empty.;key</exception>
+            <remarks>
+                http://redis.io/commands/rpop
+            </remarks>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashDelete(System.String,System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Removes the specified fields from the hash stored at key. 
+                Specified fields that do not exist within this hash are ignored. 
+            </summary>
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="key">Key of the entry</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>
+                If key is deleted returns true.
+                If key does not exist, it is treated as an empty hash and this command returns false.
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashDelete(System.String,System.Collections.Generic.IEnumerable{System.String},StackExchange.Redis.CommandFlags)">
+            <summary>
+                Removes the specified fields from the hash stored at key. 
+                Specified fields that do not exist within this hash are ignored. 
+                If key does not exist, it is treated as an empty hash and this command returns 0.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the number of fields to be removed.
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="keys"></param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>Tthe number of fields that were removed from the hash, not including specified but non existing fields.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashExists(System.String,System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns if field is an existing field in the hash stored at key.
+            </summary>
+            
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <param name="hashKey">The key of the hash in redis</param>
+            <param name="key">The key of the field in the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>Returns if field is an existing field in the hash stored at key.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashGet``1(System.String,System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns the value associated with field in the hash stored at key.
+            </summary>
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="key">Key of the entry</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>the value associated with field, or nil when field is not present in the hash or key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashGet``1(System.String,System.Collections.Generic.IEnumerable{System.String},StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns the values associated with the specified fields in the hash stored at key.
+                For every field that does not exist in the hash, a nil value is returned. 
+                Because a non-existing keys are treated as empty hashes, running HMGET against a non-existing key will return a list of nil values.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the number of fields being requested.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="keys"></param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>list of values associated with the given fields, in the same order as they are requested.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashGetAll``1(System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns all fields and values of the hash stored at key. In the returned value, every field name is followed by its value, so the length of the reply is twice the size of the hash.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the size of the hash.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>list of fields and their values stored in the hash, or an empty list when key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashIncerementBy(System.String,System.String,System.Int64,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Increments the number stored at field in the hash stored at key by increment. If key does not exist, a new key holding a hash is created. 
+                If field does not exist the value is set to 0 before the operation is performed.
+                The range of values supported by HINCRBY is limited to 64 bit signed integers.
+            </summary>
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="key">Key of the entry</param>
+            <param name="commandFlags">Command execution flags</param>
+            <param name="value">the value at field after the increment operation</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashIncerementBy(System.String,System.String,System.Double,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Increment the specified field of an hash stored at key, and representing a floating point number, by the specified increment. 
+                If the field does not exist, it is set to 0 before performing the operation.
+            </summary>
+            <remarks>
+                <para>
+                    An error is returned if one of the following conditions occur:
+                    * The field contains a value of the wrong type (not a string).
+                    * The current field content or the specified increment are not parsable as a double precision floating point number.
+                </para>
+                <para>
+                    Time complexity: O(1)
+                </para>
+                
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="key">Key of the entry</param>
+            <param name="commandFlags">Command execution flags</param>
+            <param name="value">the value at field after the increment operation</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashKeys(System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns all field names in the hash stored at key.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the size of the hash.
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>list of fields in the hash, or an empty list when key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashLength(System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns the number of fields contained in the hash stored at key.
+            </summary>
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>number of fields in the hash, or 0 when key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashSet``1(System.String,System.String,``0,System.Boolean,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Sets field in the hash stored at key to value. If key does not exist, a new key holding a hash is created. If field already exists in the hash, it is overwritten.
+            </summary>
+            
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">The key of the hash in redis</param>
+            <param name="key">The key of the field in the hash</param>
+            <param name="nx">Behave like hsetnx - set only if not exists</param>
+            <param name="value">The value to be inserted</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>
+                <c>true</c> if field is a new field in the hash and value was set.
+                <c>false</c> if field already exists in the hash and no operation was performed.
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashSet``1(System.String,System.Collections.Generic.Dictionary{System.String,``0},StackExchange.Redis.CommandFlags)">
+            <summary>
+                Sets the specified fields to their respective values in the hash stored at key. This command overwrites any existing fields in the hash. If key does not exist, a new key holding a hash is created.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the number of fields being set.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="values"></param>
+            <param name="commandFlags">Command execution flags</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashValues``1(System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns all values in the hash stored at key.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the size of the hash.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>list of values in the hash, or an empty list when key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashScan``1(System.String,System.String,System.Int32,StackExchange.Redis.CommandFlags)">
+            <summary>
+                iterates fields of Hash types and their associated values.
+            </summary>
+            <remarks>
+                Time complexity: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. 
+                N is the number of elements inside the collection.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="pattern">GLOB search pattern</param>
+            <param name="pageSize">Number of elements to retrieve from the redis server in the cursor</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashDeleteAsync(System.String,System.String,StackExchange.Redis.CommandFlags)">
+            <param name="hashKey">Key of the hash</param>
+            <param name="key">Key of the entry</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>
+                If key is deleted returns true.
+                If key does not exist, it is treated as an empty hash and this command returns false.
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashDeleteAsync(System.String,System.Collections.Generic.IEnumerable{System.String},StackExchange.Redis.CommandFlags)">
+            <summary>
+                Removes the specified fields from the hash stored at key. 
+                Specified fields that do not exist within this hash are ignored. 
+                If key does not exist, it is treated as an empty hash and this command returns 0.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the number of fields to be removed.
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="keys">Keys to retrieve from the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>Tthe number of fields that were removed from the hash, not including specified but non existing fields.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashExistsAsync(System.String,System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns if field is an existing field in the hash stored at key.
+            </summary>
+            
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <param name="hashKey">The key of the hash in redis</param>
+            <param name="key">The key of the field in the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>Returns if field is an existing field in the hash stored at key.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashGetAsync``1(System.String,System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns the value associated with field in the hash stored at key.
+            </summary>
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="key">Key of the entry</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>the value associated with field, or nil when field is not present in the hash or key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashGetAsync``1(System.String,System.Collections.Generic.IEnumerable{System.String},StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns the values associated with the specified fields in the hash stored at key.
+                For every field that does not exist in the hash, a nil value is returned. 
+                Because a non-existing keys are treated as empty hashes, running HMGET against a non-existing key will return a list of nil values.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the number of fields being requested.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="keys">Keys to retrieve from the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>list of values associated with the given fields, in the same order as they are requested.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashGetAllAsync``1(System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns all fields and values of the hash stored at key. In the returned value, 
+                every field name is followed by its value, so the length of the reply is twice the size of the hash.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the size of the hash.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>list of fields and their values stored in the hash, or an empty list when key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashIncerementByAsync(System.String,System.String,System.Int64,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Increments the number stored at field in the hash stored at key by increment. If key does not exist, a new key holding a hash is created. 
+                If field does not exist the value is set to 0 before the operation is performed.
+                The range of values supported by HINCRBY is limited to 64 bit signed integers.
+            </summary>
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="key">Key of the entry</param>
+            <param name="commandFlags">Command execution flags</param>
+            <param name="value">the value at field after the increment operation</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashIncerementByAsync(System.String,System.String,System.Double,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Increment the specified field of an hash stored at key, and representing a floating point number, by the specified increment. 
+                If the field does not exist, it is set to 0 before performing the operation.
+            </summary>
+            <remarks>
+                <para>
+                    An error is returned if one of the following conditions occur:
+                    * The field contains a value of the wrong type (not a string).
+                    * The current field content or the specified increment are not parsable as a double precision floating point number.
+                </para>
+                <para>
+                    Time complexity: O(1)
+                </para>
+                
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="key">Key of the entry</param>
+            <param name="value">the value at field after the increment operation</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>the value at field after the increment operation.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashKeysAsync(System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns all field names in the hash stored at key.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the size of the hash.
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>list of fields in the hash, or an empty list when key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashLengthAsync(System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns the number of fields contained in the hash stored at key.
+            </summary>
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>number of fields in the hash, or 0 when key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashSetAsync``1(System.String,System.String,``0,System.Boolean,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Sets field in the hash stored at key to value. If key does not exist, a new key holding a hash is created. If field already exists in the hash, it is overwritten.
+            </summary>
+            
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">The key of the hash in redis</param>
+            <param name="key">The key of the field in the hash</param>
+            <param name="nx">Behave like hsetnx - set only if not exists</param>
+            <param name="value">The value to be inserted</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>
+                <c>true</c> if field is a new field in the hash and value was set.
+                <c>false</c> if field already exists in the hash and no operation was performed.
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashSetAsync``1(System.String,System.Collections.Generic.IDictionary{System.String,``0},StackExchange.Redis.CommandFlags)">
+            <summary>
+                Sets the specified fields to their respective values in the hash stored at key. 
+                This command overwrites any existing fields in the hash. 
+                If key does not exist, a new key holding a hash is created.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the number of fields being set.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="commandFlags">Command executions flags</param>
+            <param name="values"></param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashValuesAsync``1(System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns all values in the hash stored at key.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the size of the hash.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>list of values in the hash, or an empty list when key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.StackExchangeRedisCacheClient.HashScanAsync``1(System.String,System.String,System.Int32,StackExchange.Redis.CommandFlags)">
+            <summary>
+                iterates fields of Hash types and their associated values.
+            </summary>
+            <remarks>
+                Time complexity: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. 
+                N is the number of elements inside the collection.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="pattern">GLOB search pattern</param>
+            <param name="pageSize"></param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns></returns>
+        </member>
+        <member name="T:StackExchange.Redis.Extensions.Core.Extensions.LinqExtensions">
+            <summary>
+            	Adds behavior to System.Linq.
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.Extensions.LinqExtensions.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            	Eaches the specified enumeration.
+            </summary>
+            <typeparam name = "T"></typeparam>
+            <param name = "source">The enumeration.</param>
+            <param name = "action">The action.</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.Extensions.LinqExtensions.ForEachAsync``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Threading.Tasks.Task})">
+            <summary>
+            Fors the each asynchronous.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="source">The source.</param>
+            <param name="body">The body.</param>
+            <returns></returns>
+        </member>
+        <member name="T:StackExchange.Redis.Extensions.Core.ICacheClient">
+            <summary>
+            Contrac for ICache implementation
+            </summary>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.ICacheClient.Database">
+            <summary>
+            Return the instance of <see cref="T:StackExchange.Redis.IDatabase"/> used be ICacheClient implementation
+            </summary>
+        </member>
+        <member name="P:StackExchange.Redis.Extensions.Core.ICacheClient.Serializer">
+            <summary>
+            Return the instance of <see cref="T:StackExchange.Redis.Extensions.Core.ISerializer"/>
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.Exists(System.String)">
+            <summary>
+            Verify that the specified cache key exists
+            </summary>
+            <param name="key">The cache key.</param>
+            <returns>True if the key is present into Redis. Othwerwise False</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.ExistsAsync(System.String)">
+            <summary>
+            Verify that the specified cache key exists
+            </summary>
+            <param name="key">The cache key.</param>
+            <returns>True if the key is present into Redis. Othwerwise False</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.Remove(System.String)">
+            <summary>
+            Removes the specified key from Redis Database
+            </summary>
+            <param name="key">The key.</param>
+            <returns>True if the key has removed. Othwerwise False</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.RemoveAsync(System.String)">
+            <summary>
+            Removes the specified key from Redis Database
+            </summary>
+            <param name="key">The key.</param>
+            <returns>True if the key has removed. Othwerwise False</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.RemoveAll(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Removes all specified keys from Redis Database
+            </summary>
+            <param name="keys">The key.</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.RemoveAllAsync(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Removes all specified keys from Redis Database
+            </summary>
+            <param name="keys">The key.</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.Get``1(System.String)">
+            <summary>
+            Get the object with the specified key from Redis database
+            </summary>
+            <typeparam name="T">The type of the expected object</typeparam>
+            <param name="key">The cache key.</param>
+            <returns>Null if not present, otherwise the instance of T.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.GetAsync``1(System.String)">
+            <summary>
+            Get the object with the specified key from Redis database
+            </summary>
+            <typeparam name="T">The type of the expected object</typeparam>
+            <param name="key">The cache key.</param>
+            <returns>Null if not present, otherwise the instance of T.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.Add``1(System.String,``0)">
+            <summary>
+            Adds the specified instance to the Redis database.
+            </summary>
+            <typeparam name="T">The type of the class to add to Redis</typeparam>
+            <param name="key">The cache key.</param>
+            <param name="value">The instance of T.</param>
+            <returns>True if the object has been added. Otherwise false</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.AddAsync``1(System.String,``0)">
+            <summary>
+            Adds the specified instance to the Redis database.
+            </summary>
+            <typeparam name="T">The type of the class to add to Redis</typeparam>
+            <param name="key">The cache key.</param>
+            <param name="value">The instance of T.</param>
+            <returns>True if the object has been added. Otherwise false</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.Replace``1(System.String,``0)">
+            <summary>
+            Replaces the object with specified key into Redis database.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <param name="value">The instance of T</param>
+            <returns>
+            True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.ReplaceAsync``1(System.String,``0)">
+            <summary>
+            Replaces the object with specified key into Redis database.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <param name="value">The instance of T</param>
+            <returns>
+            True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.Add``1(System.String,``0,System.DateTimeOffset)">
+            <summary>
+            Adds the specified instance to the Redis database.
+            </summary>
+            <typeparam name="T">The type of the class to add to Redis</typeparam>
+            <param name="key">The cache key.</param>
+            <param name="value">The instance of T.</param>
+            <param name="expiresAt">Expiration time.</param>
+            <returns>
+            True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.AddAsync``1(System.String,``0,System.DateTimeOffset)">
+            <summary>
+            Adds the specified instance to the Redis database.
+            </summary>
+            <typeparam name="T">The type of the class to add to Redis</typeparam>
+            <param name="key">The cache key.</param>
+            <param name="value">The instance of T.</param>
+            <param name="expiresAt">Expiration time.</param>
+            <returns>
+            True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.Replace``1(System.String,``0,System.DateTimeOffset)">
+            <summary>
+            Replaces the object with specified key into Redis database.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <param name="value">The instance of T</param>
+            <param name="expiresAt">Expiration time.</param>
+            <returns>
+            True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.ReplaceAsync``1(System.String,``0,System.DateTimeOffset)">
+            <summary>
+            Replaces the object with specified key into Redis database.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <param name="value">The instance of T</param>
+            <param name="expiresAt">Expiration time.</param>
+            <returns>
+            True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.Add``1(System.String,``0,System.TimeSpan)">
+            <summary>
+            Adds the specified instance to the Redis database.
+            </summary>
+            <typeparam name="T">The type of the class to add to Redis</typeparam>
+            <param name="key">The cache key.</param>
+            <param name="value">The instance of T.</param>
+            <param name="expiresIn">The duration of the cache using Timespan.</param>
+            <returns>
+            True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.AddAsync``1(System.String,``0,System.TimeSpan)">
+            <summary>
+            Adds the specified instance to the Redis database.
+            </summary>
+            <typeparam name="T">The type of the class to add to Redis</typeparam>
+            <param name="key">The cache key.</param>
+            <param name="value">The instance of T.</param>
+            <param name="expiresIn">The duration of the cache using Timespan.</param>
+            <returns>
+            True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.Replace``1(System.String,``0,System.TimeSpan)">
+            <summary>
+            Replaces the object with specified key into Redis database.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <param name="value">The instance of T</param>
+            <param name="expiresIn">The duration of the cache using Timespan.</param>
+            <returns>
+            True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.ReplaceAsync``1(System.String,``0,System.TimeSpan)">
+            <summary>
+            Replaces the object with specified key into Redis database.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <param name="value">The instance of T</param>
+            <param name="expiresIn">The duration of the cache using Timespan.</param>
+            <returns>
+            True if the object has been added. Otherwise false
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.GetAll``1(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Get the objects with the specified keys from Redis database with one roundtrip
+            </summary>
+            <typeparam name="T">The type of the expected object</typeparam>
+            <param name="keys">The keys.</param>
+            <returns>
+            Empty list if there are no results, otherwise the instance of T.
+            If a cache key is not present on Redis the specified object into the returned Dictionary will be null
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.GetAllAsync``1(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Get the objects with the specified keys from Redis database with a single roundtrip
+            </summary>
+            <typeparam name="T">The type of the expected object</typeparam>
+            <param name="keys">The keys.</param>
+            <returns>
+            Empty list if there are no results, otherwise the instance of T.
+            If a cache key is not present on Redis the specified object into the returned Dictionary will be null
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.AddAll``1(System.Collections.Generic.IList{System.Tuple{System.String,``0}})">
+            <summary>
+            Add the objects with the specified keys to Redis database with a single roundtrip
+            </summary>
+            <typeparam name="T">The type of the expected object</typeparam>
+            <param name="items">The items.</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.AddAllAsync``1(System.Collections.Generic.IList{System.Tuple{System.String,``0}})">
+            <summary>
+            Add the objects with the specified keys to Redis database with a single roundtrip
+            </summary>
+            <typeparam name="T">The type of the expected object</typeparam>
+            <param name="items">The items.</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.SetAdd(System.String,System.String)">
+            <summary>
+            Run SADD command see http://redis.io/commands/sadd
+            </summary>
+            <param name="memberName">Name of the member.</param>
+            <param name="key">The key.</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.SetAddAsync(System.String,System.String)">
+            <summary>
+            Run SADD command see http://redis.io/commands/sadd
+            </summary>
+            <param name="memberName">Name of the member.</param>
+            <param name="key">The key.</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.SetAdd``1(System.String,``0)">
+            <summary>
+            Run SADD command http://redis.io/commands/sadd
+            </summary>
+            <param name="item">Name of the member.</param>
+            <param name="key">The key.</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.SetAddAsync``1(System.String,``0)">
+            <summary>
+            Run SADD command http://redis.io/commands/sadd
+            </summary>
+            <param name="item">Name of the member.</param>
+            <param name="key">The key.</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.SetMember(System.String)">
+            <summary>
+            Run SMEMBERS command http://redis.io/commands/SMEMBERS
+            </summary>
+            <param name="memberName">Name of the member.</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.SetMemberAsync(System.String)">
+            <summary>
+            Run SMEMBERS command see http://redis.io/commands/SMEMBERS
+            </summary>
+            <param name="memberName">Name of the member.</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.SetMembers``1(System.String)">
+            <summary>
+                Run SMEMBERS command see http://redis.io/commands/SMEMBERS
+                Deserializes the results to T
+            </summary>
+            <typeparam name="T">The type of the expected objects in the set</typeparam>
+            <param name="key">The key</param>
+            <returns>An array of objects in the set</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.SetMembersAsync``1(System.String)">
+            <summary>
+                Run SMEMBERS command see http://redis.io/commands/SMEMBERS
+                Deserializes the results to T
+            </summary>
+            <typeparam name="T">The type of the expected objects in the set</typeparam>
+            <param name="key">The key</param>
+            <returns>An array of objects in the set</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.SearchKeys(System.String)">
+            <summary>
+            Searches the keys from Redis database
+            </summary>
+            <remarks>
+            Consider this as a command that should only be used in production environments with extreme care. It may ruin performance when it is executed against large databases
+            </remarks>
+            <param name="pattern">The pattern.</param>
+            <example>
+            	if you want to return all keys that start with "myCacheKey" uses "myCacheKey*"
+            	if you want to return all keys that contain with "myCacheKey" uses "*myCacheKey*"
+            	if you want to return all keys that end with "myCacheKey" uses "*myCacheKey"
+            </example>
+            <returns>A list of cache keys retrieved from Redis database</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.SearchKeysAsync(System.String)">
+            <summary>
+            Searches the keys from Redis database
+            </summary>
+            <remarks>
+            Consider this as a command that should only be used in production environments with extreme care. It may ruin performance when it is executed against large databases
+            </remarks>
+            <param name="pattern">The pattern.</param>
+            <example>
+            	if you want to return all keys that start with "myCacheKey" uses "myCacheKey*"
+            	if you want to return all keys that contain with "myCacheKey" uses "*myCacheKey*"
+            	if you want to return all keys that end with "myCacheKey" uses "*myCacheKey"
+            </example>
+            <returns>A list of cache keys retrieved from Redis database</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.FlushDb">
+            <summary>
+            Flushes the database.
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.FlushDbAsync">
+            <summary>
+            Flushes the database asynchronous.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.Save(StackExchange.Redis.SaveType)">
+            <summary>
+            Save the DB in background.
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.SaveAsync(StackExchange.Redis.SaveType)">
+            <summary>
+            Save the DB in background asynchronous.
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.GetInfo">
+            <summary>
+            Gets the information about redis.
+            More info see http://redis.io/commands/INFO
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.GetInfoAsync">
+            <summary>
+            Gets the information about redis.
+            More info see http://redis.io/commands/INFO
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.Publish``1(StackExchange.Redis.RedisChannel,``0,StackExchange.Redis.CommandFlags)">
+            <summary>
+            Publishes a message to a channel.
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.PublishAsync``1(StackExchange.Redis.RedisChannel,``0,StackExchange.Redis.CommandFlags)">
+            <summary>
+            Publishes a message to a channel.
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.Subscribe``1(StackExchange.Redis.RedisChannel,System.Action{``0},StackExchange.Redis.CommandFlags)">
+            <summary>
+            Registers a callback handler to process messages published to a channel.
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.SubscribeAsync``1(StackExchange.Redis.RedisChannel,System.Func{``0,System.Threading.Tasks.Task},StackExchange.Redis.CommandFlags)">
+            <summary>
+            Registers a callback handler to process messages published to a channel.
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.Unsubscribe``1(StackExchange.Redis.RedisChannel,System.Action{``0},StackExchange.Redis.CommandFlags)">
+            <summary>
+            Unregisters a callback handler to process messages published to a channel.
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.UnsubscribeAsync``1(StackExchange.Redis.RedisChannel,System.Func{``0,System.Threading.Tasks.Task},StackExchange.Redis.CommandFlags)">
+            <summary>
+            Unregisters a callback handler to process messages published to a channel.
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.UnsubscribeAll(StackExchange.Redis.CommandFlags)">
+            <summary>
+            Unregisters all callback handlers on a channel.
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.UnsubscribeAllAsync(StackExchange.Redis.CommandFlags)">
+            <summary>
+            Unregisters all callback handlers on a channel.
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.ListAddToLeft``1(System.String,``0)">
+            <summary>
+            Insert the specified value at the head of the list stored at key. If key does not exist, it is created as empty list before performing the push operations.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <param name="item">The item.</param>
+            <returns>
+            the length of the list after the push operations.
+            </returns>
+            <remarks>
+            http://redis.io/commands/lpush
+            </remarks>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.ListAddToLeftAsync``1(System.String,``0)">
+            <summary>
+            Lists the add to left asynchronous.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <param name="item">The item.</param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.ListGetFromRight``1(System.String)">
+            <summary>
+            Removes and returns the last element of the list stored at key.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <returns></returns>
+            <remarks>
+            http://redis.io/commands/rpop
+            </remarks>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.ListGetFromRightAsync``1(System.String)">
+            <summary>
+            Removes and returns the last element of the list stored at key.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="key">The key.</param>
+            <returns></returns>
+            <remarks>
+            http://redis.io/commands/rpop
+            </remarks>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashDelete(System.String,System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Removes the specified fields from the hash stored at key. 
+                Specified fields that do not exist within this hash are ignored. 
+            </summary>
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="key">Key of the entry</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>
+                If key is deleted returns true.
+                If key does not exist, it is treated as an empty hash and this command returns false.
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashDelete(System.String,System.Collections.Generic.IEnumerable{System.String},StackExchange.Redis.CommandFlags)">
+            <summary>
+                Removes the specified fields from the hash stored at key. 
+                Specified fields that do not exist within this hash are ignored. 
+                If key does not exist, it is treated as an empty hash and this command returns 0.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the number of fields to be removed.
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="keys"></param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>Tthe number of fields that were removed from the hash, not including specified but non existing fields.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashExists(System.String,System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns if field is an existing field in the hash stored at key.
+            </summary>
+            
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <param name="hashKey">The key of the hash in redis</param>
+            <param name="key">The key of the field in the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>Returns if field is an existing field in the hash stored at key.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashGet``1(System.String,System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns the value associated with field in the hash stored at key.
+            </summary>
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="key">Key of the entry</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>the value associated with field, or nil when field is not present in the hash or key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashGet``1(System.String,System.Collections.Generic.IEnumerable{System.String},StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns the values associated with the specified fields in the hash stored at key.
+                For every field that does not exist in the hash, a nil value is returned. 
+                Because a non-existing keys are treated as empty hashes, running HMGET against a non-existing key will return a list of nil values.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the number of fields being requested.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="keys"></param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>list of values associated with the given fields, in the same order as they are requested.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashGetAll``1(System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns all fields and values of the hash stored at key. In the returned value, every field name is followed by its value, so the length of the reply is twice the size of the hash.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the size of the hash.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>list of fields and their values stored in the hash, or an empty list when key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashIncerementBy(System.String,System.String,System.Int64,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Increments the number stored at field in the hash stored at key by increment. If key does not exist, a new key holding a hash is created. 
+                If field does not exist the value is set to 0 before the operation is performed.
+                The range of values supported by HINCRBY is limited to 64 bit signed integers.
+            </summary>
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="key">Key of the entry</param>
+            <param name="commandFlags">Command execution flags</param>
+            <param name="value">the value at field after the increment operation</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashIncerementBy(System.String,System.String,System.Double,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Increment the specified field of an hash stored at key, and representing a floating point number, by the specified increment. 
+                If the field does not exist, it is set to 0 before performing the operation.
+            </summary>
+            <remarks>
+                <para>
+                    An error is returned if one of the following conditions occur:
+                    * The field contains a value of the wrong type (not a string).
+                    * The current field content or the specified increment are not parsable as a double precision floating point number.
+                </para>
+                <para>
+                    Time complexity: O(1)
+                </para>
+                
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="key">Key of the entry</param>
+            <param name="commandFlags">Command execution flags</param>
+            <param name="value">the value at field after the increment operation</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashKeys(System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns all field names in the hash stored at key.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the size of the hash.
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>list of fields in the hash, or an empty list when key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashLength(System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns the number of fields contained in the hash stored at key.
+            </summary>
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>number of fields in the hash, or 0 when key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashSet``1(System.String,System.String,``0,System.Boolean,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Sets field in the hash stored at key to value. If key does not exist, a new key holding a hash is created. If field already exists in the hash, it is overwritten.
+            </summary>
+            
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">The key of the hash in redis</param>
+            <param name="key">The key of the field in the hash</param>
+            <param name="nx">Behave like hsetnx - set only if not exists</param>
+            <param name="value">The value to be inserted</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>
+                <c>true</c> if field is a new field in the hash and value was set.
+                <c>false</c> if field already exists in the hash and no operation was performed.
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashSet``1(System.String,System.Collections.Generic.Dictionary{System.String,``0},StackExchange.Redis.CommandFlags)">
+            <summary>
+                Sets the specified fields to their respective values in the hash stored at key. This command overwrites any existing fields in the hash. If key does not exist, a new key holding a hash is created.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the number of fields being set.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="values"></param>
+            <param name="commandFlags">Command execution flags</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashValues``1(System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns all values in the hash stored at key.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the size of the hash.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>list of values in the hash, or an empty list when key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashScan``1(System.String,System.String,System.Int32,StackExchange.Redis.CommandFlags)">
+            <summary>
+                iterates fields of Hash types and their associated values.
+            </summary>
+            <remarks>
+                Time complexity: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. 
+                N is the number of elements inside the collection.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="pattern">GLOB search pattern</param>
+            <param name="pageSize">Number of elements to retrieve from the redis server in the cursor</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashDeleteAsync(System.String,System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Removes the specified fields from the hash stored at key. 
+                Specified fields that do not exist within this hash are ignored. 
+            </summary>
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="key">Key of the entry</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>
+                If key is deleted returns true.
+                If key does not exist, it is treated as an empty hash and this command returns false.
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashDeleteAsync(System.String,System.Collections.Generic.IEnumerable{System.String},StackExchange.Redis.CommandFlags)">
+            <summary>
+                Removes the specified fields from the hash stored at key. 
+                Specified fields that do not exist within this hash are ignored. 
+                If key does not exist, it is treated as an empty hash and this command returns 0.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the number of fields to be removed.
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="keys">Keys to retrieve from the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>Tthe number of fields that were removed from the hash, not including specified but non existing fields.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashExistsAsync(System.String,System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns if field is an existing field in the hash stored at key.
+            </summary>
+            
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <param name="hashKey">The key of the hash in redis</param>
+            <param name="key">The key of the field in the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>Returns if field is an existing field in the hash stored at key.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashGetAsync``1(System.String,System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns the value associated with field in the hash stored at key.
+            </summary>
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="key">Key of the entry</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>the value associated with field, or nil when field is not present in the hash or key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashGetAsync``1(System.String,System.Collections.Generic.IEnumerable{System.String},StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns the values associated with the specified fields in the hash stored at key.
+                For every field that does not exist in the hash, a nil value is returned. 
+                Because a non-existing keys are treated as empty hashes, running HMGET against a non-existing key will return a list of nil values.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the number of fields being requested.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="keys">Keys to retrieve from the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>list of values associated with the given fields, in the same order as they are requested.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashGetAllAsync``1(System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns all fields and values of the hash stored at key. In the returned value, 
+                every field name is followed by its value, so the length of the reply is twice the size of the hash.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the size of the hash.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>list of fields and their values stored in the hash, or an empty list when key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashIncerementByAsync(System.String,System.String,System.Int64,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Increments the number stored at field in the hash stored at key by increment. 
+                If key does not exist, a new key holding a hash is created. 
+                If field does not exist the value is set to 0 before the operation is performed.
+                The range of values supported by HINCRBY is limited to 64 bit signed integers.
+            </summary>
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="key">Key of the entry</param>
+            <param name="commandFlags">Command execution flags</param>
+            <param name="value">the value at field after the increment operation</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashIncerementByAsync(System.String,System.String,System.Double,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Increment the specified field of an hash stored at key, and representing a floating point number, by the specified increment. 
+                If the field does not exist, it is set to 0 before performing the operation.
+            </summary>
+            <remarks>
+                <para>
+                    An error is returned if one of the following conditions occur:
+                    * The field contains a value of the wrong type (not a string).
+                    * The current field content or the specified increment are not parsable as a double precision floating point number.
+                </para>
+                <para>
+                    Time complexity: O(1)
+                </para>
+                
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="key">Key of the entry</param>
+            <param name="value">the value at field after the increment operation</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>the value at field after the increment operation.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashKeysAsync(System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns all field names in the hash stored at key.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the size of the hash.
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>list of fields in the hash, or an empty list when key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashLengthAsync(System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns the number of fields contained in the hash stored at key.
+            </summary>
+            <remarks>
+                Time complexity: O(1)
+            </remarks>
+            <param name="hashKey">Key of the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>number of fields in the hash, or 0 when key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashSetAsync``1(System.String,System.String,``0,System.Boolean,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Sets field in the hash stored at key to value. If key does not exist, a new key holding a hash is created. If field already exists in the hash, it is overwritten.
+            </summary>
+            
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">The key of the hash in redis</param>
+            <param name="key">The key of the field in the hash</param>
+            <param name="nx">Behave like hsetnx - set only if not exists</param>
+            <param name="value">The value to be inserted</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>
+                <c>true</c> if field is a new field in the hash and value was set.
+                <c>false</c> if field already exists in the hash and no operation was performed.
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashSetAsync``1(System.String,System.Collections.Generic.IDictionary{System.String,``0},StackExchange.Redis.CommandFlags)">
+            <summary>
+                Sets the specified fields to their respective values in the hash stored at key. 
+                This command overwrites any existing fields in the hash. 
+                If key does not exist, a new key holding a hash is created.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the number of fields being set.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="values">The values to be inserted</param>
+            <param name="commandFlags">Command execution flags</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashValuesAsync``1(System.String,StackExchange.Redis.CommandFlags)">
+            <summary>
+                Returns all values in the hash stored at key.
+            </summary>
+            <remarks>
+                Time complexity: O(N) where N is the size of the hash.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns>list of values in the hash, or an empty list when key does not exist.</returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ICacheClient.HashScanAsync``1(System.String,System.String,System.Int32,StackExchange.Redis.CommandFlags)">
+            <summary>
+                iterates fields of Hash types and their associated values.
+            </summary>
+            <remarks>
+                Time complexity: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. 
+                N is the number of elements inside the collection.
+            </remarks>
+            <typeparam name="T">Type of the returned value</typeparam>
+            <param name="hashKey">Key of the hash</param>
+            <param name="pattern">GLOB search pattern</param>
+            <param name="pageSize">Number of elements to retrieve from the redis server in the cursor</param>
+            <param name="commandFlags">Command execution flags</param>
+            <returns></returns> 
+        </member>
+        <member name="T:StackExchange.Redis.Extensions.Core.ISerializer">
+            <summary>
+            Contract for Serializer implementation
+            </summary>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ISerializer.Serialize(System.Object)">
+            <summary>
+            Serializes the specified item.
+            </summary>
+            <param name="item">The item.</param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ISerializer.SerializeAsync(System.Object)">
+            <summary>
+            Serializes the asynchronous.
+            </summary>
+            <param name="item">The item.</param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ISerializer.Deserialize(System.Byte[])">
+            <summary>
+            Deserializes the specified bytes.
+            </summary>
+            <param name="serializedObject">The serialized object.</param>
+            <returns>
+            The instance of the specified Item
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ISerializer.DeserializeAsync(System.Byte[])">
+            <summary>
+            Deserializes the specified bytes.
+            </summary>
+            <param name="serializedObject">The serialized object.</param>
+            <returns>
+            The instance of the specified Item
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ISerializer.Deserialize``1(System.Byte[])">
+            <summary>
+            Deserializes the specified bytes.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="serializedObject">The serialized object.</param>
+            <returns>
+            The instance of the specified Item
+            </returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Core.ISerializer.DeserializeAsync``1(System.Byte[])">
+            <summary>
+            Deserializes the specified bytes.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="serializedObject">The serialized object.</param>
+            <returns>
+            The instance of the specified Item
+            </returns>
+        </member>
+    </members>
+</doc>
