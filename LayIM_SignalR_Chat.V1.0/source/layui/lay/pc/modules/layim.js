@@ -96,7 +96,19 @@ layui.define(['jquery', 'layer', 'laytpl', 'upload'], function(exports){
     LAYIM.prototype.content = function(content){
         return layui.laytpl.content(content);
     };
+    //添加系统消息
+    LAYIM.prototype.sysmsg = function (msg) {
+        return addSystemMsg(msg), this;
+    }
 
+    //对外开放系统消息功能
+    var addSystemMsg = function (msg) {
+        var local = layui.data('layim')[cache.mine.id] || {};
+        var thatChat = thisChat(), chatlog = local.chatlog || {};
+        var ul = thatChat.elem.find('.layim-chat-main ul');
+
+        ul.append('<div class="layim-chat-system"><span>' + msg + '</span></div>');
+    }
 
     //主模板
     var listTpl = function(options){
@@ -292,16 +304,20 @@ layui.define(['jquery', 'layer', 'laytpl', 'upload'], function(exports){
         return content;
     };
   
-    var elemChatMain = ['<li {{ d.mine ? "class=layim-chat-mine" : "" }}>'
-      ,'<div class="layim-chat-user"><img src="{{ d.avatar }}"><cite>'
-      ,'{{# if(d.mine){ }}'
-        ,'<i>{{ layui.laytpl.date(d.timestamp) }}</i>{{ d.username||"佚名" }}'
-       ,'{{# } else { }}'
-        ,'{{ d.username||"佚名" }}<i>{{ layui.laytpl.date(d.timestamp) }}</i>'
-       ,'{{# } }}'
-        ,'</cite></div>'
-      ,'<div class="layim-chat-text">{{ layui.laytpl.content(d.content||"&nbsp") }}</div>'
-    ,'</li>'].join('');
+    var elemChatMain = [
+       '{{# if(d.system){ }}'
+       , '<div class="layim-chat-system"><span>{{ d.content }}</span></div>'
+        , '{{# } else { }}'
+      , '<li {{ d.mine ? "class=layim-chat-mine" : "" }}>'
+     , '<div class="layim-chat-user"><img src="{{ d.avatar }}"><cite>'
+     , '{{# if(d.mine){ }}'
+       , '<i>{{ layui.laytpl.date(d.timestamp) }}</i>{{ d.username||"佚名" }}'
+      , '{{# } else { }}'
+       , '{{ d.username||"佚名" }}<i>{{ layui.laytpl.date(d.timestamp) }}</i>'
+      , '{{# } }}'
+       , '</cite></div>'
+     , '<div class="layim-chat-text">{{ layui.laytpl.content(d.content||"&nbsp") }}</div>'
+   , '</li>', '{{# } }}'].join('');
   
     var elemChatList = '<li class="layim-chatlist-{{ d.data.type }}{{ d.data.id }} layim-this" layim-event="tabChat"><img src="{{ d.data.avatar }}"><span>{{ d.data.name||"佚名" }}</span>{{# if(!d.base.brief){ }}<i class="layui-icon" layim-event="closeChat">&#x1007;</i>{{# } }}</li>';
   
