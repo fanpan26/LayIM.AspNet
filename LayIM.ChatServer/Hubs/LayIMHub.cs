@@ -99,15 +99,20 @@ namespace LayIM.ChatServer.Hubs
         /// </summary>
         public Task ClientToClient(int  fromUserId, int toUserId)
         {
-           
-            var groupId = GroupHelper.CreateGroup().CreateName(fromUserId, toUserId);
-            //将当前连接人加入到组织内(同理，对方恰好在线的话，那么他们相当于在同一个聊天室内，就可以愉快的聊天了)
-            Groups.Add(CurrentConnectId, groupId);
-            //var result = MessageHelper.GetCTCConnectedMessage(sid, rid, history: history, isFriend: isFriend);
-            //
-            //
-           return Clients.Caller.receiveMessage("链接成功，这里可以处理对方是否在线或者历史记录等。。。。");
-           // return Clients.User(CurrentUserId).receiveMessage("链接成功，这里可以处理对方是否在线或者历史记录等。。。。");
+
+            //放弃组聊天方法，直接用User发送，因为如果不打开聊天窗口没法聊天，而且还有其他很多connectionid变化的问题
+            //var groupId = GroupHelper.CreateGroup().CreateName(fromUserId, toUserId);
+            ////将当前连接人加入到组织内(同理，对方恰好在线的话，那么他们相当于在同一个聊天室内，就可以愉快的聊天了)
+            //Groups.Add(CurrentConnectId, groupId);
+            var isOneline = LayIMCache.Instance.IsOnline(toUserId);
+            //将这里的业务逻辑改为判断对方是否在线
+            return Clients.Caller.receiveMessage(new ToClientMessageResult
+            {
+                msg = isOneline ? "" : "对方处在离线状态，给他留言吧",
+                msgtype = ChatToClientType.UserIsOnLineToClient,
+                other = new { online = isOneline, userid = toUserId }
+            });
+          // return Clients.User(CurrentUserId).receiveMessage();
         }
 
         /// <summary>
@@ -152,7 +157,10 @@ namespace LayIM.ChatServer.Hubs
                 msg = tomessage, other = null, msgtype = ChatToClientType.ClientToClient
             };
             #endregion
-            return Clients.Group(groupId).receiveMessage(result);
+            //取消这种发送消息方式，改为直接向该用户发送
+            //return Clients.Group(groupId).receiveMessage(result);
+            var toUserId = message.to.id.ToString();
+            return Clients.User(toUserId).receiveMessage(result);
         }
         /// <summary>
         /// 群组发送消息

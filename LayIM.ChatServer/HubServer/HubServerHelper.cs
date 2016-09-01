@@ -1,4 +1,5 @@
 ﻿using LayIM.BLL;
+using LayIM.ChatServer.Core;
 using LayIM.ChatServer.Hubs;
 using LayIM.Model.Enum;
 using LayIM.Model.Message;
@@ -43,6 +44,19 @@ namespace LayIM.ChatServer.HubServer
             }
         }
 
+        public static void SendMessage(string userName, int groupId)
+        {
+            //构造消息体
+            ToClientMessageResult result = new ToClientMessageResult
+            {
+                msg = userName + " 加入群",
+                msgtype = ChatToClientType.UserJoinGroupToClient,
+                other = new { groupid = groupId }
+            };
+
+            var groupName = GroupHelper.CreateGroup().CreateName(groupId);
+            hub.Clients.Group(groupName).receiveMessage(result);
+        }
         /// <summary>
         /// 发送请求被处理的消息
         /// </summary>
@@ -73,11 +87,14 @@ namespace LayIM.ChatServer.HubServer
                     if (message.applytype == ApplyType.Friend.GetHashCode())
                     {
                         //这里的friend是为了配合 LayIM的 addList接口
-                        SendMessage(new { friend = message.friend, msg =msg  }, userid, ChatToClientType.ApplyHandledToClient);
+                        SendMessage(new { friend = message.friend, msg = msg }, userid, ChatToClientType.ApplyHandledToClient);
                     }
-                    else {
+                    else
+                    {
                         //发送群信息 group也是为了配合Layim的addList接口
                         SendMessage(new { group = message.group, msg = msg }, userid, ChatToClientType.ApplyHandledToClient);
+                        //还需要给群发一条，xxx加入群的消息
+                        SendMessage(message.friend.username, message.group.id);
                     }
 
                 }
