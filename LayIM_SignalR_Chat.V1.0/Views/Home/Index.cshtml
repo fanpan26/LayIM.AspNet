@@ -35,7 +35,7 @@
         signalr: '/scripts/signalr/signalr',
         autohub: '/scripts/signalr/autohub',//自动生成的
         hub: '/Scripts/signalr/hub',
-        gray:'/scripts/gray'
+        gray:'/scripts/gray'//控制图片黑白的js
            
     });
     //如果前边几个都不引用的话，IE浏览器就没法接受消息，只能发消息，都引用上才可以
@@ -64,7 +64,7 @@
                     if (currentUser.userid != result.msg.fromid) {
                         global.layim.getMessage(result.msg);//因为result.msg 是合乎layim接口规范，所以直接带入
                         console.log('添加消息');
-                    } 
+                    }
                     break;
                 case chatType.GroupCreatedToClient:
                     console.log('用户创建群成功：群信息：' + JSON.stringify(result.msg));
@@ -85,9 +85,15 @@
                         global.layim.addList(result.msg.group);
                     }
                     break;
+
                 case chatType.ApplySendedToClient:
                     console.log("收到申请消息");
                     global.other.startTips(result.msg.msg);
+                    break;
+                case chatType.UserOnOffLineToClient:
+                    //注意，当用户刷新页面的时候，消息会收到两条，一条下线一条上线
+                    console.log('收到用户上线或者下线消息');
+                    global.other.resetUserAvatar(result.msg);
                     break;
             }
         });
@@ -104,7 +110,9 @@
             //消息处理完毕
             ApplyHandledToClient: 5,
             //申请发送
-            ApplySendedToClient: 6
+            ApplySendedToClient: 6,
+            //用户上线通知
+            UserOnOffLineToClient:7
         };
     });
     layui.use(['jquery','layim','gray'], function (j,l,g) {
@@ -239,14 +247,19 @@
             //将不在线的用户图标置黑白
             initStatus: function () {
                 //循环检测需要置为黑白的头像
+                //这里用interval的原因是，图片可能还么加载完导致黑白效果不出的问题
                 this.userAvatarInterval = setInterval(function () {
+                    //获取到带 hide标签的img对象
                     var imgs = $("img[data-status='hide']");
                     if (imgs.length) {
+                        //设置黑白效果
                         grayscale(imgs);
+                        //停止循环
                         clearInterval(other.userAvatarInterval);
                     }
                 }, 200);
-                //超过五秒后停止
+
+                //超过五秒后停止（保险起见）
                 setTimeout(function () {
                     clearInterval(other.userAvatarInterval);
                 }, 5000);
@@ -265,6 +278,7 @@
                 });
                
             },
+            //开始提示
             startTips: function (msg) {
                 var i = 0;
                 var blings = function () {
@@ -273,6 +287,7 @@
                 }
                 other.msgTipInterval = setInterval(blings, 500);
             },
+            //停止提示
             stopTips: function () {
                 clearInterval(other.msgTipInterval);//点开消息时候就不在闪烁
                 $('.layim-tool-apply').html('&#xe606;');
@@ -296,6 +311,21 @@
                     groups.push(id);
                 });
                 return groups;
+            },
+            //重新设置用户头像，黑白或者亮
+            resetUserAvatar: function (obj) {
+                var avatar = obj.avatar, online = obj.online, userid = obj.userid;
+                var imgObj = $('#layim-friend' + userid).find('img');
+                if (imgObj.length) {
+                    if (obj.online) {
+                        //如果上线了，将头像换成原来的头像，即非黑白头像
+                        imgObj.attr('src', avatar);
+                    } else {
+                        //将头像置黑
+                        grayscale(imgObj);
+                    }
+                }
+
             }
         };
         global.other = other;

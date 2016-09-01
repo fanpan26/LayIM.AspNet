@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>StackExchange.Redis.Extensions.Newtonsoft</name>
+    </assembly>
+    <members>
+        <member name="T:StackExchange.Redis.Extensions.Newtonsoft.NewtonsoftSerializer">
+            <summary>
+            JSon.Net implementation of <see cref="T:StackExchange.Redis.Extensions.Core.ISerializer"/>
+            </summary>
+        </member>
+        <member name="F:StackExchange.Redis.Extensions.Newtonsoft.NewtonsoftSerializer.encoding">
+            <summary>
+            Encoding to use to convert string to byte[] and the other way around.
+            </summary>
+            <remarks>
+            StackExchange.Redis uses Encoding.UTF8 to convert strings to bytes,
+            hence we do same here.
+            </remarks>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Newtonsoft.NewtonsoftSerializer.#ctor(Newtonsoft.Json.JsonSerializerSettings)">
+            <summary>
+            Initializes a new instance of the <see cref="T:StackExchange.Redis.Extensions.Newtonsoft.NewtonsoftSerializer"/> class.
+            </summary>
+            <param name="settings">The settings.</param>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Newtonsoft.NewtonsoftSerializer.Serialize(System.Object)">
+            <summary>
+            Serializes the specified item.
+            </summary>
+            <param name="item">The item.</param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Newtonsoft.NewtonsoftSerializer.SerializeAsync(System.Object)">
+            <summary>
+            Serializes the asynchronous.
+            </summary>
+            <param name="item">The item.</param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Newtonsoft.NewtonsoftSerializer.Deserialize(System.Byte[])">
+            <summary>
+            Deserializes the specified serialized object.
+            </summary>
+            <param name="serializedObject">The serialized object.</param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Newtonsoft.NewtonsoftSerializer.DeserializeAsync(System.Byte[])">
+            <summary>
+            Deserializes the asynchronous.
+            </summary>
+            <param name="serializedObject">The serialized object.</param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Newtonsoft.NewtonsoftSerializer.Deserialize``1(System.Byte[])">
+            <summary>
+            Deserializes the specified serialized object.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="serializedObject">The serialized object.</param>
+            <returns></returns>
+        </member>
+        <member name="M:StackExchange.Redis.Extensions.Newtonsoft.NewtonsoftSerializer.DeserializeAsync``1(System.Byte[])">
+            <summary>
+            Deserializes the asynchronous.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="serializedObject">The serialized object.</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

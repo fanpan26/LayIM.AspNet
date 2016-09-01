@@ -4,6 +4,7 @@
  *
  */
 layui.define(function (exports) {
+
     var grayscale = (function () {
 
         var config = {
