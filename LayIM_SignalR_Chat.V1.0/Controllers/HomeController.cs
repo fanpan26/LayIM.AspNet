@@ -36,7 +36,7 @@ namespace LayIM_SignalR_Chat.V1._0.Controllers
             }
             return Json(result, JsonRequestBehavior.DenyGet);
         }
-
+        //
         public ActionResult ChatHistory()
         {
             return View();

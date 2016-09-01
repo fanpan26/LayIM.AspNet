@@ -1,5 +1,0 @@
-F:\GitHub\LayIM_NetClient\LayIM.Model\bin\Debug\LayIM.Model.dll
-F:\GitHub\LayIM_NetClient\LayIM.Model\bin\Debug\LayIM.Model.pdb
-F:\GitHub\LayIM_NetClient\LayIM.Model\obj\Debug\LayIM.Model.csprojResolveAssemblyReference.cache
-F:\GitHub\LayIM_NetClient\LayIM.Model\obj\Debug\LayIM.Model.dll
-F:\GitHub\LayIM_NetClient\LayIM.Model\obj\Debug\LayIM.Model.pdb
