@@ -10,7 +10,7 @@ using System.Web.Mvc;
 namespace LayIM_SignalR_Chat.V1._0.Filters
 {
     /// <summary>
-    /// 异常处理
+    /// 异常处理，增加异常处理
     /// </summary>
     public class LayIMExceptionFilter : HandleErrorAttribute
     {
