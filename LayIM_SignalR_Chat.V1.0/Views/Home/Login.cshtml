@@ -19,6 +19,8 @@
                                 localStorage.setItem('currentUserId', uid);
                                 location.href = '/';
                             }
+                        } else {
+                            alert(result.msg);
                         }
                     });
                 });

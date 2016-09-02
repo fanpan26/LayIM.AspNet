@@ -159,6 +159,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LayimApiController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Filters\LayIMExceptionFilter.cs" />
     <Compile Include="Filters\UserAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -327,6 +328,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="log\" />
     <Folder Include="upload\" />
   </ItemGroup>
   <ItemGroup>

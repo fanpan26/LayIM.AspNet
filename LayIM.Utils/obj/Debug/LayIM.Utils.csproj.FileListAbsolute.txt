@@ -1,9 +1,0 @@
-F:\GitHub\LayIM_NetClient\LayIM.Utils\bin\Debug\LayIM.Utils.dll
-F:\GitHub\LayIM_NetClient\LayIM.Utils\bin\Debug\LayIM.Utils.pdb
-F:\GitHub\LayIM_NetClient\LayIM.Utils\bin\Debug\LayIM.Model.dll
-F:\GitHub\LayIM_NetClient\LayIM.Utils\bin\Debug\Newtonsoft.Json.dll
-F:\GitHub\LayIM_NetClient\LayIM.Utils\bin\Debug\LayIM.Model.pdb
-F:\GitHub\LayIM_NetClient\LayIM.Utils\bin\Debug\Newtonsoft.Json.xml
-F:\GitHub\LayIM_NetClient\LayIM.Utils\obj\Debug\LayIM.Utils.csprojResolveAssemblyReference.cache
-F:\GitHub\LayIM_NetClient\LayIM.Utils\obj\Debug\LayIM.Utils.dll
-F:\GitHub\LayIM_NetClient\LayIM.Utils\obj\Debug\LayIM.Utils.pdb

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LayIM_SignalR_Chat.V1._0.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,8 @@ namespace LayIM_SignalR_Chat.V1._0
     {
         protected void Application_Start()
         {
+            GlobalFilters.Filters.Add(new LayIMExceptionFilter());
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
