@@ -326,7 +326,7 @@ namespace LayIM.BLL
             string et = endtime == null ? "" : endtime.Value.ToString("yyyy-MM-dd");
             int from = (pageIndex - 1) * pageSize;
             //某个聊天组查询
-            string queryGroup = "{\"query\": {\"match\": { \"roomid\": \"FRIEND_14895_14894\" }}}";
+            string queryGroup = "{\"query\": {\"match\": { \"roomid\": \"FRIEND_10006_10005\" }}}";
             //关键字查询
             string queryKeyWord = "{ \"query\": {\"match_phrase\": {\"content\": {\"query\": \"" + keyword + "\",\"slop\": 0} } }}";
             //是否图片 查询

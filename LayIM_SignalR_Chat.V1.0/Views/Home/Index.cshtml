@@ -21,7 +21,8 @@
             hub: null,
             layim: null,
             other: null,
-            ready:false
+            ready: false,
+            content: function () { }
         };
         var currentUser = {
             userid:  localStorage.getItem('currentUserId')
@@ -191,6 +192,8 @@
         layim.on('ready', function (res) {
             console.log('layim ready');
             global.layim = layim;
+            //tmpl方法
+            global.content = layim.content;
             //更改签名事件
             other.initModifySign();
             //获取我的申请

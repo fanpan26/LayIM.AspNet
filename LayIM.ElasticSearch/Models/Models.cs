@@ -23,6 +23,7 @@ namespace Macrosage.ElasticSearch.Models
         public long qq { get; set; }
         public string avatar { get; set; }
         public DateTime addtime { get; set; }
+        public string addtimestr { get { return addtime.ToString("yyyy/MM/dd HH:mm:ss"); } }
         public long timespan { get; set; }
         public string nickname { get; set; }
         public string content { get; set; }
