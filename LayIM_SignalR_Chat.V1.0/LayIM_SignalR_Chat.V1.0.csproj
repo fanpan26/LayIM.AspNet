@@ -169,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\loading.gif" />
+    <Content Include="Content\macan.jpg" />
     <Content Include="css\search.css" />
     <Content Include="demo\chatlog.html" />
     <Content Include="demo\find.html" />
