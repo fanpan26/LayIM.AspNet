@@ -20,6 +20,9 @@ namespace LayIM.ChatServer.Hubs
     public class LayIMHub : Hub
     {
 
+        /// <summary>
+        /// 当前的connectionId
+        /// </summary>
         public string CurrentConnectId
         {
             get
@@ -27,6 +30,9 @@ namespace LayIM.ChatServer.Hubs
                 return Context.ConnectionId;
             }
         }
+        /// <summary>
+        /// 当前的用户ID
+        /// </summary>
         public string CurrentUserId
         {
             get
@@ -55,12 +61,7 @@ namespace LayIM.ChatServer.Hubs
         /// <returns></returns>
         public override Task OnConnected()
         {
-            //将当前用户添加到redis在线用户缓存中
-            LayIMCache.Instance.OperateOnlineUser(CurrentOnlineUser);
-
-            //发送用户上线消息
-            HubServer.HubServerHelper.SendUserOnOffLineMessage(CurrentUserId);
-
+            UserOnline();
             return Clients.Caller.receiveMessage("连接成功");
         }
         /// <summary>
@@ -70,12 +71,7 @@ namespace LayIM.ChatServer.Hubs
         /// <returns></returns>
         public override Task OnDisconnected(bool stopCalled)
         {
-            //将当前用户从在线用户列表中剔除
-            LayIMCache.Instance.OperateOnlineUser(CurrentOnlineUser, isDelete: true);
-
-            //发送用户下线消息
-            HubServer.HubServerHelper.SendUserOnOffLineMessage(CurrentUserId, online: false);
-
+            UserOffline();
             return Clients.Caller.receiveMessage("失去连接");
         }
 
@@ -85,12 +81,7 @@ namespace LayIM.ChatServer.Hubs
         /// <returns></returns>
         public override Task OnReconnected()
         {
-            //将当前用户添加到redis在线用户缓存中
-            LayIMCache.Instance.OperateOnlineUser(CurrentOnlineUser);
-
-            //发送用户上线消息
-            HubServer.HubServerHelper.SendUserOnOffLineMessage(CurrentUserId);
-
+            UserOnline();
             return Clients.Caller.receiveMessage("重新连接");
         }
 
@@ -124,8 +115,7 @@ namespace LayIM.ChatServer.Hubs
         public Task ClientToGroup(int fromUserId,int toGroupId)
         {
             var groupId = GroupHelper.CreateGroup().CreateName(toGroupId);
-            Groups.Add(CurrentConnectId, groupId);
-            return Clients.Group(groupId).receiveMessage("用户" + fromUserId + " 上线啦");
+            return Clients.User(CurrentUserId).receiveMessage("连接聊天室" + groupId + "成功");
         }
         /// <summary>
         /// 客户端聊天消息
@@ -201,6 +191,26 @@ namespace LayIM.ChatServer.Hubs
             return Clients.All.receiveMessage(message);
         }
 
+
+        #region 用户上下线操作
+        private void UserOnline()
+        {
+            //将当前用户添加到redis在线用户缓存中
+            LayIMCache.Instance.OperateOnlineUser(CurrentOnlineUser);
+            //发送用户上线消息
+            HubServer.HubServerHelper.SendUserOnOffLineMessage(CurrentUserId);
+            //由于用户群一般不多，这里直接将用户全部加入群组中
+
+        }
+
+        private void UserOffline()
+        {
+            //将当前用户从在线用户列表中剔除
+            LayIMCache.Instance.OperateOnlineUser(CurrentOnlineUser, isDelete: true);
+            //发送用户下线消息
+            HubServer.HubServerHelper.SendUserOnOffLineMessage(CurrentUserId, online: false);
+        }
+        #endregion
 
     }
 }
