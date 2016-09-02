@@ -6,6 +6,7 @@ using LayIM.Model.Enum;
 using LayIM.Model.Message;
 using LayIM.Model.Online;
 using LayIM.Utils.Consts;
+using LayIM.Utils.Extension;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System;
@@ -200,7 +201,13 @@ namespace LayIM.ChatServer.Hubs
             //发送用户上线消息
             HubServer.HubServerHelper.SendUserOnOffLineMessage(CurrentUserId);
             //由于用户群一般不多，这里直接将用户全部加入群组中
-
+            var groups = LayimUserBLL.Instance.GetUserAllGroups(CurrentUserId);
+            //遍历组，该connectionId加入到组中，防止收不到消息
+            foreach (string group in groups)
+            {
+                var g = GroupHelper.CreateGroup().CreateName(group.ToInt());
+                Groups.Add(CurrentConnectId, g);
+            }
         }
 
         private void UserOffline()

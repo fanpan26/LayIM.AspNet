@@ -109,7 +109,7 @@ namespace LayIM.DAL
         #endregion
 
         #region 获取用户所有加的群
-        public string[] GetUserAllGroups(int userId)
+        public string[] GetUserAllGroups(string userId)
         {
             string sql = "SELECT gid FROM dbo.layim_group_detail WHERE [uid]=" + userId;
             var dt = ExecuteDateTableSQL(sql);

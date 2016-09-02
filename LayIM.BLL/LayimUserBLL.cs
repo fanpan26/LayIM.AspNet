@@ -372,5 +372,13 @@ namespace LayIM.BLL
             return JsonResultHelper.CreateJson(result, true);
         }
         #endregion
+
+        #region 读取用户所在的群
+        public string[] GetUserAllGroups(string userId)
+        {
+            var result = _dal.GetUserAllGroups(userId);
+            return result;
+        }
+        #endregion
     }
 }
