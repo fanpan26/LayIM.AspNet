@@ -13,8 +13,9 @@ namespace LayIM_SignalR_Chat.V1._0
     {
         protected void Application_Start()
         {
+            //增加异常处理
             GlobalFilters.Filters.Add(new LayIMExceptionFilter());
-
+            
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
