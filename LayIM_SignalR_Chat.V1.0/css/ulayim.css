@@ -1,10 +1,12 @@
 ﻿
 /*签名样式*/
 .layim-sign-box{
-	width:95%
+	width:95%;
+    
 }
 .layim-sign-hide{
   border:none;background-color:#F5F5F5;
+  background-color:transparent;
 }
 
 /*历史记录样式*/
