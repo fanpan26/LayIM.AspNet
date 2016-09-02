@@ -107,5 +107,14 @@ namespace LayIM.DAL
            
         }
         #endregion
+
+        #region 获取用户所有加的群
+        public string[] GetUserAllGroups(int userId)
+        {
+            string sql = "SELECT gid FROM dbo.layim_group_detail WHERE [uid]=" + userId;
+            var dt = ExecuteDateTableSQL(sql);
+            return dt.Rows.Cast<DataRow>().Select(x => x["gid"].ToString()).ToArray();
+        }
+        #endregion
     }
 }
