@@ -75,6 +75,8 @@ namespace LayIM.BLL
                     avatar = x["avatar"].ToString(),
                     groupdesc = x["groupdesc"].ToString()
                 });
+                //用户皮肤，第一个是默认正在使用的
+                List<string> skin = ds.Tables[4].Rows.Cast<DataRow>().Select(x => x[0].ToString()).ToList();
 
                 BaseListResult result = new BaseListResult
                 {
@@ -87,7 +89,8 @@ namespace LayIM.BLL
                         status = "online"
                     },
                     friend = friend,
-                    group = group
+                    group = group,
+                    skin = skin
                 };
                 return result;
             }
@@ -378,6 +381,13 @@ namespace LayIM.BLL
         {
             var result = _dal.GetUserAllGroups(userId);
             return result;
+        }
+        #endregion
+
+        #region 更换用户皮肤
+        public bool UpdateUserSkin(int userid, string path)
+        {
+            return _dal.UpdateUserSkin(userid, path);
         }
         #endregion
     }

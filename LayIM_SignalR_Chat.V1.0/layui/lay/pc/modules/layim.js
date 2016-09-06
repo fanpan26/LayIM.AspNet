@@ -34,10 +34,10 @@ layui.define(['jquery', 'layer', 'laytpl', 'upload'], function(exports){
     //基础配置
     LAYIM.prototype.config = function(options){
         var skin = [
-          //layui.cache.dir+'css/pc/layim/skin/01.jpg'
-          //,layui.cache.dir+'css/pc/layim/skin/02.jpg'
-          //,layui.cache.dir+'css/pc/layim/skin/03.jpg'
-          //,layui.cache.dir+'css/pc/layim/skin/04.jpg'
+          layui.cache.dir+'css/pc/layim/skin/01.jpg'
+          ,layui.cache.dir+'css/pc/layim/skin/02.jpg'
+          ,layui.cache.dir+'css/pc/layim/skin/03.jpg'
+          ,layui.cache.dir+'css/pc/layim/skin/04.jpg'
         ];
         options = options || {};
         options.skin = options.skin || [];
@@ -229,9 +229,6 @@ layui.define(['jquery', 'layer', 'laytpl', 'upload'], function(exports){
     , '<li layim-event="setSkin"><cite>默认</cite></li>'
     , '<li layim-event="setSkinByUser"><input type="file" name="file" style="opacity:0.01;"/><cite>自定义</cite></li>'
     ,'</ul>'].join('');
-    /*
-    <span class="layui-icon layim-tool-image layim-pz-file" title="发送文件" layim-event="image" data-type="file"><i></i><input type="file" name="file"></span>
-    */
     
     //聊天主模板
     var elemChatTpl = ['<div class="layim-chat layim-chat-{{d.data.type}}">'
@@ -356,11 +353,7 @@ layui.define(['jquery', 'layer', 'laytpl', 'upload'], function(exports){
           ,history: local.history || {}
         };
         cache = $.extend(cache, obj);
-        if(options.brief){
-            return layui.each(call.ready, function(index, item){
-                item && item(obj);
-            });
-        };
+        
         post(options.init, function(data){
             var mine = options.mine || data.mine || {};
             var local = layui.data('layim')[mine.id] || {}, obj = {
@@ -371,10 +364,22 @@ layui.define(['jquery', 'layer', 'laytpl', 'upload'], function(exports){
               ,group: data.group || [] //群组信息
               ,history: local.history || {} //历史会话信息
             };
+            //添加数据库中的皮肤
+            layui.each(data.skin, function (index, item) {
+                obj.base.skin.push(item);
+            });
+            
             cache = $.extend(cache, obj);
+           
             popim(laytpl(elemTpl).render(obj));
             if(local.close){
                 popmin();
+            }
+            //重置皮肤
+            if (data.skin && data.skin.length) {
+                if (!local.skin) {
+                    events.setSkin($('<input src="' + data.skin[0] + '"/>'));
+                }
             }
             layui.each(call.ready, function(index, item){
                 item && item(obj);
@@ -1417,16 +1422,19 @@ layui.define(['jquery', 'layer', 'laytpl', 'upload'], function(exports){
             layimChat.css({
                 'background-image': src ? 'url(' + src + ')' : 'none'
             });
-        } catch (e) { }
+        } catch (e) {
+            
+        }
     }
       //用户自定义上传背景图
     , setSkinByUser: function (othis) {
-        var type = 'uploadSkin';
+        var type = 'uploadSkin';//自定义配置上传皮肤路径
         var upload = cache.base[type] || {};
         othis.find('input')[0].click();
         //关闭换肤
         layer.close(global.skinIndex);
-        console.log('打开上传文件窗口。。。。');
+        var local = layui.data('layim')[cache.mine.id] || {};
+        //调用layui.upload方法
         layui.upload({
             url: upload.url || ''
           , method: upload.type
@@ -1441,7 +1449,9 @@ layui.define(['jquery', 'layer', 'laytpl', 'upload'], function(exports){
               res = JSON.parse(res);
               if (res.code == 0) {
                   res.data = res.data || {};
+                  //修改src
                   othis.attr('src', res.data.src);
+                  //定义系统设置皮肤方法，setSkin会帮我们做剩下的事情
                   events.setSkin(othis);
                   cache.base.skin.push(res.data.src);
               } else {

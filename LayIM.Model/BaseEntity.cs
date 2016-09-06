@@ -85,6 +85,10 @@ namespace LayIM.Model
         public IEnumerable<FriendGroupEntity> friend { get; set; }
         public IEnumerable<GroupEntity> group { get; set; }
         public UserEntity mine { get; set; }
+        /// <summary>
+        /// 用户设置的皮肤
+        /// </summary>
+        public List<string> skin { get; set; }
     }
 
     /// <summary>

@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -60,9 +61,22 @@ namespace LayIM_SignalR_Chat.V1._0.Controllers
 
         [HttpPost]
         [ActionName("upload_img")]
-        public JsonResult UploadImg(HttpPostedFileBase file)
+        public JsonResult UploadImg(HttpPostedFileBase file,int uid=0)
         {
-            return Json(FileUploadHelper.Upload(file, Server.MapPath("/upload/"), true), JsonRequestBehavior.DenyGet);
+            var upload = FileUploadHelper.Upload(file, Server.MapPath("/upload/"), true);
+
+            if (uid > 0 && upload.code == 0)
+            {
+                var path = upload.data.GetType().GetProperty("src").GetValue(upload.data).ToString();
+                Task.Run(() =>
+                {
+                    //更新用户皮肤
+                    LayimUserBLL.Instance.UpdateUserSkin(uid, path);
+                });
+
+            }
+            var result = Json(upload, JsonRequestBehavior.DenyGet);
+            return result;
         }
         [HttpPost]
         [ActionName("upload_file")]

@@ -116,5 +116,14 @@ namespace LayIM.DAL
             return dt.Rows.Cast<DataRow>().Select(x => x["gid"].ToString()).ToArray();
         }
         #endregion
+
+        #region 用户换皮肤
+        public bool UpdateUserSkin(int userid,string path)
+        {
+            var procedureName = "Proc_LayIM_UserUpdateSkin";
+            ExecuteNonQueryStoreProcedure(procedureName, new SqlParameter[] { MakeParameterInt("userid", userid), MakeParameterVarChar("path", path) });
+            return true;
+        }
+        #endregion
     }
 }
