@@ -1,4 +1,5 @@
 ##LayIM2.0 .NET SignalR版本的实现
+##由于layim是收费UI，所以项目源代码中不包含layui的js包，如有需要请到官网了解详情。
 
 #### LayIM官网 http://www.layui.com/doc/layim.html
 #### 博客教程：http://www.cnblogs.com/panzi/p/5767095.html
