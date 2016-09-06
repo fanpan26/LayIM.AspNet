@@ -179,6 +179,7 @@
     <Content Include="Global.asax" />
     <Content Include="headphotos\default.jpg" />
     <Content Include="headphotos\group.jpg" />
+    <Content Include="layui\lay\pc\modules\layim.min.js" />
     <Content Include="readme.txt" />
     <Content Include="layui\css\layui.css" />
     <Content Include="layui\css\layuim.css" />
