@@ -31,335 +31,339 @@
        
     </script>
 <script>
-    //自定义模块
-    layui.extend({
-        signalr: '/scripts/signalr/signalr',
-        autohub: '/scripts/signalr/autohub',//自动生成的
-        hub: '/Scripts/signalr/hub',
-        gray:'/scripts/gray'//控制图片黑白的js
-           
-    });
-    //如果前边几个都不引用的话，IE浏览器就没法接受消息，只能发消息，都引用上才可以
-    layui.use(['jquery', 'signalr', 'autohub', 'hub'], function (j, s, a, hub) {
-        global.hub = hub;
-        hub.init({
-            serverUrl: 'http://localhost:8496/layim'
-        });
-        //监听连接服务器成功
-        hub.on('ready', function (data) {
-            global.ready = true;
-            console.log('signalr server is running...');
-        });
-        //监听连接服务器失败
-        hub.on('failed', function (data) {
-            console.log('signalr server.s connection is unuseful');
-        });
-        //监听收到消息
-        hub.on('receiveMsg', function (result) {
-            console.log("接收到消息");
-            console.log(result);
-            switch (result.msgtype) {
-                case chatType.ClientToClient:
-                case chatType.ClientToGroup:
-                    //这里做判断，是因为消息也会推送给自己，当然后台可以选择不推给自己，因为后台按照组的形式，所以，退给自己的一个好处就是能够知道消息确实发出去了，否则，只是客户端感觉消息出去了。
-                    if (currentUser.userid != result.msg.fromid) {
-                        global.layim.getMessage(result.msg);//因为result.msg 是合乎layim接口规范，所以直接带入
-                        console.log('添加消息');
-                    }
-                    break;
-                case chatType.GroupCreatedToClient:
-                    console.log('用户创建群成功：群信息：' + JSON.stringify(result.msg));
-                    //用户成功创建群之后的回调
-                    global.layim.addList(result.msg);
-                    break;
-                case chatType.ApplyHandledToClient:
-                    console.log("收到申请被处理的消息");
-                    //开始闪烁右下角消息图标
-                    global.other.startTips(result.msg.msg);
-                    if (result.msg.friend) {
-                        result.msg.friend.remark = result.msg.friend.sign;
-                        //调用layim接口，将好友直接添加到相应的好友组里面
-                        global.layim.addList(result.msg.friend);
-                    }
-                    if (result.msg.group) {
-                        //调用layim接口，将群组直接添加到相应的好友组里面
-                        global.layim.addList(result.msg.group);
-                    }
-                    break;
+    if (typeof layui ==="object") {
+        //自定义模块
+        layui.extend({
+            signalr: '/scripts/signalr/signalr',
+            autohub: '/scripts/signalr/autohub',//自动生成的
+            hub: '/Scripts/signalr/hub',
+            gray: '/scripts/gray'//控制图片黑白的js
 
-                case chatType.ApplySendedToClient:
-                    console.log("收到申请消息");
-                    global.other.startTips(result.msg.msg);
-                    break;
-                case chatType.UserIsOnLineToClient:
-                    console.log('收到用户是否在线的消息');
-                    if (result.other.online === false) {
-                        global.layim.sysmsg(result.msg);
-                    }
-                    break;
-                case chatType.UserOnOffLineToClient:
-                    //注意，当用户刷新页面的时候，消息会收到两条，一条下线一条上线
-                    console.log('收到用户上线或者下线消息');
-                    global.other.resetUserAvatar(result.msg);
-                    break;
-                case chatType.UserJoinGroupToClient:
-                    console.log('收到用户加群消息');
-                    global.layim.getMessage({
-                        username: "系统消息"
-                   , avatar: ""
-                   , id: result.other.groupid
-                   , type: "group"
-                   , system: true
-                   , content: result.msg
-                    });
-                    break;
-            }
         });
-               
-
-
-        //枚举和后台对应
-        var chatType = {
-            System: 0,
-            ClientToClient: 1,
-            ClientToGroup: 2,
-            GroupToClient: 3,
-            //群创建成功
-            GroupCreatedToClient: 4,
-            //消息处理完毕
-            ApplyHandledToClient: 5,
-            //申请发送
-            ApplySendedToClient: 6,
-            //用户是否在线的消息
-            UserIsOnLineToClient: 8,
-            //用户加群消息
-            UserJoinGroupToClient: 9,
-            //用户上线通知
-            UserOnOffLineToClient: 7
-        };
-    });
-    layui.use(['jquery','layim','gray'], function (j,l,g) {
-        var layim = l;
-        var $ = j;
-        var grayscale = g;
-        var autoReplay = ['您好，我现在有事不在，一会再和您联系。', '你没发错吧？face[微笑] ', '洗澡中，请勿打扰，偷窥请购票，个体四十，团体八折，订票电话：一般人我不告诉他！face[哈哈] ', '你好，我是主人的美女秘书，有什么事就跟我说吧，等他回来我会转告他的。face[心] face[心] face[心] ', 'face[威武] face[威武] face[威武] face[威武] ', '<（￣︶￣）>', '你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。', 'face[黑线]  你慢慢说，别急……', '(*^__^*) face[嘻嘻] ，是贤心吗？'];
-        //基础配置
-        layim.config({
-            //初始化接口
-            init: {
-                url: '/layimapi/base'
-            }
-
-            ////简约模式（不显示主面板）
-            //,brief: true
-            //查看群员接口
-            ,
-            members: {
-                url: '/layimapi/member',
-                data: {}//自定义，默认为id
-            }
-
-            ,
-            uploadImage: {
-                url: '/layimapi/upload_img'
-                ,
-                type: '' //默认post
-            },
-            uploadSkin: {
-                url: '/layimapi/upload_img?uid=' + currentUser.userid,
-                type: '' //默认post
-            }
-            ,
-            uploadFile: {
-                url: '/layimapi/upload_file'
-                ,
-                type: '' //默认post
-            }
-
-            ,skin: ['/content/macan.jpg'] //新增皮肤
-            //,isfriend: false //是否开启好友
-            //,isgroup: false //是否开启群组
-            ,
-            chatLog: '/home/chathistory' //聊天记录地址
-            ,
-            find: '/home/find'
-            ,apply:'/home/handlemessage'
-            ,copyright: false //是否授权
-        });
-       
-
-        layim.on('online',function (data) {
-            console.log(data);
-        });
-        //layim建立就绪
-        layim.on('ready', function (res) {
-            console.log('layim ready');
-            global.layim = layim;
-            //tmpl方法
-            global.content = layim.content;
-            //更改签名事件
-            other.initModifySign();
-            //获取我的申请
-            other.getMyApply();
-            //初始化图标颜色
-            other.initStatus();
-        });
-        //监听查看群员
-        layim.on('members', function (data) {
-            console.log(data);
-        });
-        /*
-            监听聊天窗口切换
-            增加连接业务,调用当前用户连接signalr服务器方法
-        */
-        layim.on('chatChange', function (data) {
-            console.log(data);
-            var t = data.data.type;//friend or group
-            var from = currentUser.userid;
-            var to = data.data.id;
-            //调用hub连接方法,
-            if (global.hub) {
-                var interval = setInterval(function () {
-                    console.log(global.ready);
-                    if (global.ready === true) {
-                        global.hub.server.ctoc(currentUser.userid, data.data.id, t);
-                        clearInterval(interval);
-                    }
-                }, 500);
-            
-            } else {
-                alert('聊天室初始化失败，请刷新页面重试');
-            }
-        });
-        /*
-           监听发送消息
-           对接signalr发送消息方法
-       */
-        layim.on('sendMessage', function (data) {
-            other.send(data);
-        });
-        /*
-        监听打开我的消息列表窗口
-        */
-        layim.on('applyOpen', function () {
-            console.log('监听到applyOpen事件');
-            other.stopTips();
-        });
-        //其他业务逻辑（为了最大化的减少对layim.js的影响）
-        var other = {
-            api: {
-                getmyapply:'/layimapi/myapply'
-            },
-            msgTipInterval: null,
-            userAvatarInterval:null,
-            //更改签名
-            initModifySign: function () {
-                var signObj = $('#layim_user_sign_box');
-                signObj.focus(function () {
-                    signObj.removeClass('layim-sign-hide');
-                    console.log('准备更改签名');
-                });
-                signObj.blur(function () {
-                    console.log('更改签名完毕');
-                    signObj.addClass('layim-sign-hide');
-                });
-                //enter提交
-                signObj.keydown(function (event) {
-                    if (event.which == 13) {
-                        console.log('按下了Enter提交签名');
-                        signObj.addClass('layim-sign-hide');
-                        signObj.blur();
-                    }
-                });
-            },
-            //将不在线的用户图标置黑白
-            initStatus: function () {
-                //循环检测需要置为黑白的头像
-                //这里用interval的原因是，图片可能还么加载完导致黑白效果不出的问题
-                this.userAvatarInterval = setInterval(function () {
-                    //获取到带 hide标签的img对象
-                    var imgs = $("img[data-status='hide']");
-                    if (imgs.length) {
-                        //设置黑白效果
-                        grayscale(imgs);
-                        //停止循环
-                        clearInterval(other.userAvatarInterval);
-                    }
-                }, 200);
-
-                //超过五秒后停止（保险起见）
-                setTimeout(function () {
-                    clearInterval(other.userAvatarInterval);
-                }, 5000);
-
-            },
-            //
-            getMyApply: function () {
-                var url = this.api.getmyapply;
-                $.get(url, { userid: currentUser.userid }, function (result) {
-                    if (result.code == 0) {
-                        var j = result.data.msgcount;
-                        if (j>0) {
-                            other.startTips('您有' + j + '条新消息');
+        //如果前边几个都不引用的话，IE浏览器就没法接受消息，只能发消息，都引用上才可以
+        layui.use(['jquery', 'signalr', 'autohub', 'hub'], function (j, s, a, hub) {
+            global.hub = hub;
+            hub.init({
+                serverUrl: 'http://localhost:8496/layim'
+            });
+            //监听连接服务器成功
+            hub.on('ready', function (data) {
+                global.ready = true;
+                console.log('signalr server is running...');
+            });
+            //监听连接服务器失败
+            hub.on('failed', function (data) {
+                console.log('signalr server.s connection is unuseful');
+            });
+            //监听收到消息
+            hub.on('receiveMsg', function (result) {
+                console.log("接收到消息");
+                console.log(result);
+                switch (result.msgtype) {
+                    case chatType.ClientToClient:
+                    case chatType.ClientToGroup:
+                        //这里做判断，是因为消息也会推送给自己，当然后台可以选择不推给自己，因为后台按照组的形式，所以，退给自己的一个好处就是能够知道消息确实发出去了，否则，只是客户端感觉消息出去了。
+                        if (currentUser.userid != result.msg.fromid) {
+                            global.layim.getMessage(result.msg);//因为result.msg 是合乎layim接口规范，所以直接带入
+                            console.log('添加消息');
                         }
-                    }
-                });
-               
-            },
-            //开始提示
-            startTips: function (msg) {
-                var i = 0;
-                var blings = function () {
-                    $('.layim-tool-apply').attr('title', msg).html(i % 2 ? '' : '&#xe606;');
-                    i++;
+                        break;
+                    case chatType.GroupCreatedToClient:
+                        console.log('用户创建群成功：群信息：' + JSON.stringify(result.msg));
+                        //用户成功创建群之后的回调
+                        global.layim.addList(result.msg);
+                        break;
+                    case chatType.ApplyHandledToClient:
+                        console.log("收到申请被处理的消息");
+                        //开始闪烁右下角消息图标
+                        global.other.startTips(result.msg.msg);
+                        if (result.msg.friend) {
+                            result.msg.friend.remark = result.msg.friend.sign;
+                            //调用layim接口，将好友直接添加到相应的好友组里面
+                            global.layim.addList(result.msg.friend);
+                        }
+                        if (result.msg.group) {
+                            //调用layim接口，将群组直接添加到相应的好友组里面
+                            global.layim.addList(result.msg.group);
+                        }
+                        break;
+
+                    case chatType.ApplySendedToClient:
+                        console.log("收到申请消息");
+                        global.other.startTips(result.msg.msg);
+                        break;
+                    case chatType.UserIsOnLineToClient:
+                        console.log('收到用户是否在线的消息');
+                        if (result.other.online === false) {
+                            global.layim.sysmsg(result.msg);
+                        }
+                        break;
+                    case chatType.UserOnOffLineToClient:
+                        //注意，当用户刷新页面的时候，消息会收到两条，一条下线一条上线
+                        console.log('收到用户上线或者下线消息');
+                        global.other.resetUserAvatar(result.msg);
+                        break;
+                    case chatType.UserJoinGroupToClient:
+                        console.log('收到用户加群消息');
+                        global.layim.getMessage({
+                            username: "系统消息"
+                       , avatar: ""
+                       , id: result.other.groupid
+                       , type: "group"
+                       , system: true
+                       , content: result.msg
+                        });
+                        break;
                 }
-                other.msgTipInterval = setInterval(blings, 500);
-            },
-            //停止提示
-            stopTips: function () {
-                clearInterval(other.msgTipInterval);//点开消息时候就不在闪烁
-                $('.layim-tool-apply').html('&#xe606;');
-            },
-            //发送消息
-            send: function (msg) {
+            });
+
+
+
+            //枚举和后台对应
+            var chatType = {
+                System: 0,
+                ClientToClient: 1,
+                ClientToGroup: 2,
+                GroupToClient: 3,
+                //群创建成功
+                GroupCreatedToClient: 4,
+                //消息处理完毕
+                ApplyHandledToClient: 5,
+                //申请发送
+                ApplySendedToClient: 6,
+                //用户是否在线的消息
+                UserIsOnLineToClient: 8,
+                //用户加群消息
+                UserJoinGroupToClient: 9,
+                //用户上线通知
+                UserOnOffLineToClient: 7
+            };
+        });
+        layui.use(['jquery', 'layim', 'gray'], function (j, l, g) {
+            var layim = l;
+            var $ = j;
+            var grayscale = g;
+            var autoReplay = ['您好，我现在有事不在，一会再和您联系。', '你没发错吧？face[微笑] ', '洗澡中，请勿打扰，偷窥请购票，个体四十，团体八折，订票电话：一般人我不告诉他！face[哈哈] ', '你好，我是主人的美女秘书，有什么事就跟我说吧，等他回来我会转告他的。face[心] face[心] face[心] ', 'face[威武] face[威武] face[威武] face[威武] ', '<（￣︶￣）>', '你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。', 'face[黑线]  你慢慢说，别急……', '(*^__^*) face[嘻嘻] ，是贤心吗？'];
+            //基础配置
+            layim.config({
+                //初始化接口
+                init: {
+                    url: '/layimapi/base'
+                }
+
+                ////简约模式（不显示主面板）
+                //,brief: true
+                //查看群员接口
+                ,
+                members: {
+                    url: '/layimapi/member',
+                    data: {}//自定义，默认为id
+                }
+
+                ,
+                uploadImage: {
+                    url: '/layimapi/upload_img'
+                    ,
+                    type: '' //默认post
+                },
+                uploadSkin: {
+                    url: '/layimapi/upload_img?uid=' + currentUser.userid,
+                    type: '' //默认post
+                }
+                ,
+                uploadFile: {
+                    url: '/layimapi/upload_file'
+                    ,
+                    type: '' //默认post
+                }
+
+                , skin: ['/content/macan.jpg'] //新增皮肤
+                //,isfriend: false //是否开启好友
+                //,isgroup: false //是否开启群组
+                ,
+                chatLog: '/home/chathistory' //聊天记录地址
+                ,
+                find: '/home/find'
+                , apply: '/home/handlemessage'
+                , copyright: false //是否授权
+            });
+
+
+            layim.on('online', function (data) {
+                console.log(data);
+            });
+            //layim建立就绪
+            layim.on('ready', function (res) {
+                console.log('layim ready');
+                global.layim = layim;
+                //tmpl方法
+                global.content = layim.content;
+                //更改签名事件
+                other.initModifySign();
+                //获取我的申请
+                other.getMyApply();
+                //初始化图标颜色
+                other.initStatus();
+            });
+            //监听查看群员
+            layim.on('members', function (data) {
+                console.log(data);
+            });
+            /*
+                监听聊天窗口切换
+                增加连接业务,调用当前用户连接signalr服务器方法
+            */
+            layim.on('chatChange', function (data) {
+                console.log(data);
+                var t = data.data.type;//friend or group
+                var from = currentUser.userid;
+                var to = data.data.id;
+                //调用hub连接方法,
                 if (global.hub) {
-                    global.hub.server.send(msg);
+                    var interval = setInterval(function () {
+                        console.log(global.ready);
+                        if (global.ready === true) {
+                            global.hub.server.ctoc(currentUser.userid, data.data.id, t);
+                            clearInterval(interval);
+                        }
+                    }, 500);
+
                 } else {
                     alert('聊天室初始化失败，请刷新页面重试');
                 }
-            },
-            //获取用户所在的群
-            getUserGroups: function () {
-                var groups = [];
-                $('.layim-list-group li').each(function (i, item) {
-                    if ($(this).hasClass('layim-null')) {
-                        return groups;
-                    }
-                    var id = $(this).attr('id').replace('layim-group', '');
-                    groups.push(id);
-                });
-                return groups;
-            },
-            //重新设置用户头像，黑白或者亮
-            resetUserAvatar: function (obj) {
-                var avatar = obj.avatar, online = obj.online, userid = obj.userid;
-                var imgObj = $('#layim-friend' + userid).find('img');
-                if (imgObj.length) {
-                    if (obj.online) {
-                        //如果上线了，将头像换成原来的头像，即非黑白头像
-                        imgObj.attr('src', avatar);
-                    } else {
-                        //将头像置黑
-                        grayscale(imgObj);
-                    }
-                }
+            });
+            /*
+               监听发送消息
+               对接signalr发送消息方法
+           */
+            layim.on('sendMessage', function (data) {
+                other.send(data);
+            });
+            /*
+            监听打开我的消息列表窗口
+            */
+            layim.on('applyOpen', function () {
+                console.log('监听到applyOpen事件');
+                other.stopTips();
+            });
+            //其他业务逻辑（为了最大化的减少对layim.js的影响）
+            var other = {
+                api: {
+                    getmyapply: '/layimapi/myapply'
+                },
+                msgTipInterval: null,
+                userAvatarInterval: null,
+                //更改签名
+                initModifySign: function () {
+                    var signObj = $('#layim_user_sign_box');
+                    signObj.focus(function () {
+                        signObj.removeClass('layim-sign-hide');
+                        console.log('准备更改签名');
+                    });
+                    signObj.blur(function () {
+                        console.log('更改签名完毕');
+                        signObj.addClass('layim-sign-hide');
+                    });
+                    //enter提交
+                    signObj.keydown(function (event) {
+                        if (event.which == 13) {
+                            console.log('按下了Enter提交签名');
+                            signObj.addClass('layim-sign-hide');
+                            signObj.blur();
+                        }
+                    });
+                },
+                //将不在线的用户图标置黑白
+                initStatus: function () {
+                    //循环检测需要置为黑白的头像
+                    //这里用interval的原因是，图片可能还么加载完导致黑白效果不出的问题
+                    this.userAvatarInterval = setInterval(function () {
+                        //获取到带 hide标签的img对象
+                        var imgs = $("img[data-status='hide']");
+                        if (imgs.length) {
+                            //设置黑白效果
+                            grayscale(imgs);
+                            //停止循环
+                            clearInterval(other.userAvatarInterval);
+                        }
+                    }, 200);
 
-            }
-        };
-        global.other = other;
-        //判断是否是群成员使用
-        window.getUserGroups = other.getUserGroups;
-    });
+                    //超过五秒后停止（保险起见）
+                    setTimeout(function () {
+                        clearInterval(other.userAvatarInterval);
+                    }, 5000);
+
+                },
+                //
+                getMyApply: function () {
+                    var url = this.api.getmyapply;
+                    $.get(url, { userid: currentUser.userid }, function (result) {
+                        if (result.code == 0) {
+                            var j = result.data.msgcount;
+                            if (j > 0) {
+                                other.startTips('您有' + j + '条新消息');
+                            }
+                        }
+                    });
+
+                },
+                //开始提示
+                startTips: function (msg) {
+                    var i = 0;
+                    var blings = function () {
+                        $('.layim-tool-apply').attr('title', msg).html(i % 2 ? '' : '&#xe606;');
+                        i++;
+                    }
+                    other.msgTipInterval = setInterval(blings, 500);
+                },
+                //停止提示
+                stopTips: function () {
+                    clearInterval(other.msgTipInterval);//点开消息时候就不在闪烁
+                    $('.layim-tool-apply').html('&#xe606;');
+                },
+                //发送消息
+                send: function (msg) {
+                    if (global.hub) {
+                        global.hub.server.send(msg);
+                    } else {
+                        alert('聊天室初始化失败，请刷新页面重试');
+                    }
+                },
+                //获取用户所在的群
+                getUserGroups: function () {
+                    var groups = [];
+                    $('.layim-list-group li').each(function (i, item) {
+                        if ($(this).hasClass('layim-null')) {
+                            return groups;
+                        }
+                        var id = $(this).attr('id').replace('layim-group', '');
+                        groups.push(id);
+                    });
+                    return groups;
+                },
+                //重新设置用户头像，黑白或者亮
+                resetUserAvatar: function (obj) {
+                    var avatar = obj.avatar, online = obj.online, userid = obj.userid;
+                    var imgObj = $('#layim-friend' + userid).find('img');
+                    if (imgObj.length) {
+                        if (obj.online) {
+                            //如果上线了，将头像换成原来的头像，即非黑白头像
+                            imgObj.attr('src', avatar);
+                        } else {
+                            //将头像置黑
+                            grayscale(imgObj);
+                        }
+                    }
+
+                }
+            };
+            global.other = other;
+            //判断是否是群成员使用
+            window.getUserGroups = other.getUserGroups;
+        });
+    } else {
+        document.write("<a href='http://layim.layui.com/'>去layim官网</a>")
+    }
   
 </script>
 
