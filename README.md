@@ -3,6 +3,7 @@
 
 #### LayIM官网 http://www.layui.com/doc/layim.html
 #### 博客教程：http://www.cnblogs.com/panzi/p/5767095.html
+#### 在线体验地址：http://123.56.218.133/ （由于服务器问题or代码问题，人多了容易卡掉，所以进不去就不要狂刷新了。。。）
 #### 项目说明：基于.NET SingalR,LayIM2.0实现的web聊天室，功能如下：
 ##### 注册登录
 ##### 好友聊天，发送图片、文件
