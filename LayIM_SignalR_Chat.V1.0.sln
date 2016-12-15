@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayIM_SignalR_Chat.V1.0", "LayIM_SignalR_Chat.V1.0\LayIM_SignalR_Chat.V1.0.csproj", "{5A21C95B-D8CF-47F7-B828-7ED64DA6292D}"
 EndProject
@@ -15,13 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayIM.BLL", "LayIM.BLL\LayI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayIM.ChatServer", "LayIM.ChatServer\LayIM.ChatServer.csproj", "{143F891D-38FA-4B66-B156-824B380A788F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayIM.Queue", "LayIM.Queue\LayIM.Queue.csproj", "{456090C3-2A21-4FB3-AC44-3504A02AE674}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayIM.Utils", "LayIM.Utils\LayIM.Utils.csproj", "{868DE914-EEA2-4B14-B2CD-216E1A890EF0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayIM.Cache", "LayIM.Cache\LayIM.Cache.csproj", "{EABA5FCB-3EA4-4893-B3D4-FC709C53A768}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayIM.Tests", "LayIM.Tests\LayIM.Tests.csproj", "{81C3A0E0-1E8F-4832-8474-8496C3209412}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +49,6 @@ Global
 		{143F891D-38FA-4B66-B156-824B380A788F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{143F891D-38FA-4B66-B156-824B380A788F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{143F891D-38FA-4B66-B156-824B380A788F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{456090C3-2A21-4FB3-AC44-3504A02AE674}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{456090C3-2A21-4FB3-AC44-3504A02AE674}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{456090C3-2A21-4FB3-AC44-3504A02AE674}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{456090C3-2A21-4FB3-AC44-3504A02AE674}.Release|Any CPU.Build.0 = Release|Any CPU
 		{868DE914-EEA2-4B14-B2CD-216E1A890EF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{868DE914-EEA2-4B14-B2CD-216E1A890EF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{868DE914-EEA2-4B14-B2CD-216E1A890EF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -65,10 +57,6 @@ Global
 		{EABA5FCB-3EA4-4893-B3D4-FC709C53A768}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EABA5FCB-3EA4-4893-B3D4-FC709C53A768}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EABA5FCB-3EA4-4893-B3D4-FC709C53A768}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81C3A0E0-1E8F-4832-8474-8496C3209412}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81C3A0E0-1E8F-4832-8474-8496C3209412}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81C3A0E0-1E8F-4832-8474-8496C3209412}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81C3A0E0-1E8F-4832-8474-8496C3209412}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

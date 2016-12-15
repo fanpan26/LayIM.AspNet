@@ -17,6 +17,10 @@ namespace LayIM_SignalR_Chat.V1._0.Controllers
         {
             return View();
         }
+        public ActionResult IndexV3()
+        {
+            return View();
+        }
 
         public ActionResult Login()
         {
@@ -47,6 +51,15 @@ namespace LayIM_SignalR_Chat.V1._0.Controllers
             return View();
         }
         public ActionResult HandleMessage()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// V3.0提供的模板 消息盒子
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult MsgBox()
         {
             return View();
         }

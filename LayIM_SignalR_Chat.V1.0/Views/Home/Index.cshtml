@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>ASP.NET SignalR + Layim 聊天室（.NET版）</title>
-    <link rel="stylesheet" href="/layui/css/layui.css">
-    <link  rel="stylesheet" href="~/css/ulayim.css"/>
+    <link href="~/layui3.0/css/layui.css" rel="stylesheet" />
+    <script src="~/layui3.0/layui.js"></script>
     <style>
         html {
             background-color: #D9D9D9;
@@ -15,7 +15,6 @@
 <body>
 
     <script src="~/Scripts/login.js"></script>
-    <script src="~/layui/layui.js"></script>
     <script>
         var global = {
             hub: null,
@@ -31,14 +30,13 @@
        
     </script>
 <script>
-    if (typeof layui ==="object") {
+    if (typeof layui === "object") {
+        var kefu = '@Request.QueryString["t"]' == 'kefu';
         //自定义模块
         layui.extend({
             signalr: '/scripts/signalr/signalr',
             autohub: '/scripts/signalr/autohub',//自动生成的
-            hub: '/Scripts/signalr/hub',
-            gray: '/scripts/gray'//控制图片黑白的js
-
+            hub: '/Scripts/signalr/hub'
         });
         //如果前边几个都不引用的话，IE浏览器就没法接受消息，只能发消息，都引用上才可以
         layui.use(['jquery', 'signalr', 'autohub', 'hub'], function (j, s, a, hub) {
@@ -64,6 +62,7 @@
                     case chatType.ClientToGroup:
                         //这里做判断，是因为消息也会推送给自己，当然后台可以选择不推给自己，因为后台按照组的形式，所以，退给自己的一个好处就是能够知道消息确实发出去了，否则，只是客户端感觉消息出去了。
                         if (currentUser.userid != result.msg.fromid) {
+                            result.msg.type = result.msg.type == 'kefu' ? 'friend' : result.msg.type;
                             global.layim.getMessage(result.msg);//因为result.msg 是合乎layim接口规范，所以直接带入
                             console.log('添加消息');
                         }
@@ -90,7 +89,7 @@
 
                     case chatType.ApplySendedToClient:
                         console.log("收到申请消息");
-                        global.other.startTips(result.msg.msg);
+                        global.other.startTips();
                         break;
                     case chatType.UserIsOnLineToClient:
                         console.log('收到用户是否在线的消息');
@@ -101,7 +100,7 @@
                     case chatType.UserOnOffLineToClient:
                         //注意，当用户刷新页面的时候，消息会收到两条，一条下线一条上线
                         console.log('收到用户上线或者下线消息');
-                        global.other.resetUserAvatar(result.msg);
+                       // global.other.resetUserAvatar(result.msg);
                         break;
                     case chatType.UserJoinGroupToClient:
                         console.log('收到用户加群消息');
@@ -139,10 +138,9 @@
                 UserOnOffLineToClient: 7
             };
         });
-        layui.use(['jquery', 'layim', 'gray'], function (j, l, g) {
+        layui.use('layim', function (l) {
             var layim = l;
-            var $ = j;
-            var grayscale = g;
+            var $ = layui.jquery;
             var autoReplay = ['您好，我现在有事不在，一会再和您联系。', '你没发错吧？face[微笑] ', '洗澡中，请勿打扰，偷窥请购票，个体四十，团体八折，订票电话：一般人我不告诉他！face[哈哈] ', '你好，我是主人的美女秘书，有什么事就跟我说吧，等他回来我会转告他的。face[心] face[心] face[心] ', 'face[威武] face[威武] face[威武] face[威武] ', '<（￣︶￣）>', '你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。', 'face[黑线]  你慢慢说，别急……', '(*^__^*) face[嘻嘻] ，是贤心吗？'];
             //基础配置
             layim.config({
@@ -152,7 +150,7 @@
                 }
 
                 ////简约模式（不显示主面板）
-                //,brief: true
+                , brief: false
                 //查看群员接口
                 ,
                 members: {
@@ -176,19 +174,39 @@
                     ,
                     type: '' //默认post
                 }
+                //扩展工具栏
+              , tool: [{
+                  alias: 'code'
+                , title: '代码'
+                , icon: '&#xe64e;'
+              }]
 
-                , skin: ['/content/macan.jpg'] //新增皮肤
+                //,brief: true //是否简约模式（若开启则不显示主面板）
+
+                //,title: 'WebIM' //自定义主面板最小化时的标题
+                //,right: '100px' //主面板相对浏览器右侧距离
+                //,minRight: '90px' //聊天面板最小化时相对浏览器右侧距离
+              , initSkin: '3.jpg' //1-5 设置初始背景
+                //,skin: ['aaa.jpg'] //新增皮肤
                 //,isfriend: false //是否开启好友
                 //,isgroup: false //是否开启群组
-                ,
+                //,min: true //是否始终最小化主面板，默认false
+                //,notice: true //是否开启桌面消息提醒，默认false
+                //,voice: false //声音提醒，默认开启，声音文件为：default.wav
+
+              , msgbox: '/home/msgbox', //消息盒子页面地址，若不开启，剔除该项即可
                 chatLog: '/home/chathistory' //聊天记录地址
                 ,
                 find: '/home/find'
-                , apply: '/home/handlemessage'
-                , copyright: false //是否授权
             });
-
-
+            if (kefu) {
+                layim.chat({
+                    name: '在线客服-小苍'
+                    , type: 'kefu'
+                    , avatar: '/headphotos/default.jpg'
+                    , id: 10006
+                });
+            }
             layim.on('online', function (data) {
                 console.log(data);
             });
@@ -198,12 +216,8 @@
                 global.layim = layim;
                 //tmpl方法
                 global.content = layim.content;
-                //更改签名事件
-                other.initModifySign();
                 //获取我的申请
                 other.getMyApply();
-                //初始化图标颜色
-                other.initStatus();
             });
             //监听查看群员
             layim.on('members', function (data) {
@@ -239,6 +253,10 @@
             layim.on('sendMessage', function (data) {
                 other.send(data);
             });
+            //监听签名修改
+            layim.on('sign', function (value) {
+                layer.msg(value);
+            });
             /*
             监听打开我的消息列表窗口
             */
@@ -251,75 +269,16 @@
                 api: {
                     getmyapply: '/layimapi/myapply'
                 },
-                msgTipInterval: null,
-                userAvatarInterval: null,
-                //更改签名
-                initModifySign: function () {
-                    var signObj = $('#layim_user_sign_box');
-                    signObj.focus(function () {
-                        signObj.removeClass('layim-sign-hide');
-                        console.log('准备更改签名');
-                    });
-                    signObj.blur(function () {
-                        console.log('更改签名完毕');
-                        signObj.addClass('layim-sign-hide');
-                    });
-                    //enter提交
-                    signObj.keydown(function (event) {
-                        if (event.which == 13) {
-                            console.log('按下了Enter提交签名');
-                            signObj.addClass('layim-sign-hide');
-                            signObj.blur();
-                        }
-                    });
-                },
-                //将不在线的用户图标置黑白
-                initStatus: function () {
-                    //循环检测需要置为黑白的头像
-                    //这里用interval的原因是，图片可能还么加载完导致黑白效果不出的问题
-                    this.userAvatarInterval = setInterval(function () {
-                        //获取到带 hide标签的img对象
-                        var imgs = $("img[data-status='hide']");
-                        if (imgs.length) {
-                            //设置黑白效果
-                            grayscale(imgs);
-                            //停止循环
-                            clearInterval(other.userAvatarInterval);
-                        }
-                    }, 200);
-
-                    //超过五秒后停止（保险起见）
-                    setTimeout(function () {
-                        clearInterval(other.userAvatarInterval);
-                    }, 5000);
-
-                },
-                //
                 getMyApply: function () {
                     var url = this.api.getmyapply;
                     $.get(url, { userid: currentUser.userid }, function (result) {
                         if (result.code == 0) {
                             var j = result.data.msgcount;
                             if (j > 0) {
-                                other.startTips('您有' + j + '条新消息');
+                                layim.msgbox(j);
                             }
                         }
                     });
-
-                },
-                //开始提示
-                startTips: function (msg) {
-                    var i = 0;
-                    var blings = function () {
-                        $('.layim-tool-apply').attr('title', msg).html(i % 2 ? '' : '&#xe606;');
-                        i++;
-                    }
-                    other.msgTipInterval = setInterval(blings, 500);
-                },
-                //停止提示
-                stopTips: function () {
-                    clearInterval(other.msgTipInterval);//点开消息时候就不在闪烁
-                    $('.layim-tool-apply').html('&#xe606;');
                 },
                 //发送消息
                 send: function (msg) {
@@ -340,6 +299,9 @@
                         groups.push(id);
                     });
                     return groups;
+                },
+                startTips: function () {
+                    layim.msgbox(1);
                 },
                 //重新设置用户头像，黑白或者亮
                 resetUserAvatar: function (obj) {
@@ -366,6 +328,15 @@
     }
   
 </script>
-
+    <div style="text-align:center;margin-top:200px;">
+        <ul>
+            <li>2016-12-15日更新</li>
+            <li>对接3.0版本</li>
+            <li>增加消息盒子页面，并对接消息盒子功能</li>
+            <li>去掉以前的自定义签名和消息提示等功能（Layim3.0已经包含该功能）</li>
+            <li>去掉以前自定义头像置灰功能（Layim3.0包含该功能）</li>
+            <li>GitHub地址：<a style="color:blue" target="_blank" href="https://github.com/fanpan26/LayIM_NetClient">https://github.com/fanpan26/LayIM_NetClient</a> </li>
+        </ul>
+    </div>
 </body>
 </html>

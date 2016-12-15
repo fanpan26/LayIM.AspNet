@@ -187,12 +187,6 @@ namespace LayIM.ChatServer.Hubs
             return Clients.Group(groupId).receiveMessage(result);
         }
 
-        public Task ServerSendGroupCreatedMsgToGroup(UserGroupCreatedMessage message)
-        {
-            return Clients.All.receiveMessage(message);
-        }
-
-
         #region 用户上下线操作
         private void UserOnline()
         {

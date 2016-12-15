@@ -112,7 +112,8 @@ layui.define(['autohub'], function (exports) {
                             this.ctogsend(msg);
                             break;
                         default:
-                            alert('无效的消息类型');
+                            this.ctocsend(msg);
+                            break;
                     }
                 },
                 //单独

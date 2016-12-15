@@ -78,6 +78,7 @@ namespace LayIM.DAL
         }
         #endregion
 
+        string databaseScame = "dbo";//"dbo"
         #region 获取某个用户的好友列表
         /// <summary>
         /// 获取某个用户的好友列表
@@ -86,7 +87,7 @@ namespace LayIM.DAL
         /// <returns>返回格式如下 ""或者 "10001,10002,10003"</returns>
         public string GetUserFriends(int userid)
         {
-            string sql = "SELECT CONVERT(VARCHAR(20),friendid)+',' FROM dbo.v_layim_friend_group_detail_info WHERE userid=@userid FOR XML PATH('');  SELECT headphoto AS avatar FROM dbo.layim_user WHERE id=@userid ";
+            string sql = "SELECT CONVERT(VARCHAR(20),friendid)+',' FROM "+ databaseScame + ".v_layim_friend_group_detail_info WHERE userid=@userid FOR XML PATH('');  SELECT headphoto AS avatar FROM "+ databaseScame + ".layim_user WHERE id=@userid ";
             var parameters = new SqlParameter[] {
                 MakeParameterInt("userid",userid)
             };
@@ -111,7 +112,7 @@ namespace LayIM.DAL
         #region 获取用户所有加的群
         public string[] GetUserAllGroups(string userId)
         {
-            string sql = "SELECT gid FROM dbo.layim_group_detail WHERE [uid]=" + userId;
+            string sql = "SELECT gid FROM "+ databaseScame + ".layim_group_detail WHERE [uid]=" + userId;
             var dt = ExecuteDateTableSQL(sql);
             return dt.Rows.Cast<DataRow>().Select(x => x["gid"].ToString()).ToArray();
         }

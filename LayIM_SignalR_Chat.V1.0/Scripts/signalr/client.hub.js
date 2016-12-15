@@ -121,7 +121,7 @@
                         this.ctogsend(obj);
                         break;
                     default:
-                        alert('无效的消息类型');
+                        this.ctocsend(obj);
                 }
             },
             //单独
