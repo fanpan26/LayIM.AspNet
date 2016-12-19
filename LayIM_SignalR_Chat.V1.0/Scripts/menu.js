@@ -223,7 +223,6 @@ layui.define(function (exports) {
                 groups.push(g);
             }
             //处理子菜单
-            console.log(item.items[i].child);
             if (item.items[i].child) {
                 var cgroups = [];
                 var cprapare = [];
@@ -238,7 +237,6 @@ layui.define(function (exports) {
                     }
                     cprapare[cg].push(ch);
                 });
-                console.log(cgroups);
                 if (cgroups.length) {
                     layui.each(cgroups, function (g) {
                         cdata.push(cprapare[cgroups[g]]);
@@ -259,7 +257,6 @@ layui.define(function (exports) {
             ele: item.ele,
             data: data
         });
-        console.log(menuData);
 
     }
 
