@@ -171,6 +171,7 @@
     <Content Include="Content\loading.gif" />
     <Content Include="Content\macan.jpg" />
     <Content Include="css\search.css" />
+    <Content Include="css\menu.css" />
     <Content Include="demo\chatlog.html" />
     <Content Include="demo\find.html" />
     <Content Include="demo\index.html" />
@@ -276,8 +277,7 @@
     <Content Include="layui3.0\images\face\8.gif" />
     <Content Include="layui3.0\images\face\9.gif" />
     <Content Include="layui3.0\layui.js" />
-    <Content Include="layui3.0\lay\all-mobile.js" />
-    <Content Include="layui3.0\lay\all.js" />
+    <Content Include="layui3.0\lay\dest\layui.all.js" />
     <Content Include="layui3.0\lay\modules\code.js" />
     <Content Include="layui3.0\lay\modules\element.js" />
     <Content Include="layui3.0\lay\modules\flow.js" />
@@ -290,10 +290,6 @@
     <Content Include="layui3.0\lay\modules\laypage.js" />
     <Content Include="layui3.0\lay\modules\laytpl.js" />
     <Content Include="layui3.0\lay\modules\mobile.js" />
-    <Content Include="layui3.0\lay\modules\mobile\layer-mobile.js" />
-    <Content Include="layui3.0\lay\modules\mobile\layim-mobile-open.js" />
-    <Content Include="layui3.0\lay\modules\mobile\layim-mobile.js" />
-    <Content Include="layui3.0\lay\modules\mobile\zepto.js" />
     <Content Include="layui3.0\lay\modules\tree.js" />
     <Content Include="layui3.0\lay\modules\upload.js" />
     <Content Include="layui3.0\lay\modules\util.js" />
@@ -304,6 +300,7 @@
     <None Include="demo\json\getList.json" />
     <Content Include="demo\json\getMembers.json" />
     <Content Include="demo\json\chatlog.json" />
+    <Content Include="Scripts\menu.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Scripts\signalr\autohub.js" />
     <Content Include="Scripts\signalr\autohub.old.js" />
@@ -339,12 +336,12 @@
     <Content Include="Views\Home\Find.cshtml" />
     <Content Include="Views\Home\HandleMessage.cshtml" />
     <Content Include="Views\Home\CreateGroup.cshtml" />
+    <Content Include="Views\Home\IndexV3.cshtml" />
+    <Content Include="Views\Home\MsgBox.cshtml" />
     <Content Include="layui3.0\css\modules\layim\html\getmsg.json" />
     <Content Include="layui3.0\font\iconfont.eot" />
     <Content Include="layui3.0\font\iconfont.ttf" />
     <Content Include="layui3.0\font\iconfont.woff" />
-    <Content Include="Views\Home\IndexV3.cshtml" />
-    <Content Include="Views\Home\MsgBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

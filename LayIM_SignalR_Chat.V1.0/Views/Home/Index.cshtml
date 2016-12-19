@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>ASP.NET SignalR + Layim 聊天室（.NET版）</title>
     <link href="~/layui3.0/css/layui.css" rel="stylesheet" />
+    <link href="~/css/menu.css" rel="stylesheet" />
     <script src="~/layui3.0/layui.js"></script>
     <style>
         html {
@@ -36,7 +37,8 @@
         layui.extend({
             signalr: '/scripts/signalr/signalr',
             autohub: '/scripts/signalr/autohub',//自动生成的
-            hub: '/Scripts/signalr/hub'
+            hub: '/Scripts/signalr/hub',
+            menu:'/scripts/menu'
         });
         //如果前边几个都不引用的话，IE浏览器就没法接受消息，只能发消息，都引用上才可以
         layui.use(['jquery', 'signalr', 'autohub', 'hub'], function (j, s, a, hub) {
@@ -138,7 +140,9 @@
                 UserOnOffLineToClient: 7
             };
         });
-        layui.use('layim', function (l) {
+
+        layui.use(['layim', 'menu'], function (l, m) {
+            var menu = m;
             var layim = l;
             var $ = layui.jquery;
             var autoReplay = ['您好，我现在有事不在，一会再和您联系。', '你没发错吧？face[微笑] ', '洗澡中，请勿打扰，偷窥请购票，个体四十，团体八折，订票电话：一般人我不告诉他！face[哈哈] ', '你好，我是主人的美女秘书，有什么事就跟我说吧，等他回来我会转告他的。face[心] face[心] face[心] ', 'face[威武] face[威武] face[威武] face[威武] ', '<（￣︶￣）>', '你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。', 'face[黑线]  你慢慢说，别急……', '(*^__^*) face[嘻嘻] ，是贤心吗？'];
@@ -184,7 +188,7 @@
                 //,brief: true //是否简约模式（若开启则不显示主面板）
 
                 //,title: 'WebIM' //自定义主面板最小化时的标题
-                //,right: '100px' //主面板相对浏览器右侧距离
+                ,right: '100px' //主面板相对浏览器右侧距离
                 //,minRight: '90px' //聊天面板最小化时相对浏览器右侧距离
               , initSkin: '3.jpg' //1-5 设置初始背景
                 //,skin: ['aaa.jpg'] //新增皮肤
@@ -218,7 +222,55 @@
                 global.content = layim.content;
                 //获取我的申请
                 other.getMyApply();
+
+                //初始化菜单
+                menu.init({
+                    menu: [
+                        {
+                            id:1,
+                            ele: 'li[data-type="friend"]',
+                            items: [
+                                { text: '即时聊天', name: 'chat', icon: '&#xe611;', group: 'g1' },
+                                { text: '历史记录', name: 'history', icon: '&#xe606;', group: 'g1' },
+                                { text: '删除好友', name: 'delete', icon: '&#x1007;', group: 'g3' },
+                                {
+                                    text: '移动至', group: 'g2', child: [
+                                        { text: '我的好友', name: 'myfriend', icon: '&#xe613;' },
+                                        { text: '大学同学', name: 'collage', icon: '&#xe613;' },
+                                        { text: '公司同事', name: 'worker', icon: '&#xe613;' }
+                                    ]
+                                },
+                            ]
+                        },
+                            {
+                                id:2,
+                                ele: 'li[data-type="group"]',
+                                items: [
+                                    { text: '即时聊天', name: 'chat',  group: 'g1' },
+                                    { text: '历史记录', name: 'history',  group: 'g1' },
+                                    { text: '屏蔽消息', name: 'delete', group: 'g1' },
+                                    { text: '解散群', name: 'delete',  group: 'g1' },
+                                    { text: '转移群', name: 'delete',group: 'g1' },
+                                ]
+                            },
+                              {
+                                  id:3,
+                                  ele: 'h5',
+                                  items: [
+                                      { text: '删除分组', name: 'chat',  group: 'g1' },
+                                      { text: '刷新好友', name: 'history',  group: 'g1' },
+                                      { text: '修改名称', name: 'delete',  group: 'g1' }
+                                  ]
+                              }
+                    ]
+                });
             });
+
+            //监听事件
+            menu.on('menuclick', function (othis, name) {
+                console.log(othis);
+                console.log(name);
+            })
             //监听查看群员
             layim.on('members', function (data) {
                 console.log(data);
@@ -320,6 +372,7 @@
                 }
             };
             global.other = other;
+       
             //判断是否是群成员使用
             window.getUserGroups = other.getUserGroups;
         });
