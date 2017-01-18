@@ -262,10 +262,18 @@
                                       { text: '修改名称', name: 'delete',  group: 'g1' }
                                   ]
                               }
-                    ]
+                    ],
+                    power: {
+                        manager:["delete","quit"]
+                    }
                 });
             });
-
+            //监听菜单出来
+            menu.on('beforeshow', function (othis) {
+                console.log(othis);
+                //增加权限判断逻辑
+                menu.set('manager', true);
+            });
             //监听事件
             menu.on('menuclick', function (othis, name) {
                 console.log(othis);

@@ -85,7 +85,7 @@ namespace LayIM.Model.Message
     /*
         layim.addList({
       type: 'group'
-      ,avatar: "http://tva3.sinaimg.cn/crop.64.106.361.361.50/7181dbb3jw8evfbtem8edj20ci0dpq3a.jpg"
+      ,avatar: ""
       ,groupname: 'Angular开发'
       ,id: "12333333"
       ,members: 0

@@ -17,7 +17,7 @@ html{background-color: #D9D9D9;}
 </div>
 
 <script src="../layui/layui.js"></script>
-<script>
+<!--<script>
 
 if(!/^http(s*):\/\//.test(location.href)){
   alert('请部署到localhost上查看该演示');
@@ -154,7 +154,7 @@ layui.use('layim', function(layim){
     //添加好友（如果检测到该socket）
     layim.addList({
       type: 'group'
-      ,avatar: "http://tva3.sinaimg.cn/crop.64.106.361.361.50/7181dbb3jw8evfbtem8edj20ci0dpq3a.jpg"
+      ,avatar: ""
       ,groupname: 'Angular开发'
       ,id: "12333333"
       ,members: 0
@@ -205,6 +205,24 @@ layui.use('layim', function(layim){
 
 });
 
-</script>
+</script>-->
+
+    <script>
+
+        var arr = [1, 2, 3, 4, 5, 6, 7];
+        var g = 0;
+        for (var i = 0; i < arr.length; i++, g++) {
+            //arr[i] < 4 &&
+            //    (function () {
+            //        console.log("条件成立，打印" + i);
+            //        console.log("继续执行下边的代码");
+            //        g++;
+            //    })();
+
+            arr[i] < 4 && (console.log("条件成立，打印" + i), console.log("继续执行下边的代码"), g++);
+
+        }
+
+    </script>
 </body>
 </html>

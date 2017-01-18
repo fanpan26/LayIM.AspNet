@@ -1,3 +1,4 @@
+
 /*
  * smartMenu.js 智能上下文菜单插件
  * http://www.zhangxinxu.com/
@@ -10,6 +11,7 @@
  * 2011-10-30 v1.3  修复IE6~7下二级菜单移到第二项隐藏的问题
  * 上述注释为原插件作者所写。
  * 2016-12-16 v1.4 for layim 修改成为符合Layui插件格式
+ * IE8或以下浏览器 数组长度问题 [1,2,3,4,] 长度为 5 否则为 4
  * 
  */
  
@@ -116,9 +118,7 @@ layui.define(function (exports) {
             $(this).each(function () {
                 this.oncontextmenu = function (e) {
                     //回调
-                    if ($.isFunction(params.beforeShow)) {
-                        params.beforeShow.call(this);
-                    }
+                    call.beforeshow ? call.beforeshow[0]($(this)) : '';
                     e = e || window.event;
                     //阻止冒泡
                     e.cancelBubble = true;
@@ -165,7 +165,11 @@ layui.define(function (exports) {
         });
     })($);
 
-    var items = { menu: [] };
+    var items = {
+        menu: [], beforeShow: function () {
+
+        }
+    };
 
     var menuData = [];
     var call = {};
@@ -180,7 +184,7 @@ layui.define(function (exports) {
         config(options);
         layui.each(menuData, function (i) {
             $(menuData[i].ele).smartMenu(menuData[i].data, {
-                name:menuData[i].id
+                name: menuData[i].id, beforeShow: items.beforeShow
             });
         });
     }
