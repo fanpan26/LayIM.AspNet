@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace LayIM.Container
 {
     /// <summary>
-    /// 服务提供类的实现，类似服务工厂
+    /// 服务提供类的实现,类似服务工厂
     /// </summary>
     public class ServiceProvider : IServiceContainer
     {
