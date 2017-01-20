@@ -47,7 +47,7 @@
             key: 'x4vkb1qpx41zk',//融云key
             token: {
                 url: '/token',
-                //uselocal:true,//保存到本地,默认为true，（官方为了安全，不建议保存到本地，可以在服务器做token缓存）
+                uselocal:true,//保存到本地,默认为true，（官方为了安全，不建议保存到本地，可以在服务器做token缓存）
             },//这里配置自己的token服务域名
             layim: layim,
             //log:false,//打印内部操作日志，false，不打印，默认为true
@@ -58,8 +58,10 @@
 
             //初始化接口
             init: {
-                url: '/Scripts/demo/json/getList.json'
-              , data: {}
+                url: '/base'
+              , data: {
+                  userid: '@uid'
+              }
             }
 
             //查看群员接口

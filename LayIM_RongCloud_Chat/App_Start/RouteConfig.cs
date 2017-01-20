@@ -19,6 +19,12 @@ namespace LayIM_RongCloud_Chat
                url: "token",
                defaults: new { controller = "IM", action = "getToken" }
            );
+            //获取用户基础书
+            routes.MapRoute(
+               name: "base",
+               url: "base",
+               defaults: new { controller = "Data", action = "GetUserBaseList" }
+           );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

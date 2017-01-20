@@ -159,6 +159,7 @@
     <Compile Include="App_Start\GlobalContainerConfig.cs" />
     <Compile Include="App_Start\LoggerConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IMController.cs" />
     <Compile Include="Global.asax.cs">
@@ -431,6 +432,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
+    <Folder Include="Views\Data\" />
     <Folder Include="Views\IM\" />
   </ItemGroup>
   <ItemGroup>
@@ -448,6 +450,10 @@
     <ProjectReference Include="..\LayIM.Logger\LayIM.Logger.csproj">
       <Project>{8DD78DA8-6D85-4840-ABBD-F5DE1067E53B}</Project>
       <Name>LayIM.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LayIM.LogicLayer\LayIM.LogicLayer.csproj">
+      <Project>{f5ceb50b-f4bc-46e6-bf44-e0bd67dcf19d}</Project>
+      <Name>LayIM.LogicLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\LayIM.Model\LayIM.Model.csproj">
       <Project>{0aae7a54-1f23-49aa-a3ba-b03d1e399346}</Project>

@@ -1,5 +1,6 @@
 ﻿using LayIM.Container;
 using LayIM.Logger;
+using LayIM.LogicLayer;
 using LayIM.Queue.Config;
 using LayIM.Queue.Service;
 using System;
@@ -22,6 +23,8 @@ namespace LayIM_RongCloud_Chat.App_Start
                 .Register<IQueueConfig, LayIMQueueConfig>()
                 //队列服务
                 .Register<ILayIMQueue, LayIMQueue>();
+            //注册数据层服务
+            LogicLayerService.RegisterDataService();
         }
     }
 }
