@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EABA5FCB-3EA4-4893-B3D4-FC709C53A768}</ProjectGuid>
+    <ProjectGuid>{868DE914-EEA2-4B14-B2CD-216E1A890EF0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LayIM.Cache</RootNamespace>
-    <AssemblyName>LayIM.Cache</AssemblyName>
+    <RootNamespace>LayIM.Utils</RootNamespace>
+    <AssemblyName>LayIM.Utils</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,23 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="StackExchange.Redis, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\StackExchange.Redis.1.1.603\lib\net45\StackExchange.Redis.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="StackExchange.Redis.Extensions.Core, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\StackExchange.Redis.Extensions.Core.1.4.0\lib\net45\StackExchange.Redis.Extensions.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="StackExchange.Redis.Extensions.Newtonsoft, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\StackExchange.Redis.Extensions.Newtonsoft.1.4.0\lib\net45\StackExchange.Redis.Extensions.Newtonsoft.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -58,21 +45,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RedisUtil\RedisHash.cs" />
-    <Compile Include="LayIMCache.cs" />
+    <Compile Include="Config\AppSettings.cs" />
+    <Compile Include="Consts\LayIMConst.cs" />
+    <Compile Include="Cookie\CookieHelper.cs" />
+    <Compile Include="Extension\DateTimeExtension.cs" />
+    <Compile Include="Extension\ObjectExtension.cs" />
+    <Compile Include="FileUpload\FileUploadHelper.cs" />
+    <Compile Include="JsonResult\JsonResultHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Random\RandomHelper.cs" />
+    <Compile Include="Serialize\JsonHelper.cs" />
+    <Compile Include="Single\SingleHelper.cs" />
+    <Compile Include="Validate\ValidateHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LayIM.Model\LayIM.Model.csproj">
-      <Project>{0aae7a54-1f23-49aa-a3ba-b03d1e399346}</Project>
+      <Project>{0AAE7A54-1F23-49AA-A3BA-B03D1E399346}</Project>
       <Name>LayIM.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LayIM.Utils\LayIM.Utils.csproj">
-      <Project>{868de914-eea2-4b14-b2cd-216e1a890ef0}</Project>
-      <Name>LayIM.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

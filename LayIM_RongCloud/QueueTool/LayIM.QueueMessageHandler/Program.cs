@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 using LayIM.Container;
 using LayIM.Queue.Service;
-using LayIM.Model.Message;
 using LayIM.Queue.Config;
 using LayIM.Logger;
 

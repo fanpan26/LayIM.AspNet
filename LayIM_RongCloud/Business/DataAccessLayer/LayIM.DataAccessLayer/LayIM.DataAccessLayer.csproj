@@ -62,8 +62,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\LayIM.Model\LayIM.Model.csproj">
-      <Project>{0aae7a54-1f23-49aa-a3ba-b03d1e399346}</Project>
+    <ProjectReference Include="..\..\..\..\LayIM_SignalR\LayIM.Model\LayIM.Model.csproj">
+      <Project>{0AAE7A54-1F23-49AA-A3BA-B03D1E399346}</Project>
       <Name>LayIM.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\CommonService\LayIM.Container\LayIM.Container.csproj">

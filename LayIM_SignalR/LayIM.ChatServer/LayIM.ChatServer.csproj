@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{868DE914-EEA2-4B14-B2CD-216E1A890EF0}</ProjectGuid>
+    <ProjectGuid>{143F891D-38FA-4B66-B156-824B380A788F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LayIM.Utils</RootNamespace>
-    <AssemblyName>LayIM.Utils</AssemblyName>
+    <RootNamespace>LayIM.ChatServer</RootNamespace>
+    <AssemblyName>LayIM.ChatServer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,11 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.1.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.1.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -45,27 +47,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\AppSettings.cs" />
-    <Compile Include="Consts\LayIMConst.cs" />
-    <Compile Include="Cookie\CookieHelper.cs" />
-    <Compile Include="Extension\DateTimeExtension.cs" />
-    <Compile Include="Extension\ObjectExtension.cs" />
-    <Compile Include="FileUpload\FileUploadHelper.cs" />
-    <Compile Include="JsonResult\JsonResultHelper.cs" />
+    <Compile Include="Core\ChatGroup.cs" />
+    <Compile Include="Core\GroupHelper.cs" />
+    <Compile Include="Core\IGroup.cs" />
+    <Compile Include="Core\OnlineCache.cs" />
+    <Compile Include="HubServer\HubServerHelper.cs" />
+    <Compile Include="Hubs\LayIMHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Random\RandomHelper.cs" />
-    <Compile Include="Serialize\JsonHelper.cs" />
-    <Compile Include="Single\SingleHelper.cs" />
-    <Compile Include="Validate\ValidateHelper.cs" />
+    <Compile Include="UserProvider\LayIMUserFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\LayIM.BLL\LayIM.BLL.csproj">
+      <Project>{3AA5BDFB-81BE-4405-90E8-40A9991EADCA}</Project>
+      <Name>LayIM.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LayIM.Cache\LayIM.Cache.csproj">
+      <Project>{EABA5FCB-3EA4-4893-B3D4-FC709C53A768}</Project>
+      <Name>LayIM.Cache</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LayIM.Model\LayIM.Model.csproj">
       <Project>{0aae7a54-1f23-49aa-a3ba-b03d1e399346}</Project>
       <Name>LayIM.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LayIM.Utils\LayIM.Utils.csproj">
+      <Project>{868de914-eea2-4b14-b2cd-216e1a890ef0}</Project>
+      <Name>LayIM.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

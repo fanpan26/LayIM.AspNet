@@ -238,15 +238,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LayIM.BLL\LayIM.BLL.csproj">
-      <Project>{3aa5bdfb-81be-4405-90e8-40a9991eadca}</Project>
+      <Project>{3AA5BDFB-81BE-4405-90E8-40A9991EADCA}</Project>
       <Name>LayIM.BLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\LayIM.Cache\LayIM.Cache.csproj">
-      <Project>{eaba5fcb-3ea4-4893-b3d4-fc709c53a768}</Project>
+      <Project>{EABA5FCB-3EA4-4893-B3D4-FC709C53A768}</Project>
       <Name>LayIM.Cache</Name>
     </ProjectReference>
     <ProjectReference Include="..\LayIM.ChatServer\LayIM.ChatServer.csproj">
-      <Project>{143f891d-38fa-4b66-b156-824b380a788f}</Project>
+      <Project>{143F891D-38FA-4B66-B156-824B380A788F}</Project>
       <Name>LayIM.ChatServer</Name>
     </ProjectReference>
     <ProjectReference Include="..\LayIM.Model\LayIM.Model.csproj">
@@ -254,7 +254,7 @@
       <Name>LayIM.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\LayIM.Utils\LayIM.Utils.csproj">
-      <Project>{868de914-eea2-4b14-b2cd-216e1a890ef0}</Project>
+      <Project>{868DE914-EEA2-4B14-B2CD-216E1A890EF0}</Project>
       <Name>LayIM.Utils</Name>
     </ProjectReference>
   </ItemGroup>
