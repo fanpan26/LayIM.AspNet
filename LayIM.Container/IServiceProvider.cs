@@ -14,7 +14,7 @@ namespace LayIM.Container
         /// <summary>
         /// 获取某个类型的服务实例
         /// </summary>
-        /// <typeparam name="TService"> TService 接口 </typeparam>
+        /// <typeparam name="TService"> TService接口 </typeparam>
         /// <returns>返回TService类型实例</returns>
         TService Resolve<TService>() where TService : class;
     }

@@ -16,7 +16,7 @@ namespace LayIM.Container
         /// </summary>
         /// <typeparam name="TService">工厂类</typeparam>
         /// <param name="serviceCreator">创建一个新的接口实例</param>
-        /// <returns>返回当前注册工厂,以便调用其他的register方法</returns>
+        /// <returns>返回当前注册工厂,以便调用其他的Register方法</returns>
         IServiceRegister Register<TService>(Func<IServiceProvider, TService> serviceCreator) where TService : class;
 
         /// <summary>

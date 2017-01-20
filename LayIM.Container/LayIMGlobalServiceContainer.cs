@@ -24,15 +24,5 @@ namespace LayIM.Container
                 return _container;
             }
         }
-
-        /// <summary>
-        /// 获取服务对象
-        /// </summary>
-        /// <typeparam name="IService"></typeparam>
-        /// <returns></returns>
-        //public IService GetService<IService>() where IService : class
-        //{
-        //    return Resolve<IService>();
-        //}
     }
 }
