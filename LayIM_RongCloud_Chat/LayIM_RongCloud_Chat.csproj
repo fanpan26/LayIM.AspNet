@@ -190,6 +190,7 @@
     <Content Include="Scripts\layui\css\modules\layer\default\loading-2.gif" />
     <Content Include="Scripts\layui\css\modules\layim\html\chatlog.html" />
     <Content Include="Scripts\layui\css\modules\layim\html\find.html" />
+    <Content Include="Scripts\layui\css\modules\layim\html\getmsg.json" />
     <Content Include="Scripts\layui\css\modules\layim\html\msgbox.html" />
     <Content Include="Scripts\layui\css\modules\layim\layim.css" />
     <Content Include="Scripts\layui\css\modules\layim\mobile\layim.css" />
@@ -200,7 +201,10 @@
     <Content Include="Scripts\layui\css\modules\layim\skin\5.jpg" />
     <Content Include="Scripts\layui\css\modules\layim\skin\logo.jpg" />
     <Content Include="Scripts\layui\css\modules\layim\voice\default.wav" />
+    <Content Include="Scripts\layui\font\iconfont.eot" />
     <Content Include="Scripts\layui\font\iconfont.svg" />
+    <Content Include="Scripts\layui\font\iconfont.ttf" />
+    <Content Include="Scripts\layui\font\iconfont.woff" />
     <Content Include="Scripts\layui\images\face\0.gif" />
     <Content Include="Scripts\layui\images\face\1.gif" />
     <Content Include="Scripts\layui\images\face\10.gif" />
@@ -303,6 +307,7 @@
     <Content Include="Scripts\source\layui\css\modules\layer\default\loading-2.gif" />
     <Content Include="Scripts\source\layui\css\modules\layim\html\chatlog.html" />
     <Content Include="Scripts\source\layui\css\modules\layim\html\find.html" />
+    <Content Include="Scripts\source\layui\css\modules\layim\html\getmsg.json" />
     <Content Include="Scripts\source\layui\css\modules\layim\html\msgbox.html" />
     <Content Include="Scripts\source\layui\css\modules\layim\layim.css" />
     <Content Include="Scripts\source\layui\css\modules\layim\mobile\layim.css" />
@@ -313,7 +318,10 @@
     <Content Include="Scripts\source\layui\css\modules\layim\skin\5.jpg" />
     <Content Include="Scripts\source\layui\css\modules\layim\skin\logo.jpg" />
     <Content Include="Scripts\source\layui\css\modules\layim\voice\default.wav" />
+    <Content Include="Scripts\source\layui\font\iconfont.eot" />
     <Content Include="Scripts\source\layui\font\iconfont.svg" />
+    <Content Include="Scripts\source\layui\font\iconfont.ttf" />
+    <Content Include="Scripts\source\layui\font\iconfont.woff" />
     <Content Include="Scripts\source\layui\images\face\0.gif" />
     <Content Include="Scripts\source\layui\images\face\1.gif" />
     <Content Include="Scripts\source\layui\images\face\10.gif" />
@@ -453,16 +461,6 @@
       <Project>{9cbc19c3-e7b5-437a-b6ef-7a5b7f5fefc9}</Project>
       <Name>LayIM.RMLib</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\layui\css\modules\layim\html\getmsg.json" />
-    <Content Include="Scripts\layui\font\iconfont.eot" />
-    <Content Include="Scripts\layui\font\iconfont.ttf" />
-    <Content Include="Scripts\layui\font\iconfont.woff" />
-    <Content Include="Scripts\source\layui\css\modules\layim\html\getmsg.json" />
-    <Content Include="Scripts\source\layui\font\iconfont.eot" />
-    <Content Include="Scripts\source\layui\font\iconfont.ttf" />
-    <Content Include="Scripts\source\layui\font\iconfont.woff" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\log4net.config" />
