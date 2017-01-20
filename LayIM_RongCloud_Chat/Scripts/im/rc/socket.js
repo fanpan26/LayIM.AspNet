@@ -119,6 +119,7 @@
             $.get(conf.token.url, { uid: uid }, function (res) {
                 if (res.token && callback) {
                     if (conf.token.uselocal) {
+                        log('将token保存到本地');
                         token.save(res.token);
                     }
                     callback(res.token);
@@ -211,9 +212,10 @@
             }
             //这里要判断消息类型
             var conversationType = group ? lib.ConversationType.GROUP : lib.ConversationType.PRIVATE; //私聊,其他会话选择相应的消息类型即可。
-            var targetId = to.id;
+            var targetId = to.id.toString();//这里的targetId必须是string类型，否则会报错
             //构造消息体，这里就是我们刚才已经注册过的自定义消息
             log(msg);
+
             var detail = new RongIMClient.RegisterMessage.LAYIM_TEXT_MESSAGE(msg);
             //发送消息
             RongIMClient.getInstance().sendMessage(conversationType, targetId, detail, {
