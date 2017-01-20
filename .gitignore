@@ -259,6 +259,8 @@ paket-files/
 __pycache__/
 *.pyc
 /LayIM_SignalR_Chat.V1.0/source/layui
+/LayIM_RongCloud_Chat/Scripts/layui
+/LayIM_RongCloud_Chat/Scripts/source
 /LayIM_SignalR_Chat.V1.0/upload/f90d2b36-a7af-4559-a668-ff0265001726.jpg
 /LayIM_SignalR_Chat.V1.0/upload/f3061f0c-8bda-4c11-b992-a68d73c57be2.jpg
 /LayIM_SignalR_Chat.V1.0/upload/b3bd8317-5135-4f2b-97e7-c94c192884ba.jpeg

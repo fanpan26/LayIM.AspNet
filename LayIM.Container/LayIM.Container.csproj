@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0AAE7A54-1F23-49AA-A3BA-B03D1E399346}</ProjectGuid>
+    <ProjectGuid>{E16102F7-7099-43F5-B2F4-388E4F7E0C35}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LayIM.Model</RootNamespace>
-    <AssemblyName>LayIM.Model</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>LayIM.Container</RootNamespace>
+    <AssemblyName>LayIM.Container</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -40,14 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseEntity.cs" />
-    <Compile Include="Enum\LayIMEnum.cs" />
-    <Compile Include="Log\LayIMLogModel.cs" />
-    <Compile Include="Message\ApplyMessage.cs" />
-    <Compile Include="Message\ClientToClientMessage.cs" />
-    <Compile Include="Online\OnlineUser.cs" />
+    <Compile Include="IServiceContainer.cs" />
+    <Compile Include="IServiceProvider.cs" />
+    <Compile Include="IServiceRegister.cs" />
+    <Compile Include="LayIMGlobalServiceContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Result\SendMessageResult.cs" />
+    <Compile Include="ServiceProvider.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0AAE7A54-1F23-49AA-A3BA-B03D1E399346}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{C3F9036D-2134-469C-9D7F-BC21C8C6AFC4}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LayIM.Model</RootNamespace>
-    <AssemblyName>LayIM.Model</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>LayIM.QueueMessageHandler</RootNamespace>
+    <AssemblyName>LayIM.QueueMessageHandler</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -40,14 +43,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseEntity.cs" />
-    <Compile Include="Enum\LayIMEnum.cs" />
-    <Compile Include="Log\LayIMLogModel.cs" />
-    <Compile Include="Message\ApplyMessage.cs" />
-    <Compile Include="Message\ClientToClientMessage.cs" />
-    <Compile Include="Online\OnlineUser.cs" />
+    <Compile Include="Log\LogQueueHandler.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Result\SendMessageResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LayIM.Container\LayIM.Container.csproj">
+      <Project>{e16102f7-7099-43f5-b2f4-388e4f7e0c35}</Project>
+      <Name>LayIM.Container</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LayIM.Logger\LayIM.Logger.csproj">
+      <Project>{8DD78DA8-6D85-4840-ABBD-F5DE1067E53B}</Project>
+      <Name>LayIM.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LayIM.Model\LayIM.Model.csproj">
+      <Project>{0aae7a54-1f23-49aa-a3ba-b03d1e399346}</Project>
+      <Name>LayIM.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LayIM.Queue\LayIM.Queue.csproj">
+      <Project>{70594d5c-c85a-4b27-baa8-fde62c8ce7bc}</Project>
+      <Name>LayIM.Queue</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

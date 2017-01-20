@@ -16,11 +16,12 @@ using donet.io.rong.models;
 using donet.io.rong.util;
 using donet.io.rong.methods;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 
 namespace donet.io.rong {
     public class RongCloud {
     
-    	private static Dictionary<String, RongCloud> rongCloud = new Dictionary<String, RongCloud>();
+    	private static ConcurrentDictionary<String, RongCloud> rongCloud = new ConcurrentDictionary<String, RongCloud>();
 		public static String RONGCLOUDURI = "http://api.cn.ronghub.com";
         public static String RONGCLOUDSMSURI = "http://api.sms.ronghub.com";
 		//确保线程同步
@@ -48,7 +49,7 @@ namespace donet.io.rong {
 		public static RongCloud getInstance(String appKey, String appSecret) {
 			lock (locker) {
                 if (!rongCloud.ContainsKey(appKey)) {
-                    rongCloud.Add(appKey, new RongCloud(appKey, appSecret));
+                    rongCloud.TryAdd(appKey, new RongCloud(appKey, appSecret));
                 }
             }
             return rongCloud[appKey];

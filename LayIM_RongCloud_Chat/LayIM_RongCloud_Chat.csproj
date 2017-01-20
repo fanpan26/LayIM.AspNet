@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
-  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -45,8 +44,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -157,6 +156,8 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\GlobalContainerConfig.cs" />
+    <Compile Include="App_Start\LoggerConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IMController.cs" />
@@ -175,7 +176,7 @@
     <Content Include="Scripts\im\rc\protobuf.js" />
     <Content Include="Scripts\im\rc\rmlib.js" />
     <Content Include="Scripts\im\rc\socket.js" />
-    <Content Include="Scripts\im\sr\socket.js" />
+    <Content Include="Scripts\im\sr\exper.js" />
     <Content Include="Scripts\layui\css\layui.css" />
     <Content Include="Scripts\layui\css\layui.mobile.css" />
     <Content Include="Scripts\layui\css\modules\code.css" />
@@ -421,7 +422,6 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Content\" />
     <Folder Include="Views\IM\" />
   </ItemGroup>
@@ -431,6 +431,30 @@
   <ItemGroup>
     <Content Include="Scripts\demo\json\getList.json" />
     <Content Include="Scripts\demo\json\getMembers.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LayIM.Container\LayIM.Container.csproj">
+      <Project>{e16102f7-7099-43f5-b2f4-388e4f7e0c35}</Project>
+      <Name>LayIM.Container</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LayIM.Logger\LayIM.Logger.csproj">
+      <Project>{8DD78DA8-6D85-4840-ABBD-F5DE1067E53B}</Project>
+      <Name>LayIM.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LayIM.Model\LayIM.Model.csproj">
+      <Project>{0aae7a54-1f23-49aa-a3ba-b03d1e399346}</Project>
+      <Name>LayIM.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LayIM.Queue\LayIM.Queue.csproj">
+      <Project>{70594d5c-c85a-4b27-baa8-fde62c8ce7bc}</Project>
+      <Name>LayIM.Queue</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LayIM.RMLib\LayIM.RMLib.csproj">
+      <Project>{9cbc19c3-e7b5-437a-b6ef-7a5b7f5fefc9}</Project>
+      <Name>LayIM.RMLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Scripts\layui\css\modules\layim\html\getmsg.json" />
     <Content Include="Scripts\layui\font\iconfont.eot" />
     <Content Include="Scripts\layui\font\iconfont.ttf" />
@@ -441,10 +465,7 @@
     <Content Include="Scripts\source\layui\font\iconfont.woff" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LayIM.RMLib\LayIM.RMLib.csproj">
-      <Project>{9cbc19c3-e7b5-437a-b6ef-7a5b7f5fefc9}</Project>
-      <Name>LayIM.RMLib</Name>
-    </ProjectReference>
+    <Content Include="App_Data\log4net.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -480,6 +501,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
