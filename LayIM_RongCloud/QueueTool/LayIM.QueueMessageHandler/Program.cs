@@ -20,7 +20,8 @@ namespace LayIM.QueueMessageHandler
             LayIMLogger.RegisterLogger(logConfigPath);
 
             Console.WriteLine("正在注册服务信息...");
-            LayIMGlobalServiceContainer.GlobalContainer.Register<ILayIMQueue, LayIMQueue>().Register<IQueueConfig, LayIMQueueConfig>();
+            LayIMGlobalServiceContainer.GlobalContainer.Register<ILayIMQueue, LayIMQueue>()
+                                                       .Register<IQueueConfig, LayIMQueueConfig>();
 
             Console.WriteLine("正在注册日志监听服务...");
             Log.LogQueueHandler.RegisterLogListener();

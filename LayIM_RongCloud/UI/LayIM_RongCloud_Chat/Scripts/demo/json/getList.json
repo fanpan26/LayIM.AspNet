@@ -26,25 +26,6 @@
                         "id": "108101",
                         "avatar": "/images/default.jpg",
                         "sign": "微电商达人"
-                    },
-                    {
-                        "username": "Lemon_CC",
-                        "id": "102101",
-                        "avatar": "/images/default.jpg",
-                        "sign": ""
-                    },
-                    {
-                        "username": "马小云",
-                        "id": "168168",
-                        "avatar": "/images/default.jpg",
-                        "sign": "让天下没有难写的代码",
-                        "status": "offline"
-                    },
-                    {
-                        "username": "徐小峥",
-                        "id": "666666",
-                        "avatar": "/images/default.jpg",
-                        "sign": "代码在囧途，也要写到底"
                     }
                 ]
             },
@@ -64,43 +45,6 @@
                         "id": "100001222",
                         "sign": "我是日本女艺人长泽あずさ",
                         "avatar": "/images/default.jpg"
-                    },
-                    {
-                        "username": "大鱼_MsYuyu",
-                        "id": "12123454",
-                        "avatar": "/images/default.jpg",
-                        "sign": "我瘋了！這也太準了吧  超級笑點低"
-                    },
-                    {
-                        "username": "谢楠",
-                        "id": "10034001",
-                        "avatar": "/images/default.jpg",
-                        "sign": ""
-                    },
-                    {
-                        "username": "柏雪近在它香",
-                        "id": "3435343",
-                        "avatar": "/images/default.jpg",
-                        "sign": ""
-                    }
-                ]
-            },
-            {
-                "groupname": "我心中的女神",
-                "id": 3,
-                "online": 1,
-                "list": [
-                    {
-                        "username": "林心如",
-                        "id": "76543",
-                        "avatar": "/images/default.jpg",
-                        "sign": "我爱贤心"
-                    },
-                    {
-                        "username": "佟丽娅",
-                        "id": "4803920",
-                        "avatar": "/images/default.jpg",
-                        "sign": "我也爱贤心吖吖啊"
                     }
                 ]
             }

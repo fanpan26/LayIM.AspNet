@@ -45,6 +45,7 @@
     <Compile Include="Log\LayIMLogModel.cs" />
     <Compile Include="Message\ApplyMessage.cs" />
     <Compile Include="Message\ClientToClientMessage.cs" />
+    <Compile Include="Message\DB\ChatMessage.cs" />
     <Compile Include="Online\OnlineUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result\SendMessageResult.cs" />

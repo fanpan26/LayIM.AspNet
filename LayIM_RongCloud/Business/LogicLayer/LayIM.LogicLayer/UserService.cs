@@ -11,7 +11,7 @@ namespace LayIM.LogicLayer
 {
     public class UserService
     {
-        private IUser _user = LayIMDataAccessLayerContainer.GlobalContainer.Resolve<IUser>();
+        private IUser _user => LayIMDataAccessLayerContainer.GlobalContainer.Resolve<IUser>();
 
 
         /// <summary>

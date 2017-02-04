@@ -17,8 +17,9 @@ namespace LayIM.DataAccessLayer
         /// </summary>
         public static void RegisterService()
         {
-            LayIMDataAccessLayerContainer.GlobalContainer.Register<IUser, User>()
-                                                         .Register<IMultipleHandler<BaseListResult>, UserBaseListHandler>();
+            LayIMDataAccessLayerContainer.GlobalContainer.Register<IUser, User>()//注册用户类
+                                                         .Register<IChatMessage,Message>()//注册消息类
+                                                         .Register<IMultipleHandler<BaseListResult>, UserBaseListHandler>();//注册基本数据处理类
                 
         }
     }

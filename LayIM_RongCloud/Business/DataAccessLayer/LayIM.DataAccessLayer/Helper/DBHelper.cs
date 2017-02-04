@@ -136,6 +136,21 @@ namespace LayIM.DataAccessLayer.Helper
                 }
             }
         }
+
+        public static T QueryMultiple<T>(string sql, object param, CommandType commandType = CommandType.Text, Func<SqlMapper.GridReader,T> readerCallBack=null)
+        {
+            using (var connection = getConnection())
+            {
+                using (var multi = connection.QueryMultiple(sql, param, commandType: commandType))
+                {
+                    if (readerCallBack == null)
+                    {
+                        return default(T);
+                    }
+                    return readerCallBack(multi);
+                }
+            }
+        }
         #endregion
     }
 }

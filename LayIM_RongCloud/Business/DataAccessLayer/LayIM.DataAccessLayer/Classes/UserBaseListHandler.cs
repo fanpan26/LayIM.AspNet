@@ -15,7 +15,7 @@ namespace LayIM.DataAccessLayer.Classes
         {
             var result = new BaseListResult();
             //用户本人数据
-            result.mine = reader.ReadFirst<UserEntity>();
+            result.mine = reader.ReadFirstOrDefault<UserEntity>();
             //处理friend逻辑 start
             var friend = reader.Read<FriendGroupEntity>();
             var groupUsers = reader.Read<GroupUserEntity>();

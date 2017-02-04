@@ -24,5 +24,15 @@ namespace LayIM_RongCloud_Chat.Controllers
             var model = service.GetUserBase(userId);
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult AddMsg(int from, int to, string type, string message)
+        {
+            MessageService service = new MessageService();
+            service.AddMessage(new LayIM.Model.Message.DB.ChatMessage
+            {
+                 
+            });
+            return null;
+        }
     }
 }

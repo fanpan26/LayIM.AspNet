@@ -49,10 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Message.cs" />
     <Compile Include="Classes\User.cs" />
     <Compile Include="Classes\UserBaseListHandler.cs" />
     <Compile Include="DataAccessLayerService.cs" />
     <Compile Include="Helper\DBHelper.cs" />
+    <Compile Include="Interface\IChatMessage.cs" />
     <Compile Include="Interface\IMultipleHandler.cs" />
     <Compile Include="Helper\MapperExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
