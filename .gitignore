@@ -259,6 +259,10 @@ paket-files/
 __pycache__/
 *.pyc
 /LayIM_SignalR_Chat.V1.0/source/layui
+/LayIM_RongCloud/Business
+/LayIM_RongCloud/CommonService
+/LayIM_RongCloud/QueueTool
+/LayIM_RongCloud/UI
 /LayIM_RongCloud/UI/LayIM_RongCloud_Chat/Scripts/layui
 /LayIM_RongCloud/UI/LayIM_RongCloud_Chat/Scripts/source
 /LayIM_SignalR_Chat.V1.0/upload/f90d2b36-a7af-4559-a668-ff0265001726.jpg
