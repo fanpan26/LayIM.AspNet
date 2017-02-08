@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LayIM_SignalR", "LayIM_Sign
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LayIM_RongCloud", "LayIM_RongCloud", "{801C9468-E308-4603-A225-59607F4AC3D2}"
 	ProjectSection(SolutionItems) = preProject
-		Readme.txt = Readme.txt
+		开发日志.txt = 开发日志.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommonService", "CommonService", "{08DF08A3-843B-4954-88CB-8E15CC05726C}"
@@ -55,6 +55,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayIM_SignalR_Chat.V1.0", "LayIM_SignalR\LayIM_SignalR_Chat.V1.0\LayIM_SignalR_Chat.V1.0.csproj", "{5A21C95B-D8CF-47F7-B828-7ED64DA6292D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayIM.Logger", "LayIM_RongCloud\Business\LayIM.Logger\LayIM.Logger.csproj", "{8DD78DA8-6D85-4840-ABBD-F5DE1067E53B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LayIM.Lib", "LayIM_RongCloud\CommonService\LayIM.Lib\LayIM.Lib.csproj", "{420AC43C-40C8-433B-B543-3FE6E7ED9B0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -130,6 +132,10 @@ Global
 		{8DD78DA8-6D85-4840-ABBD-F5DE1067E53B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8DD78DA8-6D85-4840-ABBD-F5DE1067E53B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8DD78DA8-6D85-4840-ABBD-F5DE1067E53B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{420AC43C-40C8-433B-B543-3FE6E7ED9B0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{420AC43C-40C8-433B-B543-3FE6E7ED9B0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{420AC43C-40C8-433B-B543-3FE6E7ED9B0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{420AC43C-40C8-433B-B543-3FE6E7ED9B0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -158,5 +164,6 @@ Global
 		{868DE914-EEA2-4B14-B2CD-216E1A890EF0} = {F8F8DBF0-F26A-494A-8CEB-31E65A5A3320}
 		{5A21C95B-D8CF-47F7-B828-7ED64DA6292D} = {F8F8DBF0-F26A-494A-8CEB-31E65A5A3320}
 		{8DD78DA8-6D85-4840-ABBD-F5DE1067E53B} = {901FE922-61BE-4A16-9009-66B68EBA4AAA}
+		{420AC43C-40C8-433B-B543-3FE6E7ED9B0A} = {08DF08A3-843B-4954-88CB-8E15CC05726C}
 	EndGlobalSection
 EndGlobal
