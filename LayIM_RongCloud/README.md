@@ -13,6 +13,9 @@
                 .Register<IMessageService, MessageQueueService>();
             //注册数据层服务
             LogicLayerService.RegisterDataService();
+            LayIMDataAccessLayerContainer.GlobalContainer.Register<IUser, User>()//注册用户类
+                                                         .Register<IChatMessage,Message>()//注册消息类
+                                                         .Register<IMultipleHandler<BaseListResult>, UserBaseListHandler>();//注册基本数据处理类
 ```
 ### 项目结构
 ![](http://img1.gurucv.com/image/2017/2/8/02c84ea7702d42ae957d67e995de4d57.png) 
