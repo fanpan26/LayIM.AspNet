@@ -1,0 +1,2391 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EasyNetQ</name>
+    </assembly>
+    <members>
+        <member name="T:EasyNetQ.Internals.AsyncSemaphore">
+            <summary>
+                AsyncSemaphore should be used with a lot of care.
+            </summary>
+        </member>
+        <member name="F:EasyNetQ.Internals.TaskHelpers.IsSyncSafe">
+            <summary>
+                We want to prevent callers hijacking the reader thread; this is a bit nasty, but works;
+                see http://stackoverflow.com/a/22588431/23354 for more information; a huge
+                thanks to Eli Arbel for spotting this (even though it is pure evil; it is *my kind of evil*)
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.AdvancedBusEventHandlers">
+            <summary>
+            Represents a handler container for events available in <see cref="T:EasyNetQ.IAdvancedBus"/>.
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.AdvancedBusEventHandlers.Connected">
+            <summary>
+            An event handler for <see cref="E:EasyNetQ.IAdvancedBus.Connected"/>.
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.AdvancedBusEventHandlers.Disconnected">
+            <summary>
+            An event handler for <see cref="E:EasyNetQ.IAdvancedBus.Disconnected"/>.
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.AdvancedBusEventHandlers.Blocked">
+            <summary>
+            An event handler for <see cref="E:EasyNetQ.IAdvancedBus.Blocked"/>.
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.AdvancedBusEventHandlers.Unblocked">
+            <summary>
+            An event handler for <see cref="E:EasyNetQ.IAdvancedBus.Unblocked"/>.
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.AdvancedBusEventHandlers.MessageReturned">
+            <summary>
+            An event handler for <see cref="E:EasyNetQ.IAdvancedBus.MessageReturned"/>.
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.AutoSubscribe.AutoSubscriber">
+            <summary>
+            Lets you scan assemblies for implementations of <see cref="T:EasyNetQ.AutoSubscribe.IConsume`1"/> so that
+            these will get registrered as subscribers in the bus.
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.AutoSubscribe.AutoSubscriber.SubscriptionIdPrefix">
+            <summary>
+            Used when generating the unique SubscriptionId checksum.
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.AutoSubscribe.AutoSubscriber.AutoSubscriberMessageDispatcher">
+            <summary>
+            Responsible for consuming a message with the relevant message consumer.
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.AutoSubscribe.AutoSubscriber.GenerateSubscriptionId">
+            <summary>
+            Responsible for generating SubscriptionIds, when you use
+            <see cref="T:EasyNetQ.AutoSubscribe.IConsume`1"/>, since it does not let you specify
+            specific SubscriptionIds.
+            Message type and SubscriptionId is the key; which if two
+            equal keys exists, you will get round robin consumption of
+            messages.
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.AutoSubscribe.AutoSubscriber.ConfigureSubscriptionConfiguration">
+            <summary>
+            Responsible for setting subscription configuration for all 
+            auto subscribed consumers <see cref="T:EasyNetQ.AutoSubscribe.IConsume`1"/>.
+            the values may be overriden for particular consumer 
+            methods by using an <see cref="T:EasyNetQ.AutoSubscribe.SubscriptionConfigurationAttribute"/>.
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.AutoSubscribe.AutoSubscriber.Subscribe(System.Reflection.Assembly[])">
+            <summary>
+            Registers all consumers in passed assembly. The actual Subscriber instances is
+            created using <seealso cref="P:EasyNetQ.AutoSubscribe.AutoSubscriber.AutoSubscriberMessageDispatcher"/>. The SubscriptionId per consumer
+            method is determined by <seealso cref="P:EasyNetQ.AutoSubscribe.AutoSubscriber.GenerateSubscriptionId"/> or if the method
+            is marked with <see cref="T:EasyNetQ.AutoSubscribe.AutoSubscriberConsumerAttribute"/> with a custom SubscriptionId.
+            </summary>
+            <param name="assemblies">The assemblies to scan for consumers.</param>
+        </member>
+        <member name="M:EasyNetQ.AutoSubscribe.AutoSubscriber.Subscribe(System.Type[])">
+            <summary>
+            Registers all types as consumers. The actual Subscriber instances is
+            created using <seealso cref="P:EasyNetQ.AutoSubscribe.AutoSubscriber.AutoSubscriberMessageDispatcher"/>. The SubscriptionId per consumer
+            method is determined by <seealso cref="P:EasyNetQ.AutoSubscribe.AutoSubscriber.GenerateSubscriptionId"/> or if the method
+            is marked with <see cref="T:EasyNetQ.AutoSubscribe.AutoSubscriberConsumerAttribute"/> with a custom SubscriptionId.
+            </summary>
+            <param name="consumerTypes">the types to register as consumers.</param>
+        </member>
+        <member name="M:EasyNetQ.AutoSubscribe.AutoSubscriber.SubscribeAsync(System.Reflection.Assembly[])">
+            <summary>
+            Registers all async consumers in passed assembly. The actual Subscriber instances is
+            created using <seealso cref="P:EasyNetQ.AutoSubscribe.AutoSubscriber.AutoSubscriberMessageDispatcher"/>. The SubscriptionId per consumer
+            method is determined by <seealso cref="P:EasyNetQ.AutoSubscribe.AutoSubscriber.GenerateSubscriptionId"/> or if the method
+            is marked with <see cref="T:EasyNetQ.AutoSubscribe.AutoSubscriberConsumerAttribute"/> with a custom SubscriptionId.
+            </summary>
+            <param name="assemblies">The assemblies to scan for consumers.</param>
+        </member>
+        <member name="M:EasyNetQ.AutoSubscribe.AutoSubscriber.SubscribeAsync(System.Type[])">
+            <summary>
+            Registers all async consumers in passed assembly. The actual Subscriber instances is
+            created using <seealso cref="P:EasyNetQ.AutoSubscribe.AutoSubscriber.AutoSubscriberMessageDispatcher"/>. The SubscriptionId per consumer
+            method is determined by <seealso cref="P:EasyNetQ.AutoSubscribe.AutoSubscriber.GenerateSubscriptionId"/> or if the method
+            is marked with <see cref="T:EasyNetQ.AutoSubscribe.AutoSubscriberConsumerAttribute"/> with a custom SubscriptionId.
+            </summary>
+            <param name="consumerTypes">the types to register as consumers.</param>
+        </member>
+        <member name="T:EasyNetQ.IBasicGetResult`1">
+            <summary>
+            The result of the AdvancedBus Get method
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:EasyNetQ.IBasicGetResult`1.MessageAvailable">
+            <summary>
+            True if a message is availabe, false if not.
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.IBasicGetResult`1.Message">
+            <summary>
+            The message retreived from the queue. 
+            This property will throw a MessageNotAvailableException if no message
+            was available. You should check the MessageAvailable property before
+            attempting to access it.
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.ComponentRegistration">
+            <summary>
+            Registers the default EasyNetQ components in our internal super-simple IoC container.
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.ConnectionConfiguration.RequestedHeartbeat">
+            <summary>
+            Heartbeat interval seconds. (default is 10)
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.ConnectionConfiguration.Timeout">
+            <summary>
+            Operation timeout seconds. (default is 10)
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.ConnectionString.ConnectionStringGrammar.CreateSetter``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+            Stolen from SO:
+            http://stackoverflow.com/questions/4596453/create-an-actiont-to-set-a-property-when-i-am-provided-with-the-linq-expres
+            </summary>
+            <typeparam name="TContaining"></typeparam>
+            <typeparam name="TProperty"></typeparam>
+            <param name="getter"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EasyNetQ.Consumer.ConsumerDispatcherFactory">
+            <summary>
+            The default ConsumerDispatcherFactory. It creates a single dispatch
+            queue which all consumers share.
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.Consumer.ConsumerFactory.CreateConsumerInstance(EasyNetQ.Topology.IQueue,System.Func{System.Byte[],EasyNetQ.MessageProperties,EasyNetQ.MessageReceivedInfo,System.Threading.Tasks.Task},EasyNetQ.IPersistentConnection,EasyNetQ.Consumer.IConsumerConfiguration)">
+            <summary>
+            Create the correct implementation of IConsumer based on queue properties
+            </summary>
+            <param name="queue"></param>
+            <param name="onMessage"></param>
+            <param name="connection"></param>
+            <param name="configuration"></param>
+            <returns></returns>
+        </member>
+        <member name="T:EasyNetQ.Consumer.DefaultConsumerErrorStrategy">
+            <summary>
+            A strategy for dealing with failed messages. When a message consumer thows, HandleConsumerError is invoked.
+            
+            The general priciple is to put all failed messages in a dedicated error queue so that they can be 
+            examined and retried (or ignored).
+            
+            Each failed message is wrapped in a special system message, 'Error' and routed by a special exchange
+            named after the orignal message's routing key. This is so that ad-hoc queues can be attached for
+            errors on specific message types.
+            
+            Each exchange is bound to the central EasyNetQ error queue.
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.Consumer.IConsumerErrorStrategy.HandleConsumerError(EasyNetQ.Consumer.ConsumerExecutionContext,System.Exception)">
+            <summary>
+            This method is fired when an exception is thrown. Implement a strategy for
+            handling the exception here.
+            </summary>
+            <param name="context">The consumer execution context.</param>
+            <param name="exception">The exception</param>
+            <returns><see cref="T:EasyNetQ.Consumer.AckStrategy"/> for processing the original failed message</returns>
+        </member>
+        <member name="M:EasyNetQ.Consumer.IConsumerErrorStrategy.HandleConsumerCancelled(EasyNetQ.Consumer.ConsumerExecutionContext)">
+            <summary>
+            This method is fired when the task returned from the UserHandler is cancelled. 
+            Implement a strategy for handling the cancellation here.
+            </summary>
+            <param name="context">The consumer execution context.</param>
+            <returns><see cref="T:EasyNetQ.Consumer.AckStrategy"/> for processing the original cancelled message</returns>
+        </member>
+        <member name="M:EasyNetQ.Consumer.IHandlerRegistration.Add``1(System.Func{EasyNetQ.IMessage{``0},EasyNetQ.MessageReceivedInfo,System.Threading.Tasks.Task})">
+            <summary>
+            Add an asynchronous handler
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="handler">The handler</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyNetQ.Consumer.IHandlerRegistration.Add``1(System.Action{EasyNetQ.IMessage{``0},EasyNetQ.MessageReceivedInfo})">
+            <summary>
+            Add a synchronous handler
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="handler">The handler</param>
+            <returns></returns>
+        </member>
+        <member name="P:EasyNetQ.Consumer.IHandlerRegistration.ThrowOnNoMatchingHandler">
+            <summary>
+            Set to true if the handler collection should throw an EasyNetQException when no
+            matching handler is found, or false if it should return a noop handler.
+            Default is true.
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.Consumer.IHandlerCollection.GetHandler``1">
+            <summary>
+            Retrieve a handler from the collection.
+            If a matching handler cannot be found, the handler collection will either throw
+            an EasyNetQException, or return null, depending on the value of the 
+            ThrowOnNoMatchingHandler property.
+            </summary>
+            <typeparam name="T">The type of handler to return</typeparam>
+            <returns>The handler</returns>
+        </member>
+        <member name="M:EasyNetQ.Consumer.IHandlerCollection.GetHandler(System.Type)">
+            <summary>
+            Retrieve a handler from the collection.
+            If a matching handler cannot be found, the handler collection will either throw
+            an EasyNetQException, or return null, depending on the value of the 
+            ThrowOnNoMatchingHandler property.
+            </summary>
+            <param name="messageType">The type of handler to return</param>
+            <returns>The handler</returns>
+        </member>
+        <member name="M:EasyNetQ.Consumer.InternalConsumer.Cancel">
+            <summary>
+            Cancel means that an external signal has requested that this consumer should
+            be cancelled. This is _not_ the same as when an internal consumer stops consuming
+            because it has lost its channel/connection.
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.Consumer.IReceiveRegistration.Add``1(System.Func{``0,System.Threading.Tasks.Task})">
+            <summary>
+            Add an asychronous message handler to this receiver
+            </summary>
+            <typeparam name="T">The type of message to receive</typeparam>
+            <param name="onMessage">The message handler</param>
+            <returns>'this' for fluent configuration</returns>
+        </member>
+        <member name="M:EasyNetQ.Consumer.IReceiveRegistration.Add``1(System.Action{``0})">
+            <summary>
+            Add a message handler to this receiver
+            </summary>
+            <typeparam name="T">The type of message to receive</typeparam>
+            <param name="onMessage">The message handler</param>
+            <returns>'this' for fluent configuration</returns>
+        </member>
+        <member name="T:EasyNetQ.DefaultServiceProvider">
+            <summary>
+            Minimum IoC container inspired by
+            http://ayende.com/blog/2886/building-an-ioc-container-in-15-lines-of-code
+            
+            Note all components are singletons. Only one instance of each will be created.
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.Events.StoppedConsumingEvent">
+            <summary>
+            This event is fired when the logical consumer stops consuming.
+            
+            This is _not_ fired when a connection interruption causes EasyNetQ to re-create
+            a PersistentConsumer.
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.FluentConfiguration.IPublishConfiguration">
+            <summary>
+            Allows publish configuration to be fluently extended without adding overloads to IBus
+            
+            e.g.
+            x => x.WithTopic("*.brighton").WithPriority(2)
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.FluentConfiguration.IPublishConfiguration.WithPriority(System.Byte)">
+            <summary>
+            Sets a priority of the message
+            </summary>
+            <param name="priority">The priority to set</param>
+            <returns>IPublishConfiguration</returns>
+        </member>
+        <member name="M:EasyNetQ.FluentConfiguration.IPublishConfiguration.WithTopic(System.String)">
+            <summary>
+            Sets a topic for the message
+            </summary>
+            <param name="topic">The topic to set</param>
+            <returns>IPublishConfiguration</returns>
+        </member>
+        <member name="M:EasyNetQ.FluentConfiguration.IPublishConfiguration.WithExpires(System.Int32)">
+            <summary>
+            Sets a TTL for the message
+            </summary>
+            <param name="expires">The TTL to set in milliseconds</param>
+            <returns>IPublishConfiguration</returns>
+        </member>
+        <member name="T:EasyNetQ.FluentConfiguration.ISubscriptionConfiguration">
+            <summary>
+            Allows configuration to be fluently extended without adding overloads to IBus
+            
+            e.g.
+            x => x.WithTopic("*.brighton")
+            </summary>
+            <typeparam name="T">The message type to be published</typeparam>
+        </member>
+        <member name="M:EasyNetQ.FluentConfiguration.ISubscriptionConfiguration.WithTopic(System.String)">
+            <summary>
+            Add a topic for the queue binding
+            </summary>
+            <param name="topic">The topic to add</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyNetQ.FluentConfiguration.ISubscriptionConfiguration.WithAutoDelete(System.Boolean)">
+            <summary>
+            Configures the queue's durability
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyNetQ.FluentConfiguration.ISubscriptionConfiguration.WithPriority(System.Int32)">
+            <summary>
+            Configures the consumer's priority
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyNetQ.FluentConfiguration.ISubscriptionConfiguration.WithCancelOnHaFailover(System.Boolean)">
+            <summary>
+            Configures the consumer's x-cancel-on-ha-failover attribute
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyNetQ.FluentConfiguration.ISubscriptionConfiguration.WithPrefetchCount(System.UInt16)">
+            <summary>
+            Configures the consumer's prefetch count
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyNetQ.FluentConfiguration.ISubscriptionConfiguration.WithExpires(System.Int32)">
+            <summary>
+            Expiry time can be set for a given queue by setting the x-expires argument to queue.declare, or by setting the expires policy. 
+            This controls for how long a queue can be unused before it is automatically deleted. 
+            Unused means the queue has no consumers, the queue has not been redeclared, and basic.get has not been invoked for a duration of at least the expiration period. 
+            This can be used, for example, for RPC-style reply queues, where many queues can be created which may never be drained.
+            The server guarantees that the queue will be deleted, if unused for at least the expiration period. 
+            No guarantee is given as to how promptly the queue will be removed after the expiration period has elapsed. 
+            Leases of durable queues restart when the server restarts.
+            </summary>
+            <param name="expires">The value of the x-expires argument or expires policy describes the expiration period in milliseconds and is subject to the same constraints as x-message-ttl and cannot be zero. Thus a value of 1000 means a queue which is unused for 1 second will be deleted.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyNetQ.FluentConfiguration.ISubscriptionConfiguration.AsExclusive">
+            <summary>
+            Configures the consumer's to be exclusive
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyNetQ.FluentConfiguration.ISubscriptionConfiguration.WithMaxPriority(System.Byte)">
+            <summary>
+            Configures the queue's maxPriority
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:EasyNetQ.IAdvancedBus">
+            <summary>
+            IAdvancedBus is a lower level API than IBus which gives you fined grained control
+            of routing topology, but keeping the EasyNetQ serialisation, persistent connection,
+            error handling and subscription thread.
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.Consume``1(EasyNetQ.Topology.IQueue,System.Action{EasyNetQ.IMessage{``0},EasyNetQ.MessageReceivedInfo})">
+            <summary>
+            Consume a stream of messages
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="queue">The queue to take messages from</param>
+            <param name="onMessage">The message handler</param>
+            <returns>A disposable to cancel the consumer</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.Consume``1(EasyNetQ.Topology.IQueue,System.Action{EasyNetQ.IMessage{``0},EasyNetQ.MessageReceivedInfo},System.Action{EasyNetQ.Consumer.IConsumerConfiguration})">
+            <summary>
+            Consume a stream of messages
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="queue">The queue to take messages from</param>
+            <param name="onMessage">The message handler</param>
+            <param name="configure">
+            Fluent configuration e.g. x => x.WithPriority(10)</param>
+            <returns>A disposable to cancel the consumer</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.Consume``1(EasyNetQ.Topology.IQueue,System.Func{EasyNetQ.IMessage{``0},EasyNetQ.MessageReceivedInfo,System.Threading.Tasks.Task})">
+            <summary>
+            Consume a stream of messages asynchronously
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="queue">The queue to take messages from</param>
+            <param name="onMessage">The message handler</param>
+            <returns>A disposable to cancel the consumer</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.Consume``1(EasyNetQ.Topology.IQueue,System.Func{EasyNetQ.IMessage{``0},EasyNetQ.MessageReceivedInfo,System.Threading.Tasks.Task},System.Action{EasyNetQ.Consumer.IConsumerConfiguration})">
+            <summary>
+            Consume a stream of messages asynchronously
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="queue">The queue to take messages from</param>
+            <param name="onMessage">The message handler</param>
+            <param name="configure">
+            Fluent configuration e.g. x => x.WithPriority(10)</param>
+            <returns>A disposable to cancel the consumer</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.Consume(EasyNetQ.Topology.IQueue,System.Action{EasyNetQ.Consumer.IHandlerRegistration})">
+            <summary>
+            Consume a stream of messages. Dispatch them to the given handlers
+            </summary>
+            <param name="queue">The queue to take messages from</param>
+            <param name="addHandlers">A function to add handlers to the consumer</param>
+            <returns>A disposable to cancel the consumer</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.Consume(EasyNetQ.Topology.IQueue,System.Action{EasyNetQ.Consumer.IHandlerRegistration},System.Action{EasyNetQ.Consumer.IConsumerConfiguration})">
+            <summary>
+            Consume a stream of messages. Dispatch them to the given handlers
+            </summary>
+            <param name="queue">The queue to take messages from</param>
+            <param name="addHandlers">A function to add handlers to the consumer</param>
+            <param name="configure">
+            Fluent configuration e.g. x => x.WithPriority(10)</param>
+            <returns>A disposable to cancel the consumer</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.Consume(EasyNetQ.Topology.IQueue,System.Action{System.Byte[],EasyNetQ.MessageProperties,EasyNetQ.MessageReceivedInfo})">
+            <summary>
+            Consume raw bytes from the queue.
+            </summary>
+            <param name="queue">The queue to subscribe to</param>
+            <param name="onMessage">
+            The message handler. Takes the message body, message properties and some information about the 
+            receive context.
+            </param>
+            <returns>A disposable to cancel the consumer</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.Consume(EasyNetQ.Topology.IQueue,System.Action{System.Byte[],EasyNetQ.MessageProperties,EasyNetQ.MessageReceivedInfo},System.Action{EasyNetQ.Consumer.IConsumerConfiguration})">
+            <summary>
+            Consume raw bytes from the queue.
+            </summary>
+            <param name="queue">The queue to subscribe to</param>
+            <param name="onMessage">
+            The message handler. Takes the message body, message properties and some information about the 
+            receive context.
+            </param>
+            <param name="configure">
+            Fluent configuration e.g. x => x.WithPriority(10)</param>
+            <returns>A disposable to cancel the consumer</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.Consume(EasyNetQ.Topology.IQueue,System.Func{System.Byte[],EasyNetQ.MessageProperties,EasyNetQ.MessageReceivedInfo,System.Threading.Tasks.Task})">
+            <summary>
+            Consume raw bytes from the queue.
+            </summary>
+            <param name="queue">The queue to subscribe to</param>
+            <param name="onMessage">
+            The message handler. Takes the message body, message properties and some information about the 
+            receive context. Returns a Task.
+            </param>
+            <returns>A disposable to cancel the consumer</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.Consume(EasyNetQ.Topology.IQueue,System.Func{System.Byte[],EasyNetQ.MessageProperties,EasyNetQ.MessageReceivedInfo,System.Threading.Tasks.Task},System.Action{EasyNetQ.Consumer.IConsumerConfiguration})">
+            <summary>
+            Consume raw bytes from the queue.
+            </summary>
+            <param name="queue">The queue to subscribe to</param>
+            <param name="onMessage">
+            The message handler. Takes the message body, message properties and some information about the 
+            receive context. Returns a Task.
+            </param>
+            <param name="configure">
+            Fluent configuration e.g. x => x.WithPriority(10)</param>
+            <returns>A disposable to cancel the consumer</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.Publish(EasyNetQ.Topology.IExchange,System.String,System.Boolean,EasyNetQ.MessageProperties,System.Byte[])">
+            <summary>
+            Publish a message as a byte array
+            </summary>
+            <param name="exchange">The exchange to publish to</param>
+            <param name="routingKey">
+            The routing key for the message. The routing key is used for routing messages depending on the 
+            exchange configuration.</param>
+            <param name="mandatory">
+            This flag tells the server how to react if the message cannot be routed to a queue. 
+            If this flag is true, the server will return an unroutable message with a Return method. 
+            If this flag is false, the server silently drops the message.
+            </param>
+            <param name="messageProperties">The message properties</param>
+            <param name="body">The message body</param>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.Publish``1(EasyNetQ.Topology.IExchange,System.String,System.Boolean,EasyNetQ.IMessage{``0})">
+            <summary>
+            Publish a message as a .NET type
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="exchange">The exchange to publish to</param>
+            <param name="routingKey">
+            The routing key for the message. The routing key is used for routing messages depending on the 
+            exchange configuration.</param>
+            <param name="mandatory">
+            This flag tells the server how to react if the message cannot be routed to a queue. 
+            If this flag is true, the server will return an unroutable message with a Return method. 
+            If this flag is false, the server silently drops the message.
+            </param>
+            <param name="message">The message to publish</param>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.PublishAsync(EasyNetQ.Topology.IExchange,System.String,System.Boolean,EasyNetQ.IMessage)">
+            <summary>
+            Publish a message as a .NET type when the type is only known at runtime.
+            Use the generic version of this method <see cref="M:EasyNetQ.IAdvancedBus.PublishAsync``1(EasyNetQ.Topology.IExchange,System.String,System.Boolean,EasyNetQ.IMessage{``0})"/> when you know the type of the message at compile time.
+            Task completes after publish has completed. If publisherConfirms=true is set in the connection string,
+            the task completes after an ACK is received. The task will throw on either NACK or timeout.
+            </summary>
+            <param name="exchange">The exchange to publish to</param>
+            <param name="routingKey">
+            The routing key for the message. The routing key is used for routing messages depending on the 
+            exchange configuration.</param>
+            <param name="mandatory">
+            This flag tells the server how to react if the message cannot be routed to a queue. 
+            If this flag is true, the server will return an unroutable message with a Return method. 
+            If this flag is false, the server silently drops the message.
+            </param>
+            <param name="message">The message to publish</param>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.PublishAsync``1(EasyNetQ.Topology.IExchange,System.String,System.Boolean,EasyNetQ.IMessage{``0})">
+            <summary>
+            Publish a message as a .NET type
+            Task completes after publish has completed. If publisherConfirms=true is set in the connection string,
+            the task completes after an ACK is received. The task will throw on either NACK or timeout.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="exchange">The exchange to publish to</param>
+            <param name="routingKey">
+            The routing key for the message. The routing key is used for routing messages depending on the 
+            exchange configuration.</param>
+            <param name="mandatory">
+            This flag tells the server how to react if the message cannot be routed to a queue. 
+            If this flag is true, the server will return an unroutable message with a Return method. 
+            If this flag is false, the server silently drops the message.
+            </param>
+            <param name="message">The message to publish</param>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.PublishAsync(EasyNetQ.Topology.IExchange,System.String,System.Boolean,EasyNetQ.MessageProperties,System.Byte[])">
+            <summary>
+            Publish a message as a byte array.
+            Task completes after publish has completed. If publisherConfirms=true is set in the connection string,
+            the task completes after an ACK is received. The task will throw on either NACK or timeout.
+            </summary>
+            <param name="exchange">The exchange to publish to</param>
+            <param name="routingKey">
+            The routing key for the message. The routing key is used for routing messages depending on the 
+            exchange configuration.</param>
+            <param name="mandatory">
+            This flag tells the server how to react if the message cannot be routed to a queue. 
+            If this flag is true, the server will return an unroutable message with a Return method. 
+            If this flag is false, the server silently drops the message.
+            </param>
+            <param name="messageProperties">The message properties</param>
+            <param name="body">The message body</param>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.QueueDeclare(System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Declare a queue. If the queue already exists this method does nothing
+            </summary>
+            <param name="name">The name of the queue</param>
+            <param name="passive">Throw an exception rather than create the queue if it doesn't exist</param>
+            <param name="durable">Durable queues remain active when a server restarts.</param>
+            <param name="exclusive">Exclusive queues may only be accessed by the current connection, and are deleted when that connection closes.</param>
+            <param name="autoDelete">If set, the queue is deleted when all consumers have finished using it.</param>
+            <param name="perQueueMessageTtl">Determines how long a message published to a queue can live before it is discarded by the server.</param>
+            <param name="expires">Determines how long a queue can remain unused before it is automatically deleted by the server.</param>
+            <param name="maxPriority">Determines the maximum message priority that the queue should support.</param>
+            <param name="deadLetterExchange">Determines an exchange's name can remain unused before it is automatically deleted by the server.</param>
+            <param name="deadLetterRoutingKey">If set, will route message with the routing key specified, if not set, message will be routed with the same routing keys they were originally published with.</param>
+            <param name="maxLength">The maximum number of ready messages that may exist on the queue.  Messages will be dropped or dead-lettered from the front of the queue to make room for new messages once the limit is reached</param>
+            <param name="maxLengthBytes">The maximum size of the queue in bytes.  Messages will be dropped or dead-lettered from the front of the queue to make room for new messages once the limit is reached</param>
+            <returns>
+            The queue
+            </returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.QueueDeclareAsync(System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Declare a queue. If the queue already exists this method does nothing
+            </summary>
+            <param name="name">The name of the queue</param>
+            <param name="passive">Throw an exception rather than create the queue if it doesn't exist</param>
+            <param name="durable">Durable queues remain active when a server restarts.</param>
+            <param name="exclusive">Exclusive queues may only be accessed by the current connection, and are deleted when that connection closes.</param>
+            <param name="autoDelete">If set, the queue is deleted when all consumers have finished using it.</param>
+            <param name="perQueueMessageTtl">Determines how long a message published to a queue can live before it is discarded by the server.</param>
+            <param name="expires">Determines how long a queue can remain unused before it is automatically deleted by the server.</param>
+            <param name="maxPriority">Determines the maximum message priority that the queue should support.</param>
+            <param name="deadLetterExchange">Determines an exchange's name can remain unused before it is automatically deleted by the server.</param>
+            <param name="deadLetterRoutingKey">If set, will route message with the routing key specified, if not set, message will be routed with the same routing keys they were originally published with.</param>
+            <param name="maxLength">The maximum number of ready messages that may exist on the queue.  Messages will be dropped or dead-lettered from the front of the queue to make room for new messages once the limit is reached</param>
+            <param name="maxLengthBytes">The maximum size of the queue in bytes.  Messages will be dropped or dead-lettered from the front of the queue to make room for new messages once the limit is reached</param>
+            <returns>The queue</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.QueueDeclare">
+            <summary>
+            Declare a transient server named queue. Note, this queue will only last for duration of the
+            connection. If there is a connection outage, EasyNetQ will not attempt to recreate
+            consumers.
+            </summary>
+            <returns>The queue</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.QueueDelete(EasyNetQ.Topology.IQueue,System.Boolean,System.Boolean)">
+            <summary>
+            Delete a queue
+            </summary>
+            <param name="queue">The queue to delete</param>
+            <param name="ifUnused">Only delete if unused</param>
+            <param name="ifEmpty">Only delete if empty</param>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.QueuePurge(EasyNetQ.Topology.IQueue)">
+            <summary>
+            Purges a queue
+            </summary>
+            <param name="queue">The queue to purge</param>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.ExchangeDeclare(System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Declare an exchange
+            </summary>
+            <param name="name">The exchange name</param>
+            <param name="type">The type of exchange</param>
+            <param name="passive">Throw an exception rather than create the exchange if it doens't exist</param>
+            <param name="durable">Durable exchanges remain active when a server restarts.</param>
+            <param name="autoDelete">If set, the exchange is deleted when all queues have finished using it.</param>
+            <param name="internal">If set, the exchange may not be used directly by publishers, but only when bound to other exchanges.</param>
+            <param name="alternateExchange">Route messages to this exchange if they cannot be routed.</param>
+            <param name="delayed">If set, declars x-delayed-type exchange for routing delayed messages.</param>
+            <returns>The exchange</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.ExchangeDeclareAsync(System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Declare an exchange
+            </summary>
+            <param name="name">The exchange name</param>
+            <param name="type">The type of exchange</param>
+            <param name="passive">Throw an exception rather than create the exchange if it doens't exist</param>
+            <param name="durable">Durable exchanges remain active when a server restarts.</param>
+            <param name="autoDelete">If set, the exchange is deleted when all queues have finished using it.</param>
+            <param name="internal">If set, the exchange may not be used directly by publishers, but only when bound to other exchanges.</param>
+            <param name="alternateExchange">Route messages to this exchange if they cannot be routed.</param>
+            <param name="delayed">If set, declars x-delayed-type exchange for routing delayed messages.</param>
+            <returns>The exchange</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.ExchangeDelete(EasyNetQ.Topology.IExchange,System.Boolean)">
+            <summary>
+            Delete an exchange
+            </summary>
+            <param name="exchange">The exchange to delete</param>
+            <param name="ifUnused">If set, the server will only delete the exchange if it has no queue bindings.</param>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.Bind(EasyNetQ.Topology.IExchange,EasyNetQ.Topology.IQueue,System.String)">
+            <summary>
+            Bind an exchange to a queue. Does nothing if the binding already exists.
+            </summary>
+            <param name="exchange">The exchange to bind</param>
+            <param name="queue">The queue to bind</param>
+            <param name="routingKey">The routing key</param>
+            <returns>A binding</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.BindAsync(EasyNetQ.Topology.IExchange,EasyNetQ.Topology.IQueue,System.String)">
+            <summary>
+            Bind an exchange to a queue. Does nothing if the binding already exists.
+            </summary>
+            <param name="exchange">The exchange to bind</param>
+            <param name="queue">The queue to bind</param>
+            <param name="routingKey">The routing key</param>
+            <returns>A binding</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.Bind(EasyNetQ.Topology.IExchange,EasyNetQ.Topology.IExchange,System.String)">
+            <summary>
+            Bind two exchanges. Does nothing if the binding already exists.
+            </summary>
+            <param name="source">The source exchange</param>
+            <param name="destination">The destination exchange</param>
+            <param name="routingKey">The routing key</param>
+            <returns>A binding</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.BindAsync(EasyNetQ.Topology.IExchange,EasyNetQ.Topology.IExchange,System.String)">
+            <summary>
+            Bind two exchanges. Does nothing if the binding already exists.
+            </summary>
+            <param name="source">The source exchange</param>
+            <param name="destination">The destination exchange</param>
+            <param name="routingKey">The routing key</param>
+            <returns>A binding</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.BindingDelete(EasyNetQ.Topology.IBinding)">
+            <summary>
+            Delete a binding
+            </summary>
+            <param name="binding">the binding to delete</param>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.Get``1(EasyNetQ.Topology.IQueue)">
+            <summary>
+            Get a message from the given queue.
+            </summary>
+            <typeparam name="T">The message type to get</typeparam>
+            <param name="queue">The queue from which to retreive the message</param>
+            <returns>An IBasicGetResult.</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.Get(EasyNetQ.Topology.IQueue)">
+            <summary>
+            Get the raw message from the given queue.
+            </summary>
+            <param name="queue">The queue from which to retreive the message</param>
+            <returns>An IBasicGetResult</returns>
+        </member>
+        <member name="M:EasyNetQ.IAdvancedBus.MessageCount(EasyNetQ.Topology.IQueue)">
+            <summary>
+            Counts messages in the given queue
+            </summary>
+            <param name="queue">The queue in which to count messages</param>
+            <returns>The number of counted messages</returns>
+        </member>
+        <member name="P:EasyNetQ.IAdvancedBus.IsConnected">
+            <summary>
+            True if the bus is connected, False if it is not.
+            </summary>
+        </member>
+        <member name="E:EasyNetQ.IAdvancedBus.Connected">
+            <summary>
+            Event fires when the bus has connected to a RabbitMQ broker.
+            </summary>
+        </member>
+        <member name="E:EasyNetQ.IAdvancedBus.Disconnected">
+            <summary>
+            Event fires when the bus has disconnected from a RabbitMQ broker.
+            </summary>
+        </member>
+        <member name="E:EasyNetQ.IAdvancedBus.Blocked">
+            <summary>
+            Event fires when the bus gets blocked due to the broker running low on resources.
+            </summary>
+        </member>
+        <member name="E:EasyNetQ.IAdvancedBus.Unblocked">
+            <summary>
+            Event fires when the bus is unblocked.
+            </summary>
+        </member>
+        <member name="E:EasyNetQ.IAdvancedBus.MessageReturned">
+            <summary>
+            Event fires when a mandatory or immediate message is returned as un-routable
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.IAdvancedBus.Container">
+            <summary>
+            The IoC container that EasyNetQ uses to resolve its services.
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.IAdvancedBus.Conventions">
+            <summary>
+            The conventions used by EasyNetQ to name its routing topology elements.
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.IBus">
+            <summary>
+            Provides a simple Publish/Subscribe and Request/Response API for a message bus.
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.IBus.Publish``1(``0)">
+            <summary>
+            Publishes a message.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="message">The message to publish</param>
+        </member>
+        <member name="M:EasyNetQ.IBus.Publish``1(``0,System.Action{EasyNetQ.FluentConfiguration.IPublishConfiguration})">
+            <summary>
+            Publishes a message.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="message">The message to publish</param>
+            <param name="configure">
+            Fluent configuration e.g. x => x.WithTopic("*.brighton").WithPriority(2)
+            </param>
+        </member>
+        <member name="M:EasyNetQ.IBus.Publish``1(``0,System.String)">
+            <summary>
+            Publishes a message with a topic
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="message">The message to publish</param>
+            <param name="topic">The topic string</param>
+        </member>
+        <member name="M:EasyNetQ.IBus.PublishAsync``1(``0)">
+            <summary>
+            Publishes a message.
+            When used with publisher confirms the task completes when the publish is confirmed.
+            Task will throw an exception if the confirm is NACK'd or times out.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="message">The message to publish</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyNetQ.IBus.PublishAsync``1(``0,System.Action{EasyNetQ.FluentConfiguration.IPublishConfiguration})">
+            <summary>
+            Publishes a message.
+            When used with publisher confirms the task completes when the publish is confirmed.
+            Task will throw an exception if the confirm is NACK'd or times out.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="message">The message to publish</param>
+            <param name="configure">
+            Fluent configuration e.g. x => x.WithTopic("*.brighton").WithPriority(2)
+            </param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyNetQ.IBus.PublishAsync``1(``0,System.String)">
+            <summary>
+            Publishes a message with a topic.
+            When used with publisher confirms the task completes when the publish is confirmed.
+            Task will throw an exception if the confirm is NACK'd or times out.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="message">The message to publish</param>
+            <param name="topic">The topic string</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyNetQ.IBus.Subscribe``1(System.String,System.Action{``0})">
+            <summary>
+            Subscribes to a stream of messages that match a .NET type.
+            </summary>
+            <typeparam name="T">The type to subscribe to</typeparam>
+            <param name="subscriptionId">
+            A unique identifier for the subscription. Two subscriptions with the same subscriptionId
+            and type will get messages delivered in turn. This is useful if you want multiple subscribers
+            to load balance a subscription in a round-robin fashion.
+            </param>
+            <param name="onMessage">
+            The action to run when a message arrives. When onMessage completes the message
+            recipt is Ack'd. All onMessage delegates are processed on a single thread so you should
+            avoid long running blocking IO operations. Consider using SubscribeAsync
+            </param>
+            <returns>
+            An <see cref="T:EasyNetQ.ISubscriptionResult"/>
+            Call Dispose on it or on its <see cref="P:EasyNetQ.ISubscriptionResult.ConsumerCancellation"/> to cancel the subscription.
+            </returns>
+        </member>
+        <member name="M:EasyNetQ.IBus.Subscribe``1(System.String,System.Action{``0},System.Action{EasyNetQ.FluentConfiguration.ISubscriptionConfiguration})">
+            <summary>
+            Subscribes to a stream of messages that match a .NET type.
+            </summary>
+            <typeparam name="T">The type to subscribe to</typeparam>
+            <param name="subscriptionId">
+            A unique identifier for the subscription. Two subscriptions with the same subscriptionId
+            and type will get messages delivered in turn. This is useful if you want multiple subscribers
+            to load balance a subscription in a round-robin fashion.
+            </param>
+            <param name="onMessage">
+            The action to run when a message arrives. When onMessage completes the message
+            recipt is Ack'd. All onMessage delegates are processed on a single thread so you should
+            avoid long running blocking IO operations. Consider using SubscribeAsync
+            </param>
+            <param name="configure">
+            Fluent configuration e.g. x => x.WithTopic("uk.london")
+            </param>
+            <returns>
+            An <see cref="T:EasyNetQ.ISubscriptionResult"/>
+            Call Dispose on it or on its <see cref="P:EasyNetQ.ISubscriptionResult.ConsumerCancellation"/> to cancel the subscription.
+            </returns>
+        </member>
+        <member name="M:EasyNetQ.IBus.SubscribeAsync``1(System.String,System.Func{``0,System.Threading.Tasks.Task})">
+            <summary>
+            Subscribes to a stream of messages that match a .NET type.
+            Allows the subscriber to complete asynchronously.
+            </summary>
+            <typeparam name="T">The type to subscribe to</typeparam>
+            <param name="subscriptionId">
+            A unique identifier for the subscription. Two subscriptions with the same subscriptionId
+            and type will get messages delivered in turn. This is useful if you want multiple subscribers
+            to load balance a subscription in a round-robin fashion.
+            </param>
+            <param name="onMessage">
+            The action to run when a message arrives. onMessage can immediately return a Task and
+            then continue processing asynchronously. When the Task completes the message will be
+            Ack'd.
+            </param>
+            <returns>
+            An <see cref="T:EasyNetQ.ISubscriptionResult"/>
+            Call Dispose on it or on its <see cref="P:EasyNetQ.ISubscriptionResult.ConsumerCancellation"/> to cancel the subscription.
+            </returns>
+        </member>
+        <member name="M:EasyNetQ.IBus.SubscribeAsync``1(System.String,System.Func{``0,System.Threading.Tasks.Task},System.Action{EasyNetQ.FluentConfiguration.ISubscriptionConfiguration})">
+            <summary>
+            Subscribes to a stream of messages that match a .NET type.
+            </summary>
+            <typeparam name="T">The type to subscribe to</typeparam>
+            <param name="subscriptionId">
+            A unique identifier for the subscription. Two subscriptions with the same subscriptionId
+            and type will get messages delivered in turn. This is useful if you want multiple subscribers
+            to load balance a subscription in a round-robin fashion.
+            </param>
+            <param name="onMessage">
+            The action to run when a message arrives. onMessage can immediately return a Task and
+            then continue processing asynchronously. When the Task completes the message will be
+            Ack'd.
+            </param>
+            <param name="configure">
+            Fluent configuration e.g. x => x.WithTopic("uk.london").WithArgument("x-message-ttl", "60")
+            </param>
+            <returns>
+            An <see cref="T:EasyNetQ.ISubscriptionResult"/>
+            Call Dispose on it or on its <see cref="P:EasyNetQ.ISubscriptionResult.ConsumerCancellation"/> to cancel the subscription.
+            </returns>
+        </member>
+        <member name="M:EasyNetQ.IBus.Request``2(``0)">
+            <summary>
+            Makes an RPC style request
+            </summary>
+            <typeparam name="TRequest">The request type.</typeparam>
+            <typeparam name="TResponse">The response type.</typeparam>
+            <param name="request">The request message.</param>
+            <returns>The response</returns>
+        </member>
+        <member name="M:EasyNetQ.IBus.RequestAsync``2(``0)">
+            <summary>
+            Makes an RPC style request.
+            </summary>
+            <typeparam name="TRequest">The request type.</typeparam>
+            <typeparam name="TResponse">The response type.</typeparam>
+            <param name="request">The request message.</param>
+            <returns>A task that completes when the response returns</returns>
+        </member>
+        <member name="M:EasyNetQ.IBus.Respond``2(System.Func{``0,``1})">
+            <summary>
+            Responds to an RPC request.
+            </summary>
+            <typeparam name="TRequest">The request type.</typeparam>
+            <typeparam name="TResponse">The response type.</typeparam>
+            <param name="responder">
+            A function to run when the request is received. It should return the response.
+            </param>
+        </member>
+        <member name="M:EasyNetQ.IBus.Respond``2(System.Func{``0,``1},System.Action{EasyNetQ.Producer.IResponderConfiguration})">
+            <summary>
+            Responds to an RPC request.
+            </summary>
+            <typeparam name="TRequest">The request type.</typeparam>
+            <typeparam name="TResponse">The response type.</typeparam>
+            <param name="responder">
+            A function to run when the request is received. It should return the response.
+            </param>
+            <param name="configure">
+            A function for responder configuration
+            </param>
+        </member>
+        <member name="M:EasyNetQ.IBus.RespondAsync``2(System.Func{``0,System.Threading.Tasks.Task{``1}})">
+            <summary>
+            Responds to an RPC request asynchronously.
+            </summary>
+            <typeparam name="TRequest">The request type.</typeparam>
+            <typeparam name="TResponse">The response type</typeparam>
+            <param name="responder">
+            A function to run when the request is received.
+            </param>
+        </member>
+        <member name="M:EasyNetQ.IBus.RespondAsync``2(System.Func{``0,System.Threading.Tasks.Task{``1}},System.Action{EasyNetQ.Producer.IResponderConfiguration})">
+            <summary>
+            Responds to an RPC request asynchronously.
+            </summary>
+            <typeparam name="TRequest">The request type.</typeparam>
+            <typeparam name="TResponse">The response type</typeparam>
+            <param name="responder">
+            A function to run when the request is received.
+            </param>
+            <param name="configure">
+            A function for responder configuration
+            </param>
+        </member>
+        <member name="M:EasyNetQ.IBus.Send``1(System.String,``0)">
+            <summary>
+            Send a message directly to a queue
+            </summary>
+            <typeparam name="T">The type of message to send</typeparam>
+            <param name="queue">The queue to send to</param>
+            <param name="message">The message</param>
+        </member>
+        <member name="M:EasyNetQ.IBus.SendAsync``1(System.String,``0)">
+            <summary>
+            Send a message directly to a queue
+            </summary>
+            <typeparam name="T">The type of message to send</typeparam>
+            <param name="queue">The queue to send to</param>
+            <param name="message">The message</param>
+        </member>
+        <member name="M:EasyNetQ.IBus.Receive``1(System.String,System.Action{``0})">
+            <summary>
+            Receive messages from a queue.
+            Multiple calls to Receive for the same queue, but with different message types
+            will add multiple message handlers to the same consumer.
+            </summary>
+            <typeparam name="T">The type of message to receive</typeparam>
+            <param name="queue">The queue to receive from</param>
+            <param name="onMessage">The message handler</param>
+        </member>
+        <member name="M:EasyNetQ.IBus.Receive``1(System.String,System.Action{``0},System.Action{EasyNetQ.Consumer.IConsumerConfiguration})">
+            <summary>
+            Receive messages from a queue.
+            Multiple calls to Receive for the same queue, but with different message types
+            will add multiple message handlers to the same consumer.
+            </summary>
+            <typeparam name="T">The type of message to receive</typeparam>
+            <param name="queue">The queue to receive from</param>
+            <param name="onMessage">The message handler</param>
+            <param name="configure">Action to configure consumer with</param>
+        </member>
+        <member name="M:EasyNetQ.IBus.Receive``1(System.String,System.Func{``0,System.Threading.Tasks.Task})">
+            <summary>
+            Receive messages from a queue.
+            Multiple calls to Receive for the same queue, but with different message types
+            will add multiple message handlers to the same consumer.
+            </summary>
+            <typeparam name="T">The type of message to receive</typeparam>
+            <param name="queue">The queue to receive from</param>
+            <param name="onMessage">The asychronous message handler</param>
+        </member>
+        <member name="M:EasyNetQ.IBus.Receive``1(System.String,System.Func{``0,System.Threading.Tasks.Task},System.Action{EasyNetQ.Consumer.IConsumerConfiguration})">
+            <summary>
+            Receive messages from a queue.
+            Multiple calls to Receive for the same queue, but with different message types
+            will add multiple message handlers to the same consumer.
+            </summary>
+            <typeparam name="T">The type of message to receive</typeparam>
+            <param name="queue">The queue to receive from</param>
+            <param name="onMessage">The asychronous message handler</param>
+            <param name="configure">Action to configure consumer with</param>
+        </member>
+        <member name="M:EasyNetQ.IBus.Receive(System.String,System.Action{EasyNetQ.Consumer.IReceiveRegistration})">
+            <summary>
+            Receive a message from the specified queue. Dispatch them to the given handlers
+            </summary>
+            <param name="queue">The queue to take messages from</param>
+            <param name="addHandlers">A function to add handlers</param>
+            <returns>Consumer cancellation. Call Dispose to stop consuming</returns>
+        </member>
+        <member name="M:EasyNetQ.IBus.Receive(System.String,System.Action{EasyNetQ.Consumer.IReceiveRegistration},System.Action{EasyNetQ.Consumer.IConsumerConfiguration})">
+            <summary>
+            Receive a message from the specified queue. Dispatch them to the given handlers
+            </summary>
+            <param name="queue">The queue to take messages from</param>
+            <param name="addHandlers">A function to add handlers</param>
+            <param name="configure">Action to configure consumer with</param>
+            <returns>Consumer cancellation. Call Dispose to stop consuming</returns>
+        </member>
+        <member name="P:EasyNetQ.IBus.IsConnected">
+            <summary>
+            True if the bus is connected, False if it is not.
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.IBus.Advanced">
+            <summary>
+            Return the advanced EasyNetQ advanced API.
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.IClusterHostSelectionStrategy`1">
+            <summary>
+            Provides a strategy for selecting a host from a list of nodes in a cluster
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:EasyNetQ.IClusterHostSelectionStrategy`1.Add(`0)">
+            <summary>
+            Add a cluster node
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:EasyNetQ.IClusterHostSelectionStrategy`1.Current">
+            <summary>
+            Get the currently selected node
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyNetQ.IClusterHostSelectionStrategy`1.Next">
+            <summary>
+            Move to the next node
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyNetQ.IClusterHostSelectionStrategy`1.Success">
+            <summary>
+            Mark the current node as successfully connected
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.IClusterHostSelectionStrategy`1.Succeeded">
+            <summary>
+            Did the current node successfully connect?
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.IClusterHostSelectionStrategy`1.Reset">
+            <summary>
+            The current node has disconnected and we want to run the strategy again
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.IEventBus">
+            <summary>
+            An internal pub-sub bus to distribute events within EasyNetQ
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.IMessage`1.Body">
+            <summary>
+            The message body as a .NET type.
+            This will return the same underlying object than <see cref="M:EasyNetQ.IMessage.GetBody"/> but will be strongly typed.
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.IMessage.Properties">
+            <summary>
+            The message properties.
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.IMessage.GetBody">
+            <summary>
+            The message body return as an object when we only have runtime types and can't use generics.
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.IMessage.MessageType">
+            <summary>
+            The message <see cref="T:System.Type"/>. This is a shortcut to GetBody().GetType().
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.IContainer">
+            <summary>
+            Combines IServiceProvider and IServiceRegister.
+            Represents an implementation of an IoC container. Implement this interface
+            To wrap your favorite IoC container to work with EasyNetQ. Not all service instances
+            should be defined as singletons.
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.IServiceProvider">
+            <summary>
+            Provides service instances
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.IServiceProvider.Resolve``1">
+            <summary>
+            Get an instance of the requested services. Note all services are singletons; multiple calls
+            to Resolve will all return the same instance.
+            </summary>
+            <typeparam name="TService">The type of serivce to return</typeparam>
+            <returns>The single instance of the service</returns>
+        </member>
+        <member name="T:EasyNetQ.IServiceRegister">
+            <summary>
+            Register services
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.IServiceRegister.Register``1(System.Func{EasyNetQ.IServiceProvider,``0})">
+            <summary>
+            Register a service with a factory method. Note that the first registration wins. All subsequent registrations
+            will be ignored.
+            </summary>
+            <typeparam name="TService">The type of the service to be registered</typeparam>
+            <param name="serviceCreator">A function that can create an instance of the service</param>
+            <returns>itself for nice fluent composition</returns>
+        </member>
+        <member name="M:EasyNetQ.IServiceRegister.Register``2">
+            <summary>
+            Register a service. Note that the first registration wins. All subsequent registrations
+            will be ignored.
+            </summary>
+            <typeparam name="TService">The type of the service to be registered</typeparam>
+            <typeparam name="TImplementation">The implementation type</typeparam>
+            <returns>itself for nice fluent composition</returns>
+        </member>
+        <member name="T:EasyNetQ.ISubscriptionResult">
+            <summary>
+            The result of an <see cref="T:EasyNetQ.IBus"/> Subscribe or SubscribeAsync operation.
+            In order to cancel the subscription, call dispose on this object or on ConsumerCancellation.
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.ISubscriptionResult.Exchange">
+            <summary>
+            The <see cref="T:EasyNetQ.Topology.IExchange"/> to which <see cref="P:EasyNetQ.ISubscriptionResult.Queue"/> is bound.
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.ISubscriptionResult.Queue">
+            <summary>
+            The <see cref="T:EasyNetQ.Topology.IQueue"/> that the underlying <see cref="T:EasyNetQ.Consumer.IConsumer"/> is consuming.
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.ISubscriptionResult.ConsumerCancellation">
+            <summary>
+            The <see cref="T:EasyNetQ.Consumer.IConsumer"/> cancellation, which can be disposed to cancel the subscription.
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.Loggers.NullLogger">
+            <summary>
+            noop logger
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.MessageFactory">
+            <summary>
+            Creates a generic <see cref="T:EasyNetQ.IMessage`1"/> and returns it casted as <see cref="T:EasyNetQ.IMessage"/>
+            so it can be used in scenarios where we only have a runtime <see cref="T:System.Type"/> available. 
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.MessageProperties.ContentType">
+            <summary>
+            MIME Content type 
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.MessageProperties.ContentEncoding">
+            <summary>
+            MIME content encoding 
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.MessageProperties.Headers">
+            <summary>
+            message header field table 
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.MessageProperties.DeliveryMode">
+            <summary>
+            non-persistent (1) or persistent (2) 
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.MessageProperties.Priority">
+            <summary>
+            message priority, 0 to 9 
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.MessageProperties.CorrelationId">
+            <summary>
+            application correlation identifier 
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.MessageProperties.ReplyTo">
+            <summary>
+            destination to reply to 
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.MessageProperties.Expiration">
+            <summary>
+            message expiration specification 
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.MessageProperties.MessageId">
+            <summary>
+            application message identifier 
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.MessageProperties.Timestamp">
+            <summary>
+            message timestamp 
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.MessageProperties.Type">
+            <summary>
+            message type name 
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.MessageProperties.UserId">
+            <summary>
+            creating user id 
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.MessageProperties.AppId">
+            <summary>
+            creating application id 
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.MessageProperties.ClusterId">
+            <summary>
+            intra-cluster routing identifier 
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.MessageVersioning.ISupersede`1">
+            <summary>
+            Marker interface to indicate that a message supersedes a previous version.
+            </summary>
+            <remarks>
+            Requires that <see cref="T:EasyNetQ.MessageVersioning.VersionedMessageSerializationStrategy"/> and <see cref="T:EasyNetQ.MessageVersioning.VersionedPublishExchangeDeclareStrategy"/> are
+            registered in the <see cref="T:EasyNetQ.IServiceRegister"/> to take advantage of message version support.
+            </remarks>
+            <typeparam name="T">The tpye of the message being superseded.</typeparam>
+            <example>
+            In the following code, MessageV2 extends and supersedes MessageV1. When MessageV2 is published, it will also be routed to
+            any MessageV1 subscribers.
+            <code>
+            <![CDATA[
+            public class MessageV1
+            {
+            	public string SomeProperty { get; set; }
+            }
+            
+            public class MessageV2 : MessageV1, ISupersede<MessageV1>
+            {
+            	public DateTime SomeOtherProperty { get; set; }
+            }
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="T:EasyNetQ.OrderedClusterHostSelectionStrategy`1">
+            <summary>
+            A collection that hands out the next item until success, or until every item has been tried.
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.IPersistentConnection.Initialize">
+            <summary>
+            Initialization method that should be called only once,
+            usually right after the implementation constructor has run.
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.PersistentConnection">
+            <summary>
+            A connection that attempts to reconnect if the inner connection is closed.
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.Preconditions">
+            <summary>
+            Collection of precondition methods for qualifying method arguments.
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.Preconditions.CheckNotNull``1(``0,System.String)">
+            <summary>
+            Ensures that <paramref name="value"/> is not null.
+            </summary>
+            <param name="value">
+            The value to check, must not be null.
+            </param>
+            <param name="name">
+            The name of the parameter the value is taken from, must not be
+            blank.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown if <paramref name="value"/> is null.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="name"/> is blank.
+            </exception>
+        </member>
+        <member name="M:EasyNetQ.Preconditions.CheckNotNull``1(``0,System.String,System.String)">
+            <summary>
+            Ensures that <paramref name="value"/> is not null.
+            </summary>
+            <param name="value">
+            The value to check, must not be null.
+            </param>
+            <param name="name">
+            The name of the parameter the value is taken from, must not be
+            blank.
+            </param>
+            <param name="message">
+            The message to provide to the exception if <paramref name="value"/>
+            is null, must not be blank.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            Thrown if <paramref name="value"/> is null.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="name"/> or <paramref name="message"/> are
+            blank.
+            </exception>
+        </member>
+        <member name="M:EasyNetQ.Preconditions.CheckNotBlank(System.String,System.String,System.String)">
+            <summary>
+            Ensures that <paramref name="value"/> is not blank.
+            </summary>
+            <param name="value">
+            The value to check, must not be blank.
+            </param>
+            <param name="name">
+            The name of the parameter the value is taken from, must not be
+            blank.
+            </param>
+            <param name="message">
+            The message to provide to the exception if <paramref name="value"/>
+            is blank, must not be blank.
+            </param>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="value"/>, <paramref name="name"/>, or
+            <paramref name="message"/> are blank.
+            </exception>
+        </member>
+        <member name="M:EasyNetQ.Preconditions.CheckNotBlank(System.String,System.String)">
+            <summary>
+            Ensures that <paramref name="value"/> is not blank.
+            </summary>
+            <param name="value">
+            The value to check, must not be blank.
+            </param>
+            <param name="name">
+            The name of the parameter the value is taken from, must not be
+            blank.
+            </param>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="value"/> or <paramref name="name"/> are
+            blank.
+            </exception>
+        </member>
+        <member name="M:EasyNetQ.Preconditions.CheckAny``1(System.Collections.Generic.IEnumerable{``0},System.String,System.String)">
+            <summary>
+            Ensures that <paramref name="collection"/> contains at least one
+            item.
+            </summary>
+            <param name="collection">
+            The collection to check, must not be null or empty.
+            </param>
+            <param name="name">
+            The name of the parameter the collection is taken from, must not be
+            blank.
+            </param>
+            <param name="message">
+            The message to provide to the exception if <paramref name="collection"/>
+            is empty, must not be blank.
+            </param>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="collection"/> is empty, or if
+            <paramref name="value"/> or <paramref name="name"/> are blank.
+            </exception>
+        </member>
+        <member name="M:EasyNetQ.Preconditions.CheckTrue(System.Boolean,System.String,System.String)">
+            <summary>
+            Ensures that <paramref name="value"/> is true.
+            </summary>
+            <param name="value">
+            The value to check, must be true.
+            </param>
+            <param name="name">
+            The name of the parameter the value is taken from, must not be
+            blank.
+            </param>
+            <param name="message">
+            The message to provide to the exception if <paramref name="collection"/>
+            is false, must not be blank.
+            </param>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="value"/> is false, or if <paramref name="name"/>
+            or <paramref name="message"/> are blank.
+            </exception>
+        </member>
+        <member name="M:EasyNetQ.Preconditions.CheckFalse(System.Boolean,System.String,System.String)">
+            <summary>
+            Ensures that <paramref name="value"/> is false.
+            </summary>
+            <param name="value">
+            The value to check, must be false.
+            </param>
+            <param name="name">
+            The name of the parameter the value is taken from, must not be
+            blank.
+            </param>
+            <param name="message">
+            The message to provide to the exception if <paramref name="collection"/>
+            is true, must not be blank.
+            </param>
+            <exception cref="T:System.ArgumentException">
+            Thrown if <paramref name="value"/> is true, or if <paramref name="name"/>
+            or <paramref name="message"/> are blank.
+            </exception>
+        </member>
+        <member name="T:EasyNetQ.Producer.ClientCommandDispatcher">
+            <summary>
+            Invokes client commands on a single channel. All commands are marshalled onto
+            a single thread.
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.Producer.IClientCommandDispatcher">
+            <summary>
+            Responsible for invoking client commands.
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.Producer.IRpc">
+            <summary>
+            An RPC style request-response pattern
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.Producer.IRpc.Request``2(``0)">
+            <summary>
+            Make a request to an RPC service
+            </summary>
+            <typeparam name="TRequest">The request type</typeparam>
+            <typeparam name="TResponse">The response type</typeparam>
+            <param name="request">The request message</param>
+            <returns>Returns a task that yields the result when the response arrives</returns>
+        </member>
+        <member name="M:EasyNetQ.Producer.IRpc.Respond``2(System.Func{``0,System.Threading.Tasks.Task{``1}})">
+            <summary>
+            Set up a responder for an RPC service.
+            </summary>
+            <typeparam name="TRequest">The request type</typeparam>
+            <typeparam name="TResponse">The response type</typeparam>
+            <param name="responder">A function that performs the response</param>
+        </member>
+        <member name="M:EasyNetQ.Producer.IRpc.Respond``2(System.Func{``0,System.Threading.Tasks.Task{``1}},System.Action{EasyNetQ.Producer.IResponderConfiguration})">
+            <summary>
+            Set up a responder for an RPC service.
+            </summary>
+            <typeparam name="TRequest">The request type</typeparam>
+            <typeparam name="TResponse">The response type</typeparam>
+            <param name="responder">A function that performs the response</param>
+            <param name="configure">A function that performs the configuration</param>
+        </member>
+        <member name="M:EasyNetQ.Producer.ISendReceive.Send``1(System.String,``0)">
+            <summary>
+            Send a message to the specified queue
+            </summary>
+            <typeparam name="T">The type of message to send</typeparam>
+            <param name="queue">The queue to send the message to</param>
+            <param name="message">The message to send</param>
+        </member>
+        <member name="M:EasyNetQ.Producer.ISendReceive.SendAsync``1(System.String,``0)">
+            <summary>
+            Send a message to the specified queue
+            </summary>
+            <typeparam name="T">The type of message to send</typeparam>
+            <param name="queue">The queue to send the message to</param>
+            <param name="message">The message to send</param>
+        </member>
+        <member name="M:EasyNetQ.Producer.ISendReceive.Receive``1(System.String,System.Action{``0})">
+            <summary>
+            Receive a message from the specified queue
+            </summary>
+            <typeparam name="T">The type of message to receive</typeparam>
+            <param name="queue">The queue to receive from</param>
+            <param name="onMessage">The synchronous function that handles the message</param>
+            <returns>Consumer cancellation. Call Dispose to stop consuming</returns>
+        </member>
+        <member name="M:EasyNetQ.Producer.ISendReceive.Receive``1(System.String,System.Action{``0},System.Action{EasyNetQ.Consumer.IConsumerConfiguration})">
+            <summary>
+            Receive a message from the specified queue
+            </summary>
+            <typeparam name="T">The type of message to receive</typeparam>
+            <param name="queue">The queue to receive from</param>
+            <param name="onMessage">The synchronous function that handles the message</param>
+            <param name="configure">Action to configure consumer with</param>
+            <returns>Consumer cancellation. Call Dispose to stop consuming</returns>
+        </member>
+        <member name="M:EasyNetQ.Producer.ISendReceive.Receive``1(System.String,System.Func{``0,System.Threading.Tasks.Task})">
+            <summary>
+            Receive a message from the specified queue
+            </summary>
+            <typeparam name="T">The type of message to receive</typeparam>
+            <param name="queue">The queue to receive from</param>
+            <param name="onMessage">The asynchronous function that handles the message</param>
+            <returns>Consumer cancellation. Call Dispose to stop consuming</returns>
+        </member>
+        <member name="M:EasyNetQ.Producer.ISendReceive.Receive``1(System.String,System.Func{``0,System.Threading.Tasks.Task},System.Action{EasyNetQ.Consumer.IConsumerConfiguration})">
+            <summary>
+            Receive a message from the specified queue
+            </summary>
+            <typeparam name="T">The type of message to receive</typeparam>
+            <param name="queue">The queue to receive from</param>
+            <param name="onMessage">The asynchronous function that handles the message</param>
+            <param name="configure">Action to configure consumer with</param>
+            <returns>Consumer cancellation. Call Dispose to stop consuming</returns>
+        </member>
+        <member name="M:EasyNetQ.Producer.ISendReceive.Receive(System.String,System.Action{EasyNetQ.Consumer.IReceiveRegistration})">
+            <summary>
+            Receive a message from the specified queue. Dispatch them to the given handlers
+            </summary>
+            <param name="queue">The queue to take messages from</param>
+            <param name="addHandlers">A function to add handlers</param>
+            <returns>Consumer cancellation. Call Dispose to stop consuming</returns>
+        </member>
+        <member name="M:EasyNetQ.Producer.ISendReceive.Receive(System.String,System.Action{EasyNetQ.Consumer.IReceiveRegistration},System.Action{EasyNetQ.Consumer.IConsumerConfiguration})">
+            <summary>
+            Receive a message from the specified queue. Dispatch them to the given handlers
+            </summary>
+            <param name="queue">The queue to take messages from</param>
+            <param name="addHandlers">A function to add handlers</param>
+            <param name="configure">Action to configure consumer with</param>
+            <returns>Consumer cancellation. Call Dispose to stop consuming</returns>
+        </member>
+        <member name="T:EasyNetQ.Producer.Rpc">
+            <summary>
+            Default implementation of EasyNetQ's request-response pattern
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.RabbitHutch">
+            <summary>
+            Static methods to create EasyNetQ core APIs.
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.RabbitHutch.SetContainerFactory(System.Func{EasyNetQ.IContainer})">
+            <summary>
+            Set the container creation function. This allows you to replace EasyNetQ's default internal
+            IoC container. Note that all components should be registered as singletons. EasyNetQ will
+            also call Dispose on components that are no longer required.
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.RabbitHutch.CreateBus">
+            <summary>
+            Creates a new instance of <see cref="T:EasyNetQ.RabbitBus"/>.
+            The RabbitMQ broker is defined in the connection string named 'rabbit'.
+            </summary>
+            <returns>
+            A new <see cref="T:EasyNetQ.RabbitBus"/> instance.
+            </returns>
+        </member>
+        <member name="M:EasyNetQ.RabbitHutch.CreateBus(System.Action{EasyNetQ.IServiceRegister})">
+            <summary>
+            Creates a new instance of <see cref="T:EasyNetQ.RabbitBus"/>.
+            The RabbitMQ broker is defined in the connection string named 'rabbit'.
+            </summary>
+            <param name="registerServices">
+            Override default services. For example, to override the default <see cref="T:EasyNetQ.IEasyNetQLogger"/>:
+            RabbitHutch.CreateBus("host=localhost", x => x.Register{IEasyNetQLogger}(_ => myLogger));
+            </param>
+            <returns>
+            A new <see cref="T:EasyNetQ.RabbitBus"/> instance.
+            </returns>
+        </member>
+        <member name="M:EasyNetQ.RabbitHutch.CreateBus(EasyNetQ.AdvancedBusEventHandlers,System.Action{EasyNetQ.IServiceRegister})">
+            <summary>
+            Creates a new instance of <see cref="T:EasyNetQ.RabbitBus"/>.
+            The RabbitMQ broker is defined in the connection string named 'rabbit'.
+            </summary>
+            <param name="advancedBusEventHandlers">
+            An <see cref="T:EasyNetQ.AdvancedBusEventHandlers"/> instance which is used to add handlers
+            to the events of the newly created <see cref="P:EasyNetQ.IBus.Advanced"/>.
+            As <see cref="T:EasyNetQ.RabbitAdvancedBus"/> attempts to connect during instantiation, specifying a <see cref="T:EasyNetQ.AdvancedBusEventHandlers"/>
+            before instantiation is the only way to catch the first <see cref="P:EasyNetQ.AdvancedBusEventHandlers.Connected"/> event.
+            </param>
+            <param name="registerServices">
+            Override default services. For example, to override the default <see cref="T:EasyNetQ.IEasyNetQLogger"/>:
+            RabbitHutch.CreateBus("host=localhost", x => x.Register{IEasyNetQLogger}(_ => myLogger));
+            </param>
+            <returns>
+            A new <see cref="T:EasyNetQ.RabbitBus"/> instance.
+            </returns>
+        </member>
+        <member name="M:EasyNetQ.RabbitHutch.CreateBus(EasyNetQ.AdvancedBusEventHandlers)">
+            <summary>
+            Creates a new instance of <see cref="T:EasyNetQ.RabbitBus"/>.
+            The RabbitMQ broker is defined in the connection string named 'rabbit'.
+            </summary>
+            <param name="advancedBusEventHandlers">
+            An <see cref="T:EasyNetQ.AdvancedBusEventHandlers"/> instance which is used to add handlers
+            to the events of the newly created <see cref="P:EasyNetQ.IBus.Advanced"/>.
+            As <see cref="T:EasyNetQ.RabbitAdvancedBus"/> attempts to connect during instantiation, specifying a <see cref="T:EasyNetQ.AdvancedBusEventHandlers"/>
+            before instantiation is the only way to catch the first <see cref="P:EasyNetQ.AdvancedBusEventHandlers.Connected"/> event.
+            </param>
+            <returns>
+            A new <see cref="T:EasyNetQ.RabbitBus"/> instance.
+            </returns>
+        </member>
+        <member name="M:EasyNetQ.RabbitHutch.CreateBus(System.String)">
+            <summary>
+            Creates a new instance of <see cref="T:EasyNetQ.RabbitBus"/>.
+            </summary>
+            <param name="connectionString">
+            The EasyNetQ connection string. Example:
+            host=192.168.1.1;port=5672;virtualHost=MyVirtualHost;username=MyUsername;password=MyPassword;requestedHeartbeat=10
+            
+            The following default values will be used if not specified:
+            host=localhost;port=5672;virtualHost=/;username=guest;password=guest;requestedHeartbeat=10
+            </param>
+            <returns>
+            A new <see cref="T:EasyNetQ.RabbitBus"/> instance.
+            </returns>
+        </member>
+        <member name="M:EasyNetQ.RabbitHutch.CreateBus(System.String,EasyNetQ.AdvancedBusEventHandlers)">
+            <summary>
+            Creates a new instance of <see cref="T:EasyNetQ.RabbitBus"/>.
+            </summary>
+            <param name="connectionString">
+            The EasyNetQ connection string. Example:
+            host=192.168.1.1;port=5672;virtualHost=MyVirtualHost;username=MyUsername;password=MyPassword;requestedHeartbeat=10
+            
+            The following default values will be used if not specified:
+            host=localhost;port=5672;virtualHost=/;username=guest;password=guest;requestedHeartbeat=10
+            </param>
+            <param name="advancedBusEventHandlers">
+            An <see cref="T:EasyNetQ.AdvancedBusEventHandlers"/> instance which is used to add handlers
+            to the events of the newly created <see cref="P:EasyNetQ.IBus.Advanced"/>.
+            As <see cref="T:EasyNetQ.RabbitAdvancedBus"/> attempts to connect during instantiation, specifying a <see cref="T:EasyNetQ.AdvancedBusEventHandlers"/>
+            before instantiation is the only way to catch the first <see cref="P:EasyNetQ.AdvancedBusEventHandlers.Connected"/> event.
+            </param>
+            <returns>
+            A new <see cref="T:EasyNetQ.RabbitBus"/> instance.
+            </returns>
+        </member>
+        <member name="M:EasyNetQ.RabbitHutch.CreateBus(System.String,System.Action{EasyNetQ.IServiceRegister})">
+            <summary>
+            Creates a new instance of <see cref="T:EasyNetQ.RabbitBus"/>.
+            </summary>
+            <param name="connectionString">
+            The EasyNetQ connection string. Example:
+            host=192.168.1.1;port=5672;virtualHost=MyVirtualHost;username=MyUsername;password=MyPassword;requestedHeartbeat=10
+            
+            The following default values will be used if not specified:
+            host=localhost;port=5672;virtualHost=/;username=guest;password=guest;requestedHeartbeat=10
+            </param>
+            <param name="registerServices">
+            Override default services. For example, to override the default <see cref="T:EasyNetQ.IEasyNetQLogger"/>:
+            RabbitHutch.CreateBus("host=localhost", x => x.Register{IEasyNetQLogger}(_ => myLogger));
+            </param>
+            <returns>
+            A new <see cref="T:EasyNetQ.RabbitBus"/> instance.
+            </returns>
+        </member>
+        <member name="M:EasyNetQ.RabbitHutch.CreateBus(System.String,EasyNetQ.AdvancedBusEventHandlers,System.Action{EasyNetQ.IServiceRegister})">
+            <summary>
+            Creates a new instance of <see cref="T:EasyNetQ.RabbitBus"/>.
+            </summary>
+            <param name="connectionString">
+            The EasyNetQ connection string. Example:
+            host=192.168.1.1;port=5672;virtualHost=MyVirtualHost;username=MyUsername;password=MyPassword;requestedHeartbeat=10
+            
+            The following default values will be used if not specified:
+            host=localhost;port=5672;virtualHost=/;username=guest;password=guest;requestedHeartbeat=10
+            </param>
+            <param name="advancedBusEventHandlers">
+            An <see cref="T:EasyNetQ.AdvancedBusEventHandlers"/> instance which is used to add handlers
+            to the events of the newly created <see cref="P:EasyNetQ.IBus.Advanced"/>.
+            As <see cref="T:EasyNetQ.RabbitAdvancedBus"/> attempts to connect during instantiation, specifying a <see cref="T:EasyNetQ.AdvancedBusEventHandlers"/>
+            before instantiation is the only way to catch the first <see cref="P:EasyNetQ.AdvancedBusEventHandlers.Connected"/> event.
+            </param>
+            <param name="registerServices">
+            Override default services. For example, to override the default <see cref="T:EasyNetQ.IEasyNetQLogger"/>:
+            RabbitHutch.CreateBus("host=localhost", x => x.Register{IEasyNetQLogger}(_ => myLogger));
+            </param>
+            <returns>
+            A new <see cref="T:EasyNetQ.RabbitBus"/> instance.
+            </returns>
+        </member>
+        <member name="M:EasyNetQ.RabbitHutch.CreateBus(System.String,System.UInt16,System.String,System.String,System.String,System.UInt16,System.Action{EasyNetQ.IServiceRegister})">
+            <summary>
+            Creates a new instance of <see cref="T:EasyNetQ.RabbitBus"/>.
+            </summary>
+            <param name="hostName">
+            The RabbitMQ broker.
+            </param>
+            <param name="hostPort">
+            The RabbitMQ broker port.
+            </param>
+            <param name="virtualHost">
+            The RabbitMQ virtualHost.
+            </param>
+            <param name="username">
+            The username to use to connect to the RabbitMQ broker.
+            </param>
+            <param name="password">
+            The password to use to connect to the RabbitMQ broker.
+            </param>
+            <param name="requestedHeartbeat">
+            The initially requested heartbeat interval, in seconds; zero for none.
+            </param>
+            <param name="registerServices">
+            Override default services. For example, to override the default <see cref="T:EasyNetQ.IEasyNetQLogger"/>:
+            RabbitHutch.CreateBus("host=localhost", x => x.Register{IEasyNetQLogger}(_ => myLogger));
+            </param>
+            <returns>
+            A new <see cref="T:EasyNetQ.RabbitBus"/> instance.
+            </returns>
+        </member>
+        <member name="M:EasyNetQ.RabbitHutch.CreateBus(System.String,System.UInt16,System.String,System.String,System.String,System.UInt16,EasyNetQ.AdvancedBusEventHandlers,System.Action{EasyNetQ.IServiceRegister})">
+            <summary>
+            Creates a new instance of <see cref="T:EasyNetQ.RabbitBus"/>.
+            </summary>
+            <param name="hostName">
+            The RabbitMQ broker.
+            </param>
+            <param name="hostPort">
+            The RabbitMQ broker port.
+            </param>
+            <param name="virtualHost">
+            The RabbitMQ virtualHost.
+            </param>
+            <param name="username">
+            The username to use to connect to the RabbitMQ broker.
+            </param>
+            <param name="password">
+            The password to use to connect to the RabbitMQ broker.
+            </param>
+            <param name="requestedHeartbeat">
+            The initially requested heartbeat interval, in seconds; zero for none.
+            </param>
+            <param name="advancedBusEventHandlers">
+            An <see cref="T:EasyNetQ.AdvancedBusEventHandlers"/> instance which is used to add handlers
+            to the events of the newly created <see cref="P:EasyNetQ.IBus.Advanced"/>.
+            As <see cref="T:EasyNetQ.RabbitAdvancedBus"/> attempts to connect during instantiation, specifying a <see cref="T:EasyNetQ.AdvancedBusEventHandlers"/>
+            before instantiation is the only way to catch the first <see cref="P:EasyNetQ.AdvancedBusEventHandlers.Connected"/> event.
+            </param>
+            <param name="registerServices">
+            Override default services. For example, to override the default <see cref="T:EasyNetQ.IEasyNetQLogger"/>:
+            RabbitHutch.CreateBus("host=localhost", x => x.Register{IEasyNetQLogger}(_ => myLogger));
+            </param>
+            <returns>
+            A new <see cref="T:EasyNetQ.RabbitBus"/> instance.
+            </returns>
+        </member>
+        <member name="M:EasyNetQ.RabbitHutch.CreateBus(EasyNetQ.ConnectionConfiguration,System.Action{EasyNetQ.IServiceRegister})">
+            <summary>
+            Creates a new instance of <see cref="T:EasyNetQ.RabbitBus"/>.
+            </summary>
+            <param name="connectionConfiguration">
+            An <see cref="T:EasyNetQ.ConnectionConfiguration"/> instance.
+            </param>
+            <param name="registerServices">
+            Override default services. For example, to override the default <see cref="T:EasyNetQ.IEasyNetQLogger"/>:
+            RabbitHutch.CreateBus("host=localhost", x => x.Register{IEasyNetQLogger}(_ => myLogger));
+            </param>
+            <returns>
+            A new <see cref="T:EasyNetQ.RabbitBus"/> instance.
+            </returns>
+        </member>
+        <member name="M:EasyNetQ.RabbitHutch.CreateBus(EasyNetQ.ConnectionConfiguration,EasyNetQ.AdvancedBusEventHandlers,System.Action{EasyNetQ.IServiceRegister})">
+            <summary>
+            Creates a new instance of <see cref="T:EasyNetQ.RabbitBus"/>.
+            </summary>
+            <param name="connectionConfiguration">
+            An <see cref="T:EasyNetQ.ConnectionConfiguration"/> instance.
+            </param>
+            <param name="advancedBusEventHandlers">
+            An <see cref="T:EasyNetQ.AdvancedBusEventHandlers"/> instance which is used to add handlers
+            to the events of the newly created <see cref="P:EasyNetQ.IBus.Advanced"/>.
+            As <see cref="T:EasyNetQ.RabbitAdvancedBus"/> attempts to connect during instantiation, specifying a <see cref="T:EasyNetQ.AdvancedBusEventHandlers"/>
+            before instantiation is the only way to catch the first <see cref="P:EasyNetQ.AdvancedBusEventHandlers.Connected"/> event.
+            </param>
+            <param name="registerServices">
+            Override default services. For example, to override the default <see cref="T:EasyNetQ.IEasyNetQLogger"/>:
+            RabbitHutch.CreateBus("host=localhost", x => x.Register{IEasyNetQLogger}(_ => myLogger));
+            </param>
+            <returns>
+            A new <see cref="T:EasyNetQ.RabbitBus"/> instance.
+            </returns>
+        </member>
+        <member name="M:EasyNetQ.ReflectionHelpers.CreateInstance``1">
+            <summary>
+            A factory method that creates an instance of <paramref name="{T}{T}"/> using a public parameterless constructor.
+            If no such constructor is found on <paramref name="{T}{T}"/>, a <see cref="T:System.MissingMethodException"/> will be thrown.
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.ReflectionHelpers.CreateInstance(System.Type,System.Object)">
+            <summary>
+            A factory method that creates an instance of the specified <see cref="T:System.Type"/>
+            using a public constructor that accepts one argument of the type of <paramref name="arg"/>.
+            If no such constructor is found on type of <paramref name="objectType"/>, a <see cref="T:System.MissingMethodException"/> will be thrown.
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.ReflectionHelpers.CreateInstance(System.Type,System.Object,System.Object)">
+            <summary>
+            A factory method that creates an instance of the specified <see cref="T:System.Type"/>
+            using a public constructor that accepts two arguments of the type of <paramref name="firstArg"/> and <paramref name="secondArg"/> in that order.
+            If no such constructor is found on type of <paramref name="objectType"/>, a <see cref="T:System.MissingMethodException"/> will be thrown.
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.BusExtensions.FuturePublish``1(EasyNetQ.IBus,System.DateTime,``0)">
+            <summary>
+            Schedule a message to be published at some time in the future.
+            This required the EasyNetQ.Scheduler service to be running.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="bus">The IBus instance to publish on</param>
+            <param name="futurePublishDate">The time at which the message should be sent (UTC)</param>
+            <param name="message">The message to response with</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.BusExtensions.FuturePublish``1(EasyNetQ.IBus,System.DateTime,``0,System.String)">
+            <summary>
+            Schedule a message to be published at some time in the future.
+            This required the EasyNetQ.Scheduler service to be running.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="bus">The IBus instance to publish on</param>
+            <param name="futurePublishDate">The time at which the message should be sent (UTC)</param>
+            <param name="message">The message to response with</param>
+            <param name="topic">The topic string</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.BusExtensions.FuturePublish``1(EasyNetQ.IBus,System.DateTime,System.String,``0)">
+            <summary>
+            Schedule a message to be published at some time in the future.
+            This required the EasyNetQ.Scheduler service to be running.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="bus">The IBus instance to publish on</param>
+            <param name="futurePublishDate">The time at which the message should be sent (UTC)</param>
+            <param name="cancellationKey">An identifier that can be used with CancelFuturePublish to cancel the sending of this message at a later time</param>
+            <param name="message">The message to response with</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.BusExtensions.FuturePublish``1(EasyNetQ.IBus,System.DateTime,System.String,System.String,``0)">
+            <summary>
+            Schedule a message to be published at some time in the future.
+            This required the EasyNetQ.Scheduler service to be running.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="bus">The IBus instance to publish on</param>
+            <param name="futurePublishDate">The time at which the message should be sent (UTC)</param>
+            <param name="cancellationKey">An identifier that can be used with CancelFuturePublish to cancel the sending of this message at a later time</param>
+            <param name="message">The message to response with</param>
+            <param name="topic">The topic string</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.BusExtensions.FuturePublish``1(EasyNetQ.IBus,System.TimeSpan,``0)">
+            <summary>
+            Schedule a message to be published at some time in the future, using bare RabbitMQ's capabilites (message time-to-live and dead letter exchange).
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="bus">The IBus instance to publish on</param>
+            <param name="messageDelay">The delay time for message to publish in future</param>
+            <param name="message">The message to response with</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.BusExtensions.FuturePublish``1(EasyNetQ.IBus,System.TimeSpan,``0,System.String)">
+            <summary>
+            Schedule a message to be published at some time in the future, using bare RabbitMQ's capabilites (message time-to-live and dead letter exchange).
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="bus">The IBus instance to publish on</param>
+            <param name="messageDelay">The delay time for message to publish in future</param>
+            <param name="message">The message to response with</param>
+            <param name="topic">The topic string</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.BusExtensions.CancelFuturePublish(EasyNetQ.IBus,System.String)">
+            <summary>
+            Unschedule all messages matching the cancellationKey.
+            </summary>
+            <param name="bus">The IBus instance to publish on</param>
+            <param name="cancellationKey">The identifier that was used when originally scheduling the message with FuturePublish</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.BusExtensions.FuturePublishAsync``1(EasyNetQ.IBus,System.DateTime,``0)">
+            <summary>
+            Schedule a message to be published at some time in the future.
+            This required the EasyNetQ.Scheduler service to be running.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="bus">The IBus instance to publish on</param>
+            <param name="futurePublishDate">The time at which the message should be sent (UTC)</param>
+            <param name="message">The message to response with</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.BusExtensions.FuturePublishAsync``1(EasyNetQ.IBus,System.DateTime,``0,System.String)">
+            <summary>
+            Schedule a message to be published at some time in the future.
+            This required the EasyNetQ.Scheduler service to be running.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="bus">The IBus instance to publish on</param>
+            <param name="futurePublishDate">The time at which the message should be sent (UTC)</param>
+            <param name="message">The message to response with</param>
+            <param name="topic">The topic string</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.BusExtensions.FuturePublishAsync``1(EasyNetQ.IBus,System.DateTime,System.String,``0)">
+            <summary>
+            Schedule a message to be published at some time in the future.
+            This required the EasyNetQ.Scheduler service to be running.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="bus">The IBus instance to publish on</param>
+            <param name="futurePublishDate">The time at which the message should be sent (UTC)</param>
+            <param name="cancellationKey">An identifier that can be used with CancelFuturePublish to cancel the sending of this message at a later time</param>
+            <param name="message">The message to response with</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.BusExtensions.FuturePublishAsync``1(EasyNetQ.IBus,System.DateTime,System.String,``0,System.String)">
+            <summary>
+            Schedule a message to be published at some time in the future.
+            This required the EasyNetQ.Scheduler service to be running.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="bus">The IBus instance to publish on</param>
+            <param name="futurePublishDate">The time at which the message should be sent (UTC)</param>
+            <param name="cancellationKey">An identifier that can be used with CancelFuturePublish to cancel the sending of this message at a later time</param>
+            <param name="message">The message to response with</param>
+            <param name="topic">The topic string</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.BusExtensions.FuturePublishAsync``1(EasyNetQ.IBus,System.TimeSpan,``0)">
+            <summary>
+            Schedule a message to be published at some time in the future, using bare RabbitMQ's capabilites (message time-to-live and dead letter exchange).
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="bus">The IBus instance to publish on</param>
+            <param name="messageDelay">The delay time for message to publish in future</param>
+            <param name="message">The message to response with</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.BusExtensions.FuturePublishAsync``1(EasyNetQ.IBus,System.TimeSpan,``0,System.String)">
+            <summary>
+            Schedule a message to be published at some time in the future, using bare RabbitMQ's capabilites (message time-to-live and dead letter exchange).
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="bus">The IBus instance to publish on</param>
+            <param name="messageDelay">The delay time for message to publish in future</param>
+            <param name="message">The message to response with</param>
+            <param name="topic">The topic string</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.BusExtensions.CancelFuturePublishAsync(EasyNetQ.IBus,System.String)">
+            <summary>
+            Unschedule all messages matching the cancellationKey.
+            </summary>
+            <param name="bus">The IBus instance to publish on</param>
+            <param name="cancellationKey">The identifier that was used when originally scheduling the message with FuturePublish</param>
+        </member>
+        <member name="T:EasyNetQ.Scheduling.IScheduler">
+            <summary>
+            Provides a simple Publish API to schedule a message to be published at some time in the future.
+            </summary>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.IScheduler.FuturePublishAsync``1(System.DateTime,``0,System.String)">
+            <summary>
+            Schedule a message to be published at some time in the future.
+            This required the EasyNetQ.Scheduler service to be running.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="futurePublishDate">The time at which the message should be sent (UTC)</param>
+            <param name="message">The message to response with</param>
+            <param name="cancellationKey">An identifier that can be used with CancelFuturePublish to cancel the sending of this message at a later time</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.IScheduler.FuturePublishAsync``1(System.DateTime,``0,System.String,System.String)">
+            <summary>
+            Schedule a message to be published at some time in the future.
+            This required the EasyNetQ.Scheduler service to be running.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="futurePublishDate">The time at which the message should be sent (UTC)</param>
+            <param name="message">The message to response with</param>
+            <param name="topic">The topic string</param>
+            <param name="cancellationKey">An identifier that can be used with CancelFuturePublish to cancel the sending of this message at a later time</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.IScheduler.FuturePublish``1(System.DateTime,``0,System.String)">
+            <summary>
+            Schedule a message to be published at some time in the future.
+            This required the EasyNetQ.Scheduler service to be running.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="futurePublishDate">The time at which the message should be sent (UTC)</param>
+            <param name="message">The message to response with</param>
+            <param name="cancellationKey">An identifier that can be used with CancelFuturePublish to cancel the sending of this message at a later time</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.IScheduler.FuturePublish``1(System.DateTime,``0,System.String,System.String)">
+            <summary>
+            Schedule a message to be published at some time in the future.
+            This required the EasyNetQ.Scheduler service to be running.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="futurePublishDate">The time at which the message should be sent (UTC)</param>
+            <param name="message">The message to response with</param>
+            <param name="topic">The topic string</param>
+            <param name="cancellationKey">An identifier that can be used with CancelFuturePublish to cancel the sending of this message at a later time</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.IScheduler.FuturePublishAsync``1(System.TimeSpan,``0,System.String)">
+            <summary>
+            Schedule a message to be published at some time in the future.
+            This required the EasyNetQ.Scheduler service to be running.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="messageDelay">The delay time for message to publish in future</param>
+            <param name="message">The message to response with</param>
+            <param name="cancellationKey">An identifier that can be used with CancelFuturePublish to cancel the sending of this message at a later time</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.IScheduler.FuturePublishAsync``1(System.TimeSpan,``0,System.String,System.String)">
+            <summary>
+            Schedule a message to be published at some time in the future.
+            This required the EasyNetQ.Scheduler service to be running.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="messageDelay">The delay time for message to publish in future</param>
+            <param name="message">The message to response with</param>
+            <param name="topic">The topic string</param>
+            <param name="cancellationKey">An identifier that can be used with CancelFuturePublish to cancel the sending of this message at a later time</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.IScheduler.FuturePublish``1(System.TimeSpan,``0,System.String)">
+            <summary>
+            Schedule a message to be published at some time in the future.
+            This required the EasyNetQ.Scheduler service to be running.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="messageDelay">The delay time for message to publish in future</param>
+            <param name="message">The message to response with</param>
+            <param name="cancellationKey">An identifier that can be used with CancelFuturePublish to cancel the sending of this message at a later time</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.IScheduler.FuturePublish``1(System.TimeSpan,``0,System.String,System.String)">
+            <summary>
+            Schedule a message to be published at some time in the future.
+            This required the EasyNetQ.Scheduler service to be running.
+            </summary>
+            <typeparam name="T">The message type</typeparam>
+            <param name="messageDelay">The delay time for message to publish in future</param>
+            <param name="message">The message to response with</param>
+            <param name="topic">The topic string</param>
+            <param name="cancellationKey">An identifier that can be used with CancelFuturePublish to cancel the sending of this message at a later time</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.IScheduler.CancelFuturePublishAsync(System.String)">
+            <summary>
+            Unschedule all messages matching the cancellationKey.
+            </summary>
+            <param name="cancellationKey">The identifier that was used when originally scheduling the message with FuturePublish</param>
+        </member>
+        <member name="M:EasyNetQ.Scheduling.IScheduler.CancelFuturePublish(System.String)">
+            <summary>
+            Unschedule all messages matching the cancellationKey.
+            </summary>
+            <param name="cancellationKey">The identifier that was used when originally scheduling the message with FuturePublish</param>
+        </member>
+        <member name="T:EasyNetQ.SystemMessages.Error">
+            <summary>
+            A wrapper for errored messages
+            </summary>
+        </member>
+        <member name="T:EasyNetQ.Topology.IQueue">
+            <summary>
+            Represents an AMQP queue
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.Topology.IQueue.Name">
+            <summary>
+            The name of the queue
+            </summary>
+        </member>
+        <member name="P:EasyNetQ.Topology.IQueue.IsExclusive">
+            <summary>
+            Is this queue transient?
+            </summary>
+        </member>
+        <member name="T:Sprache.Parse">
+            <summary>
+            Parsers and combinators.
+            </summary>
+        </member>
+        <member name="M:Sprache.Parse.Char(System.Predicate{System.Char},System.String)">
+            <summary>
+            TryParse a single character matching 'predicate'
+            </summary>
+            <param name="predicate"></param>
+            <param name="description"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.CharExcept(System.Predicate{System.Char},System.String)">
+            <summary>
+            Parse a single character except those matching <paramref name="predicate"/>.
+            </summary>
+            <param name="predicate">Characters not to match.</param>
+            <param name="description">Description of characters that don't match.</param>
+            <returns>A parser for characters except those matching <paramref name="predicate"/>.</returns>
+        </member>
+        <member name="M:Sprache.Parse.Char(System.Char)">
+            <summary>
+            Parse a single character c.
+            </summary>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.CharCaseInsensitive(System.Char)">
+            <summary>
+            Parse a single character c.
+            </summary>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.CharExcept(System.Char)">
+            <summary>
+            Parse a single character except c.
+            </summary>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.String(System.String)">
+            <summary>
+            Parse a string of characters.
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.CaseInsensitiveString(System.String)">
+            <summary>
+            Parse a string of characters.
+            </summary>
+            <param name="s"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.Then``2(Sprache.Parser{``0},System.Func{``0,Sprache.Parser{``1}})">
+            <summary>
+            Parse first, and if successful, then parse second.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="U"></typeparam>
+            <param name="first"></param>
+            <param name="second"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.Many``1(Sprache.Parser{``0})">
+            <summary>
+            Parse a stream of elements.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="parser"></param>
+            <returns></returns>
+            <remarks>Implemented imperatively to decrease stack usage.</remarks>
+        </member>
+        <member name="M:Sprache.Parse.XMany``1(Sprache.Parser{``0})">
+            <summary>
+            Parse a stream of elements. If any element is partially parsed
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="parser"></param>
+            <returns></returns>
+            <remarks>Implemented imperatively to decrease stack usage.</remarks>
+        </member>
+        <member name="M:Sprache.Parse.AtLeastOnce``1(Sprache.Parser{``0})">
+            <summary>
+            TryParse a stream of elements with at least one item.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="parser"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.End``1(Sprache.Parser{``0})">
+            <summary>
+            Parse end-of-input.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="parser"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.Select``2(Sprache.Parser{``0},System.Func{``0,``1})">
+            <summary>
+            Take the result of parsing, and project it onto a different domain.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="U"></typeparam>
+            <param name="parser"></param>
+            <param name="convert"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.Token``1(Sprache.Parser{``0})">
+            <summary>
+            Parse the token, embedded in any amount of whitespace characters.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="parser"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.Ref``1(System.Func{Sprache.Parser{``0}})">
+            <summary>
+            Refer to another parser indirectly. This allows circular compile-time dependency between parsers.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="reference"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.Text(Sprache.Parser{System.Collections.Generic.IEnumerable{System.Char}})">
+            <summary>
+            Convert a stream of characters to a string.
+            </summary>
+            <param name="characters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.Or``1(Sprache.Parser{``0},Sprache.Parser{``0})">
+            <summary>
+            Parse first, if it succeeds, return first, otherwise try second.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="first"></param>
+            <param name="second"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.Named``1(Sprache.Parser{``0},System.String)">
+            <summary>
+            Names part of the grammar for help with error messages.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="parser"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.XOr``1(Sprache.Parser{``0},Sprache.Parser{``0})">
+            <summary>
+            Parse first, if it succeeds, return first, otherwise try second.
+            Assumes that the first parsed character will determine the parser chosen (see Try).
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="first"></param>
+            <param name="second"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.Once``1(Sprache.Parser{``0})">
+            <summary>
+            Parse a stream of elements containing only one item.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="parser"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.Concat``1(Sprache.Parser{System.Collections.Generic.IEnumerable{``0}},Sprache.Parser{System.Collections.Generic.IEnumerable{``0}})">
+            <summary>
+            Concatenate two streams of elements.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="first"></param>
+            <param name="second"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.Return``1(``0)">
+            <summary>
+            Succeed immediately and return value.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.Return``2(Sprache.Parser{``0},``1)">
+            <summary>
+            Version of Return with simpler inline syntax.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="U"></typeparam>
+            <param name="parser"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.Except``2(Sprache.Parser{``0},Sprache.Parser{``1})">
+            <summary>
+            Attempt parsing only if the <paramref name="except"/> parser fails.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="U"></typeparam>
+            <param name="parser"></param>
+            <param name="except"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.Until``2(Sprache.Parser{``0},Sprache.Parser{``1})">
+            <summary>
+            Parse a sequence of items until a terminator is reached.
+            Returns the sequence, discarding the terminator.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="U"></typeparam>
+            <param name="parser"></param>
+            <param name="until"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.Where``1(Sprache.Parser{``0},System.Func{``0,System.Boolean})">
+            <summary>
+            Succeed if the parsed value matches predicate.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="parser"></param>
+            <param name="predicate"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.SelectMany``3(Sprache.Parser{``0},System.Func{``0,Sprache.Parser{``1}},System.Func{``0,``1,``2})">
+            <summary>
+            Monadic combinator Then, adapted for Linq comprehension syntax.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="U"></typeparam>
+            <typeparam name="V"></typeparam>
+            <param name="parser"></param>
+            <param name="selector"></param>
+            <param name="projector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.ChainOperator``2(Sprache.Parser{``1},Sprache.Parser{``0},System.Func{``1,``0,``0,``0})">
+            <summary>
+            Chain a left-associative operator.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TOp"></typeparam>
+            <param name="op"></param>
+            <param name="operand"></param>
+            <param name="apply"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sprache.Parse.ChainRightOperator``2(Sprache.Parser{``1},Sprache.Parser{``0},System.Func{``1,``0,``0,``0})">
+            <summary>
+            Chain a right-associative operator.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TOp"></typeparam>
+            <param name="op"></param>
+            <param name="operand"></param>
+            <param name="apply"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
