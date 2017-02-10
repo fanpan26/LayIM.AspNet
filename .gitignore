@@ -258,7 +258,7 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
-/LayIM_SignalR_Chat.V1.0/source/layui
+/LayIM_SignalR/LayIM_SignalR_Chat.V1.0/Scripts/layui
 /LayIM_RongCloud/Business
 /LayIM_RongCloud/CommonService
 /LayIM_RongCloud/QueueTool

@@ -46,9 +46,14 @@
     <Compile Include="Message\ApplyMessage.cs" />
     <Compile Include="Message\ClientToClientMessage.cs" />
     <Compile Include="Message\DB\ChatMessage.cs" />
+    <Compile Include="Message\DB\LoginUser.cs" />
     <Compile Include="Online\OnlineUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result\SendMessageResult.cs" />
+    <Compile Include="ViewModel\LayIMGroup.cs" />
+    <Compile Include="ViewModel\LayIMUser.cs" />
+    <Compile Include="ViewModel\PageSearchOptions.cs" />
+    <Compile Include="ViewModel\PageView.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

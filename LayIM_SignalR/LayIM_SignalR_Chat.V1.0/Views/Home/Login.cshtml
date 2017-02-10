@@ -9,7 +9,7 @@
     <script src="~/Scripts/login.js"></script>
     <script>
         $(function () {
-                alert("由于授权原因，layui代码将不再公开，请谅解。");
+               // alert("由于授权原因，layui代码将不再公开，请谅解。");
                 $(document).on('click', '#btnLogin', function () {
                     $.post('/userlogin', { username: $('#txtUserName').val(), password: $('#txtUserPwd').val() }, function (result) {
                         if (result.code == 0) {

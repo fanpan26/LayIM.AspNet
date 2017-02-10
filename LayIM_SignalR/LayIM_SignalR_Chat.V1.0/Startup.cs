@@ -18,7 +18,7 @@ namespace LayIM_SignalR_Chat.V1._0
             {
                 var hubConfiguration = new HubConfiguration()
                 {
-                    EnableJSONP = true
+                    EnableJSONP = true, EnableJavaScriptProxies=true
                 };
                 map.RunSignalR(hubConfiguration);
             });
