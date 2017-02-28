@@ -34,8 +34,5 @@
 ```
 ### 项目结构
 ![](http://img1.gurucv.com/image/2017/2/8/02c84ea7702d42ae957d67e995de4d57.png) 
-####  SignalR版本已开源，可自由下载
-####  此版本源码下载，请联系：645857874 或发邮件至 645857874@qq.com
-#### LayIM官网 http://www.layui.com/doc/layim.html （感谢贤心大神提供的优秀web前端产品）
-####### 更新 ：2017-2-8
+
  
