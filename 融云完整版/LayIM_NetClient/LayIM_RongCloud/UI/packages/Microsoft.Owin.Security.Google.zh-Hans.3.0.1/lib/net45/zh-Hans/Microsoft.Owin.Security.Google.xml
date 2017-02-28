@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>Microsoft.Owin.Security.Google</name>
+  </assembly>
+  <members>
+    <member name="T:Microsoft.Owin.Security.Google.GoogleApplyRedirectContext">
+      <summary>在质询导致重定向到 Google OpenID 中间件中的授权终结点时传递上下文</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleApplyRedirectContext.#ctor(Microsoft.Owin.IOwinContext,Microsoft.Owin.Security.Google.GoogleAuthenticationOptions,Microsoft.Owin.Security.AuthenticationProperties,System.String)">
+      <summary>创建新的上下文对象。</summary>
+      <param name="context">OWIN 请求上下文</param>
+      <param name="options">Google OpenID 中间件选项</param>
+      <param name="properties">质询的身份验证属性</param>
+      <param name="redirectUri">初始重定向 URI</param>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleApplyRedirectContext.Properties">
+      <summary>获取质询的身份验证属性</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleApplyRedirectContext.RedirectUri">
+      <summary>获取用于重定向操作的 URI。</summary>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Google.GoogleAuthenticatedContext">
+      <summary>包含登录会话及用户 <see cref="T:System.Security.Claims.ClaimsIdentity" /> 的相关信息。</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleAuthenticatedContext.#ctor(Microsoft.Owin.IOwinContext,System.Security.Claims.ClaimsIdentity,Microsoft.Owin.Security.AuthenticationProperties,System.Xml.Linq.XElement,System.Collections.Generic.IDictionary{System.String,System.String})">
+      <summary>初始化 <see cref="T:Microsoft.Owin.Security.Google.GoogleAuthenticatedContext" /></summary>
+      <param name="context">OWIN 环境</param>
+      <param name="identity">表示用户的 <see cref="T:System.Security.Claims.ClaimsIdentity" /></param>
+      <param name="properties">常见身份验证属性的属性包</param>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleAuthenticatedContext.AttributeExchangeProperties">
+      <summary>获取消息属性的键/值字典。</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleAuthenticatedContext.Identity">
+      <summary>获取或设置用于表示用户的 <see cref="T:System.Security.Claims.ClaimsIdentity" /></summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleAuthenticatedContext.Properties">
+      <summary>获取或设置常见身份验证属性的属性包</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleAuthenticatedContext.ResponseMessage">
+      <summary>从 openid 查询字符串获取或设置分析的响应消息</summary>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Google.GoogleAuthenticationMiddleware">
+      <summary>使用 Google OpenID 对用户进行身份验证的 OWIN 中间件</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleAuthenticationMiddleware.#ctor(Microsoft.Owin.OwinMiddleware,Owin.IAppBuilder,Microsoft.Owin.Security.Google.GoogleAuthenticationOptions)">
+      <summary>初始化 <see cref="T:Microsoft.Owin.Security.Google.GoogleAuthenticationMiddleware" /></summary>
+      <param name="next">OWIN 管道中要调用的下一个中间件</param>
+      <param name="app">OWIN 应用程序</param>
+      <param name="options">中间件的配置选项</param>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleAuthenticationMiddleware.CreateHandler">
+      <summary>提供用于处理身份验证相关请求的 <see cref="T:Microsoft.Owin.Security.Infrastructure.AuthenticationHandler" /> 对象。</summary>
+      <returns>配置了提供给构造函数的 <see cref="T:Microsoft.Owin.Security.Google.GoogleAuthenticationOptions" /> 的 <see cref="T:Microsoft.Owin.Security.Infrastructure.AuthenticationHandler" />。</returns>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Google.GoogleAuthenticationOptions">
+      <summary>
+        <see cref="T:Microsoft.Owin.Security.Google.GoogleAuthenticationMiddleware" /> 的配置选项</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleAuthenticationOptions.#ctor">
+      <summary>初始化新的 <see cref="T:Microsoft.Owin.Security.Google.GoogleAuthenticationOptions" /></summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleAuthenticationOptions.BackchannelCertificateValidator">
+      <summary>获取或设置固定证书验证程序，用于验证在属于 Google 的返回通道通信中使用的终结点。</summary>
+      <returns>固定证书验证程序。</returns>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleAuthenticationOptions.BackchannelHttpHandler">
+      <summary>用于与 Google 通信的 HttpMessageHandler。除非值可以向下转换为 WebRequestHandler，否则不能在设置 BackchannelCertificateValidator 的同时设置此项。</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleAuthenticationOptions.BackchannelTimeout">
+      <summary>获取或设置与 Google 进行的返回通道通信的超时值（以毫秒为单位）。</summary>
+      <returns>返回通道超时值。</returns>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleAuthenticationOptions.CallbackPath">
+      <summary>应用程序的基路径内将返回用户代理的请求路径。此请求到达时，中间件将处理此请求。默认值为“/signin-google”。</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleAuthenticationOptions.Caption">
+      <summary>获取或设置用户可以在登录用户界面上显示的文本。</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleAuthenticationOptions.Provider">
+      <summary>获取或设置用于处理身份验证事件的 <see cref="T:Microsoft.Owin.Security.Google.IGoogleAuthenticationProvider" />。</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleAuthenticationOptions.SignInAsAuthenticationType">
+      <summary>获取或设置将负责实际颁发用户 <see cref="T:System.Security.Claims.ClaimsIdentity" /> 的其他身份验证中间件的名称。</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleAuthenticationOptions.StateDataFormat">
+      <summary>获取或设置用于保护由中间件处理的数据的类型。</summary>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Google.GoogleAuthenticationProvider">
+      <summary>默认 <see cref="T:Microsoft.Owin.Security.Google.IGoogleAuthenticationProvider" /> 实现。</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleAuthenticationProvider.#ctor">
+      <summary>初始化 <see cref="T:Microsoft.Owin.Security.Google.GoogleAuthenticationProvider" /></summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleAuthenticationProvider.ApplyRedirect(Microsoft.Owin.Security.Google.GoogleApplyRedirectContext)">
+      <summary>在质询导致重定向到 Google OpenID 中间件中的授权终结点时调用</summary>
+      <param name="context">包含质询的重定向 URI 和 <see cref="T:Microsoft.Owin.Security.AuthenticationProperties" /></param>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleAuthenticationProvider.Authenticated(Microsoft.Owin.Security.Google.GoogleAuthenticatedContext)">
+      <summary>当 Google 成功对用户进行身份验证时调用</summary>
+      <returns>表示已完成的操作的 <see cref="T:System.Threading.Tasks.Task" />。</returns>
+      <param name="context">包含登录会话及用户 <see cref="T:System.Security.Claims.ClaimsIdentity" /> 的相关信息。</param>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleAuthenticationProvider.OnApplyRedirect">
+      <summary>获取或设置调用 ApplyRedirect 方法时调用的委托。</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleAuthenticationProvider.OnAuthenticated">
+      <summary>获取或设置调用 Authenticated 方法时调用的函数。</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleAuthenticationProvider.OnReturnEndpoint">
+      <summary>获取或设置调用 ReturnEndpoint 方法时调用的函数。</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleAuthenticationProvider.ReturnEndpoint(Microsoft.Owin.Security.Google.GoogleReturnEndpointContext)">
+      <summary>在 <see cref="T:System.Security.Claims.ClaimsIdentity" /> 保存到本地 Cookie 中且浏览器重定向到最初请求的 URL 之前调用。</summary>
+      <returns>表示已完成的操作的 <see cref="T:System.Threading.Tasks.Task" />。</returns>
+      <param name="context">包含登录会话及用户 <see cref="T:System.Security.Claims.ClaimsIdentity" /> 的相关信息。</param>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Google.GoogleOAuth2ApplyRedirectContext">
+      <summary>在质询导致重定向到 Google OAuth 2.0 中间件中的授权终结点时传递上下文</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleOAuth2ApplyRedirectContext.#ctor(Microsoft.Owin.IOwinContext,Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions,Microsoft.Owin.Security.AuthenticationProperties,System.String)">
+      <summary>创建新的上下文对象。</summary>
+      <param name="context">OWIN 请求上下文</param>
+      <param name="options">Google OAuth 2.0 中间件选项</param>
+      <param name="properties">质询的身份验证属性</param>
+      <param name="redirectUri">初始重定向 URI</param>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2ApplyRedirectContext.Properties">
+      <summary>获取质询的身份验证属性</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2ApplyRedirectContext.RedirectUri">
+      <summary>获取用于重定向操作的 URI。</summary>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticatedContext">
+      <summary>包含登录会话及用户 <see cref="T:System.Security.Claims.ClaimsIdentity" /> 的相关信息。</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticatedContext.#ctor(Microsoft.Owin.IOwinContext,Newtonsoft.Json.Linq.JObject,System.String,System.String,System.String)">
+      <summary>初始化 <see cref="T:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticatedContext" /></summary>
+      <param name="context">OWIN 环境</param>
+      <param name="user">JSON 序列化的 Google 用户信息</param>
+      <param name="accessToken">Google OAuth 2.0 访问令牌</param>
+      <param name="refreshToken">Google OAuth 2.0 刷新令牌</param>
+      <param name="expires">距过期的秒数</param>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticatedContext.AccessToken">
+      <summary>获取 Google 访问令牌</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticatedContext.Email">
+      <summary>获取用户的电子邮件</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticatedContext.ExpiresIn">
+      <summary>获取 Google 访问令牌过期时间</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticatedContext.FamilyName">
+      <summary>获取用户的姓氏</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticatedContext.GivenName">
+      <summary>获取用户的名字</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticatedContext.Id">
+      <summary>获取 Google 用户 ID</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticatedContext.Identity">
+      <summary>获取用于表示用户的 <see cref="T:System.Security.Claims.ClaimsIdentity" /></summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticatedContext.Name">
+      <summary>获取用户的姓名</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticatedContext.Profile">
+      <summary>获取用户的档案链接</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticatedContext.Properties">
+      <summary>获取或设置常见身份验证属性的属性包</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticatedContext.RefreshToken">
+      <summary>获取 Google 刷新令牌</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticatedContext.User">
+      <summary>获取 JSON 序列化的用户</summary>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationMiddleware">
+      <summary>使用 Google OAuth 2.0 对用户进行身份验证的 OWIN 中间件</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationMiddleware.#ctor(Microsoft.Owin.OwinMiddleware,Owin.IAppBuilder,Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions)">
+      <summary>初始化 <see cref="T:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationMiddleware" /></summary>
+      <param name="next">OWIN 管道中要调用的下一个中间件</param>
+      <param name="app">OWIN 应用程序</param>
+      <param name="options">中间件的配置选项</param>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationMiddleware.CreateHandler">
+      <summary>提供用于处理身份验证相关请求的 <see cref="T:Microsoft.Owin.Security.Infrastructure.AuthenticationHandler" /> 对象。</summary>
+      <returns>配置了提供给构造函数的 <see cref="T:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions" /> 的 <see cref="T:Microsoft.Owin.Security.Infrastructure.AuthenticationHandler" />。</returns>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions">
+      <summary>
+        <see cref="T:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationMiddleware" /> 的配置选项</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions.#ctor">
+      <summary>初始化新的 <see cref="T:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions" /></summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions.AccessType">
+      <summary>access_type。设置为“offline”可请求刷新令牌。</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions.BackchannelCertificateValidator">
+      <summary>获取或设置固定证书验证程序，用于验证在属于 Google 的返回通道通信中使用的终结点。</summary>
+      <returns>固定证书验证程序。</returns>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions.BackchannelHttpHandler">
+      <summary>用于与 Google 通信的 HttpMessageHandler。除非值可以向下转换为 WebRequestHandler，否则不能在设置 BackchannelCertificateValidator 的同时设置此项。</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions.BackchannelTimeout">
+      <summary>获取或设置与 Google 进行的返回通道通信的超时值（以毫秒为单位）。</summary>
+      <returns>返回通道超时值（以毫秒为单位）。</returns>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions.CallbackPath">
+      <summary>应用程序的基路径内将返回用户代理的请求路径。此请求到达时，中间件将处理此请求。默认值为“/signin-google”。</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions.Caption">
+      <summary>获取或设置用户可以在登录用户界面上显示的文本。</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions.ClientId">
+      <summary>获取或设置 Google 分配的客户端 ID</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions.ClientSecret">
+      <summary>获取或设置 Google 分配的客户端机密</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions.Provider">
+      <summary>获取或设置用于处理身份验证事件的 <see cref="T:Microsoft.Owin.Security.Google.IGoogleOAuth2AuthenticationProvider" />。</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions.Scope">
+      <summary>要请求的权限列表。</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions.SignInAsAuthenticationType">
+      <summary>获取或设置将负责实际颁发用户 <see cref="T:System.Security.Claims.ClaimsIdentity" /> 的其他身份验证中间件的名称。</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions.StateDataFormat">
+      <summary>获取或设置用于保护由中间件处理的数据的类型。</summary>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationProvider">
+      <summary>默认 <see cref="T:Microsoft.Owin.Security.Google.IGoogleOAuth2AuthenticationProvider" /> 实现。</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationProvider.#ctor">
+      <summary>初始化 <see cref="T:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationProvider" /></summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationProvider.ApplyRedirect(Microsoft.Owin.Security.Google.GoogleOAuth2ApplyRedirectContext)">
+      <summary>在质询导致重定向到 Google OAuth 2.0 中间件中的授权终结点时调用</summary>
+      <param name="context">包含质询的重定向 URI 和 <see cref="T:Microsoft.Owin.Security.AuthenticationProperties" /></param>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationProvider.Authenticated(Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticatedContext)">
+      <summary>当 Google 成功对用户进行身份验证时调用</summary>
+      <returns>表示已完成的操作的 <see cref="T:System.Threading.Tasks.Task" />。</returns>
+      <param name="context">包含登录会话及用户 <see cref="T:System.Security.Claims.ClaimsIdentity" /> 的相关信息。</param>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationProvider.OnApplyRedirect">
+      <summary>获取或设置调用 ApplyRedirect 方法时调用的委托。</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationProvider.OnAuthenticated">
+      <summary>获取或设置调用 Authenticated 方法时调用的函数。</summary>
+    </member>
+    <member name="P:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationProvider.OnReturnEndpoint">
+      <summary>获取或设置调用 ReturnEndpoint 方法时调用的函数。</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationProvider.ReturnEndpoint(Microsoft.Owin.Security.Google.GoogleOAuth2ReturnEndpointContext)">
+      <summary>在 <see cref="T:System.Security.Claims.ClaimsIdentity" /> 保存到本地 Cookie 中且浏览器重定向到最初请求的 URL 之前调用。</summary>
+      <returns>表示已完成的操作的 <see cref="T:System.Threading.Tasks.Task" />。</returns>
+      <param name="context">包含返回终结点的上下文信息和身份验证票证。</param>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Google.GoogleOAuth2ReturnEndpointContext">
+      <summary>向中间件提供程序提供上下文信息。</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleOAuth2ReturnEndpointContext.#ctor(Microsoft.Owin.IOwinContext,Microsoft.Owin.Security.AuthenticationTicket)">
+      <summary>初始化 <see cref="T:Microsoft.Owin.Security.Google.GoogleOAuth2ReturnEndpointContext" /></summary>
+      <param name="context">OWIN 环境</param>
+      <param name="ticket">身份验证票证</param>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Google.GoogleReturnEndpointContext">
+      <summary>向中间件提供程序提供上下文信息。</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.GoogleReturnEndpointContext.#ctor(Microsoft.Owin.IOwinContext,Microsoft.Owin.Security.AuthenticationTicket)">
+      <param name="context">OWIN 环境</param>
+      <param name="ticket">身份验证票证</param>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Google.IGoogleAuthenticationProvider">
+      <summary>指定回调方法，<see cref="T:Microsoft.Owin.Security.Google.GoogleAuthenticationMiddleware" /> 调用这些方法使开发人员可以控制身份验证过程。/&amp;amp;gt;</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.IGoogleAuthenticationProvider.ApplyRedirect(Microsoft.Owin.Security.Google.GoogleApplyRedirectContext)">
+      <summary>在质询导致重定向到 Google OpenID 中间件中的授权终结点时调用</summary>
+      <param name="context">包含质询的重定向 URI 和 <see cref="T:Microsoft.Owin.Security.AuthenticationProperties" /></param>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.IGoogleAuthenticationProvider.Authenticated(Microsoft.Owin.Security.Google.GoogleAuthenticatedContext)">
+      <summary>当 Google 成功对用户进行身份验证时调用</summary>
+      <returns>表示已完成的操作的 <see cref="T:System.Threading.Tasks.Task" />。</returns>
+      <param name="context">包含登录会话及用户 <see cref="T:System.Security.Claims.ClaimsIdentity" /> 的相关信息。</param>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.IGoogleAuthenticationProvider.ReturnEndpoint(Microsoft.Owin.Security.Google.GoogleReturnEndpointContext)">
+      <summary>在 <see cref="T:System.Security.Claims.ClaimsIdentity" /> 保存到本地 Cookie 中且浏览器重定向到最初请求的 URL 之前调用。</summary>
+      <returns>表示已完成的操作的 <see cref="T:System.Threading.Tasks.Task" />。</returns>
+      <param name="context">包含登录会话及用户 <see cref="T:System.Security.Claims.ClaimsIdentity" /> 的相关信息。</param>
+    </member>
+    <member name="T:Microsoft.Owin.Security.Google.IGoogleOAuth2AuthenticationProvider">
+      <summary>指定回调方法，<see cref="T:Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationMiddleware" /> 调用这些方法使开发人员可以控制身份验证过程。/&amp;amp;gt;</summary>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.IGoogleOAuth2AuthenticationProvider.ApplyRedirect(Microsoft.Owin.Security.Google.GoogleOAuth2ApplyRedirectContext)">
+      <summary>在质询导致重定向到 Google OAuth 2.0 中间件中的授权终结点时调用</summary>
+      <param name="context">包含质询的重定向 URI 和 <see cref="T:Microsoft.Owin.Security.AuthenticationProperties" /></param>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.IGoogleOAuth2AuthenticationProvider.Authenticated(Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticatedContext)">
+      <summary>当 Google 成功对用户进行身份验证时调用</summary>
+      <returns>表示已完成的操作的 <see cref="T:System.Threading.Tasks.Task" />。</returns>
+      <param name="context">包含登录会话及用户 <see cref="T:System.Security.Claims.ClaimsIdentity" /> 的相关信息。</param>
+    </member>
+    <member name="M:Microsoft.Owin.Security.Google.IGoogleOAuth2AuthenticationProvider.ReturnEndpoint(Microsoft.Owin.Security.Google.GoogleOAuth2ReturnEndpointContext)">
+      <summary>在 <see cref="T:System.Security.Claims.ClaimsIdentity" /> 保存到本地 Cookie 中且浏览器重定向到最初请求的 URL 之前调用。</summary>
+      <returns>表示已完成的操作的 <see cref="T:System.Threading.Tasks.Task" />。</returns>
+      <param name="context">包含返回终结点的上下文信息和身份验证票证。</param>
+    </member>
+    <member name="T:Owin.GoogleAuthenticationExtensions">
+      <summary>使用 <see cref="T:Microsoft.Owin.Security.Google.GoogleAuthenticationMiddleware" /> 的扩展方法</summary>
+    </member>
+    <member name="M:Owin.GoogleAuthenticationExtensions.UseGoogleAuthentication(Owin.IAppBuilder)">
+      <summary>对使用 Google OpenId 的用户进行身份验证</summary>
+      <returns>已更新的 <see cref="T:Owin.IAppBuilder" /></returns>
+      <param name="app">传递给配置方法的 <see cref="T:Owin.IAppBuilder" /></param>
+    </member>
+    <member name="M:Owin.GoogleAuthenticationExtensions.UseGoogleAuthentication(Owin.IAppBuilder,Microsoft.Owin.Security.Google.GoogleAuthenticationOptions)">
+      <summary>对使用 Google OpenId 的用户进行身份验证</summary>
+      <returns>已更新的 <see cref="T:Owin.IAppBuilder" /></returns>
+      <param name="app">传递给配置方法的 <see cref="T:Owin.IAppBuilder" /></param>
+      <param name="options">中间件配置选项</param>
+    </member>
+    <member name="M:Owin.GoogleAuthenticationExtensions.UseGoogleAuthentication(Owin.IAppBuilder,Microsoft.Owin.Security.Google.GoogleOAuth2AuthenticationOptions)">
+      <summary>对使用 Google OAuth 2.0 的用户进行身份验证</summary>
+      <returns>已更新的 <see cref="T:Owin.IAppBuilder" /></returns>
+      <param name="app">传递给配置方法的 <see cref="T:Owin.IAppBuilder" /></param>
+      <param name="options">中间件配置选项</param>
+    </member>
+    <member name="M:Owin.GoogleAuthenticationExtensions.UseGoogleAuthentication(Owin.IAppBuilder,System.String,System.String)">
+      <summary>对使用 Google OAuth 2.0 的用户进行身份验证</summary>
+      <returns>已更新的 <see cref="T:Owin.IAppBuilder" /></returns>
+      <param name="app">传递给配置方法的 <see cref="T:Owin.IAppBuilder" /></param>
+      <param name="clientId">google 分配的客户端 ID</param>
+      <param name="clientSecret">google 分配的客户端机密</param>
+    </member>
+  </members>
+</doc>
