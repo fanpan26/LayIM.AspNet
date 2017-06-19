@@ -25,7 +25,7 @@
 第二步：运行数据库脚本（当前未自动化，需要手动运行） LayIM.SqlServer/layim.sql
 
 ---
-第三步：修改配置文件，增加数据库连接字符串和融云的appkey，appsecret.(下文中的key和secret可以直接拿去做测试使用)
+第三步：修改配置文件，增加数据库连接字符串和融云的appkey，appsecret.(下文中的key和secret可以直接拿去做测试使用,`为防止用户消息串发或者账号顶掉，建议自己申请融云key和secret`)
 
 ```
 	<!--融云配置-->
