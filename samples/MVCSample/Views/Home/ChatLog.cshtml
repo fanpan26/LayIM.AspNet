@@ -1,0 +1,18 @@
+﻿<head>
+    <meta charset="utf-8">
+    <title>聊天记录</title>
+    <link href="/Scripts/layui/css/layui.css" rel="stylesheet">
+    <style>body .layim-chat-main {height: auto;}</style>
+    <link href="/css/layim.css" rel="stylesheet" />
+</head>
+    <div class="layim-chat-main">
+        <ul id="LAY_view">  
+            <div id="chatLogMore" class="layim-chat-system" style="display:none;"><span>查看更多记录</span></div>
+         </ul>
+    </div>
+    <div id="LAY_page" style="margin: 0 10px;"></div>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/Scripts/chatlog.js"></script>
+    <script>
+        chatLogParam.init('@Request["type"]', '@Request["id"]');
+    </script>

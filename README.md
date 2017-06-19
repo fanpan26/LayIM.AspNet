@@ -1,34 +1,46 @@
-##LayIM2.0 .NET SignalR版本的实现
-##由于layim是收费UI，所以项目源代码中不包含layui的js包，如有需要请到官网了解详情。
+# LayIM.OwinMiddleware 
 
-#### LayIM官网 http://www.layui.com/doc/layim.html
-#### 博客教程：http://www.cnblogs.com/panzi/p/5767095.html
-#### 项目说明：基于.NET SingalR,LayIM2.0实现的web聊天室，功能如下：
-##### 注册登录
-##### 好友聊天，发送图片、文件
-##### 群组聊天，发送图片、文件
-##### 添加好友，加群，创建群
-##### 好友管理，好友组管理，群组管理
-##### 聊天历史记录查询
-##### 细节消息推送
-### 图片演示
-##### 好友查找界面
-    可以查找群或者好友，执行加好友，加群，新建群操作
-![](http://images2015.cnblogs.com/blog/841545/201608/841545-20160810230811559-1769140393.png) 
+###### 对接 LayIM 实现的一个.NET后端组件。基于Owin开发,组件与WebUI解耦，无论是WebForm还是MVC都可以在 Owin Startup 中配置使用。
 
-##### 消息管理器
-    处理我的消息，申请消息回馈，查看消息历史记录
-![](http://images2015.cnblogs.com/blog/841545/201608/841545-20160810235248277-563771878.png) 
 
-##### 个人面板主页
-![](http://images2015.cnblogs.com/blog/841545/201608/841545-20160812171017718-2043816584.png) 
+######  LayIM.NetClient 项目简介
 
-##### 历史记录查询
-    根据不同条件组合查询，图片文件过滤，关键词过滤
-![](http://images2015.cnblogs.com/blog/841545/201608/841545-20160816231101906-694521303.png) 
-![](http://images2015.cnblogs.com/blog/841545/201608/841545-20160816231013593-490864703.png) 
+###### 组件核心代码，中间件注册扩展方法，路由注册，数据请求处理等公共逻辑。 融云通信服务端接口对接等。
 
-#####聊天室内丰富系统消息提示（消息推送，即时提醒）
-![](http://images2015.cnblogs.com/blog/841545/201608/841545-20160816234932125-388532066.png) 
+######  LayIM.SqlServer 项目简介
 
-#####更多详情见博客。 
+###### 实现了LayIM的通用接口方法，用户好友列表，群组列表，历史纪录保存等。
+
+###### Startup.cs 文件代码如下：
+
+ ```C#
+ public void Configuration(IAppBuilder app)
+        {
+            //使用SQL Server
+            GlobalConfiguration.Configuration.UseSqlServer("LayIM_Connection");
+
+            //使用layim api 
+            app.UseLayimApi();
+        }
+ ```
+###### 或者在配置文件中配置相应的信息。
+
+```
+ <!--融云配置-->
+    <add key="RongCloud_AppKey" value="pvxdm17jpv1or"/>
+    <add key="RongCloud_AppSecret" value="*******"/>
+    
+     <connectionStrings>
+    <add name="LayIM_Connection" connectionString="****************"/>
+  </connectionStrings>
+```
+
+###### index.html：
+###### https://github.com/fanpan26/LayIM.OwinMiddleware/blob/master/MVCSample/Views/Home/Index.cshtml
+
+###### socket.js (通讯使用融云)
+###### https://github.com/fanpan26/LayIM.OwinMiddleware/tree/master/MVCSample/Scripts/im/rc
+
+###### LayIM 官网： http://layim.layui.com
+
+#### 欢迎大家找bug，star ★

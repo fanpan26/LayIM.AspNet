@@ -1,0 +1,2 @@
+/** layui-v1.0.9_rls MIT License By http://www.layui.com */
+ ;layui.define(["laytpl","laypage","layer"],function(l){"use strict";var a=(layui.jquery,layui.layer,layui.laytpl,layui.laytpl,layui.hint(),"table");l(a,function(l){})});

@@ -1,0 +1,45 @@
+﻿@{ Layout = null;}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>消息盒子</title>
+    <link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/css/apply.css" rel="stylesheet" />
+</head>
+<body>
+    @{ 
+        var list = new List<LayIM.NetClient.Model.ApplyModel> {};
+    }
+    <ul class="layim-msgbox" id="LAY_view">
+        @foreach (var item in list)
+        {
+            <li data-uid="@item.uid" data-fromgroup="0">
+            <a href="#">
+                <img src="@item.avatar" class="layui-circle layim-msgbox-avatar">
+            </a>
+            <p class="layim-msgbox-user">
+                <a href="#">@item.name</a>
+                <span>@item.addtime</span>
+            </p>
+            <p class="layim-msgbox-content">
+                @item.msg
+                @if (item.other?.Length > 0)
+                {
+                 <span>附言: @item.other</span>
+                }
+            </p>
+                @if (item.result == 0)
+                {
+            <p class="layim-msgbox-btn">
+                <button class="layui-btn layui-btn-small" data-type="agree">同意</button>
+                <button class="layui-btn layui-btn-small layui-btn-primary" data-type="refuse">拒绝</button>
+            </p>
+                }
+        </li>
+        } 
+    </ul>
+    <script src="~/Scripts/layui/layui.js"></script>
+    <script src="~/Scripts/apply.js"></script>
+</body>
+</html>

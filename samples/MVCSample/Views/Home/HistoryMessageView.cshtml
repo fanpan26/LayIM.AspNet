@@ -1,0 +1,36 @@
+﻿@using LayIM.NetClient.Model
+
+@{
+    var models = new List<LayimChatMessageViewModel>()
+    {
+        new LayimChatMessageViewModel { uid=1, self=true, name="小盘子", content="hello", avatar="", addtime="2017-06-08 17:32" },
+        new LayimChatMessageViewModel { uid=1, self=false, name="小盘子", content="hello", avatar="", addtime="2017-06-08 17:32" }
+    };
+}
+@foreach (var item in models)
+            {
+                if (item.self)
+                {
+        <li trans="0" class="layim-chat-mine" data-timestamp="@item.timestamp">
+            <div class="layim-chat-user">
+                <img src="@item.avatar" />
+                <cite><i>@item.addtime</i>@item.name</cite>
+            </div>
+            <div class="layim-chat-text">
+                @item.content
+            </div>
+        </li>
+    }
+    else
+    {
+        <li trans="0" data-timestamp="@item.timestamp">
+            <div class="layim-chat-user">
+                <img src="@item.avatar" />
+                <cite>@item.name<i>@item.addtime</i></cite>
+            </div>
+            <div class="layim-chat-text">
+                @item.content
+            </div>
+        </li>
+    }
+}
