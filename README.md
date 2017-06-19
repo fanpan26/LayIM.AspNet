@@ -8,7 +8,7 @@
 ---
  第一步：新建MVC项目或者ASP.NET WebForm项目，添加 Owin Startup 类。
 ```c#
-	 public class Startup
+ public class Startup
      {
         public void Configuration(IAppBuilder app)
         {
