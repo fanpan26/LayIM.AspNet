@@ -59,10 +59,8 @@
 
 --- 
 ртобн╙╡Бйт╫ьм╪ё╨
+
 ![](http://img1.gurucv.com/image/2017/6/19/f045156db6744b5eb0c7e2598308c2e1.png)
-
 ![](http://img1.gurucv.com/image/2017/6/19/a005d65ff4df44ce906a59530cac3dc7.png)
-
 ![](http://img1.gurucv.com/image/2017/6/19/4dd5e0f5a658479fb3895c206c4796fe.png)
-
 ![](http://img1.gurucv.com/image/2017/6/19/deee85dd76c2444abe266110811a0b57.png)
