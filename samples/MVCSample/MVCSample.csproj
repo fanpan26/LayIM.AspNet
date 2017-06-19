@@ -101,7 +101,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Site.css" />
     <Content Include="css\apply.css" />
     <Content Include="css\layim.css" />
     <Content Include="Global.asax" />
@@ -109,6 +108,9 @@
     <Content Include="Scripts\apply.min.js" />
     <Content Include="Scripts\chatlog.js" />
     <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\im\rc\protobuf.js" />
+    <Content Include="Scripts\im\rc\rmlib.js" />
+    <Content Include="Scripts\im\rc\socket.js" />
     <Content Include="Scripts\layui\css\layui.css" />
     <Content Include="Scripts\layui\css\layui.mobile.css" />
     <Content Include="Scripts\layui\css\modules\code.css" />
@@ -223,10 +225,6 @@
     <Content Include="Scripts\layui\lay\modules\tree.js" />
     <Content Include="Scripts\layui\lay\modules\upload.js" />
     <Content Include="Scripts\layui\lay\modules\util.js" />
-    <Content Include="Scripts\layui\test.js" />
-    <Content Include="Scripts\im\rc\protobuf.js" />
-    <Content Include="Scripts\im\rc\rmlib.js" />
-    <Content Include="Scripts\im\rc\socket.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -262,10 +260,6 @@
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Scripts\layui\css\modules\layim\html\getmsg.json" />
-    <Content Include="Scripts\layui\font\iconfont.eot" />
-    <Content Include="Scripts\layui\font\iconfont.ttf" />
-    <Content Include="Scripts\layui\font\iconfont.woff" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\chatlog.min.js" />
@@ -273,6 +267,10 @@
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ApiTest.generated.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\layui\css\modules\layim\html\getmsg.json" />
+    <Content Include="Scripts\layui\font\iconfont.eot" />
+    <Content Include="Scripts\layui\font\iconfont.ttf" />
+    <Content Include="Scripts\layui\font\iconfont.woff" />
     <None Include="Views\Home\ChatLog.cshtml">
       <CustomToolNamespace>LayIM.NetClient</CustomToolNamespace>
       <LastGenOutput>ChatLog1.generated.cs</LastGenOutput>
