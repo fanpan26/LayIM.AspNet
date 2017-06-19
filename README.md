@@ -1,46 +1,50 @@
-# LayIM.OwinMiddleware 
+### ÏîÄ¿¼ò½é
 
-###### å¯¹æ¥ LayIM å®ç°çš„ä¸€ä¸ª.NETåç«¯ç»„ä»¶ã€‚åŸºäºOwinå¼€å‘,ç»„ä»¶ä¸WebUIè§£è€¦ï¼Œæ— è®ºæ˜¯WebFormè¿˜æ˜¯MVCéƒ½å¯ä»¥åœ¨ Owin Startup ä¸­é…ç½®ä½¿ç”¨ã€‚
+###### LayIM.NETClient ÊÇ¶ÔÓÚµ±Ç°Á÷ĞĞÇ°¶ËWebIM¿ò¼ÜLayIMºó¶ËµÄÊµÏÖ¡£
+###### LayIMÏîÄ¿µØÖ·£ºhttp://layim.layui.com/
+-- ´ËÏîÄ¿½ö¹©Ñ§Ï°½»Á÷Ê¹ÓÃ£¬²»ÊÊºÏÓÃÔÚÉú²ú»·¾³¡£Êı¾İ¿âÎªSQL Server 2008£¬¿ª·¢¹¤¾ßÎªVisual Studio 2015.
 
-
-######  LayIM.NetClient é¡¹ç›®ç®€ä»‹
-
-###### ç»„ä»¶æ ¸å¿ƒä»£ç ï¼Œä¸­é—´ä»¶æ³¨å†Œæ‰©å±•æ–¹æ³•ï¼Œè·¯ç”±æ³¨å†Œï¼Œæ•°æ®è¯·æ±‚å¤„ç†ç­‰å…¬å…±é€»è¾‘ã€‚ èäº‘é€šä¿¡æœåŠ¡ç«¯æ¥å£å¯¹æ¥ç­‰ã€‚
-
-######  LayIM.SqlServer é¡¹ç›®ç®€ä»‹
-
-###### å®ç°äº†LayIMçš„é€šç”¨æ¥å£æ–¹æ³•ï¼Œç”¨æˆ·å¥½å‹åˆ—è¡¨ï¼Œç¾¤ç»„åˆ—è¡¨ï¼Œå†å²çºªå½•ä¿å­˜ç­‰ã€‚
-
-###### Startup.cs æ–‡ä»¶ä»£ç å¦‚ä¸‹ï¼š
-
- ```C#
- public void Configuration(IAppBuilder app)
+###### ¿ìËÙ¿ªÊ¼
+-- µÚÒ»²½£ºĞÂ½¨MVCÏîÄ¿»òÕßASP.NET WebFormÏîÄ¿£¬Ìí¼Ó Owin Startup Àà¡£
+```
+	 public class Startup
+    {
+        public void Configuration(IAppBuilder app)
         {
-            //ä½¿ç”¨SQL Server
+            //Ê¹ÓÃSQL Server
             GlobalConfiguration.Configuration.UseSqlServer("LayIM_Connection");
 
-            //ä½¿ç”¨layim api 
+            //Ê¹ÓÃlayim api 
             app.UseLayimApi();
         }
- ```
-###### æˆ–è€…åœ¨é…ç½®æ–‡ä»¶ä¸­é…ç½®ç›¸åº”çš„ä¿¡æ¯ã€‚
+    }
+```
+
+-- µÚ¶ş²½£ºÔËĞĞÊı¾İ¿â½Å±¾£¨µ±Ç°Î´×Ô¶¯»¯£¬ĞèÒªÊÖ¶¯ÔËĞĞ£© LayIM.SqlServer/layim.sql
+
+-- µÚÈı²½£ºĞŞ¸ÄÅäÖÃÎÄ¼ş£¬Ôö¼ÓÊı¾İ¿âÁ¬½Ó×Ö·û´®ºÍÈÚÔÆµÄappkey£¬appsecret.(ÏÂÎÄÖĞµÄkeyºÍsecret¿ÉÒÔÖ±½ÓÄÃÈ¥×ö²âÊÔÊ¹ÓÃ)
 
 ```
- <!--èäº‘é…ç½®-->
+	<!--ÈÚÔÆÅäÖÃ-->
     <add key="RongCloud_AppKey" value="pvxdm17jpv1or"/>
- Â  Â <add key="RongCloud_AppSecret" value="*******"/>
-    
-     <connectionStrings>
-    <add name="LayIM_Connection" connectionString="****************"/>
-  </connectionStrings>
+    <add key="RongCloud_AppSecret" value="Co2RwQhzkL6G8i"/>
 ```
 
-###### index.htmlï¼š
-###### https://github.com/fanpan26/LayIM.OwinMiddleware/blob/master/MVCSample/Views/Home/Index.cshtml
+```
+    <connectionStrings>
+		<add name="LayIM_Connection" connectionString="server=192.168.1.18;user id=sa;password=123123;database=LayIM;Min Pool Size=16;Connect Timeout=500;"/>
+    </connectionStrings>
+```
 
-###### socket.js (é€šè®¯ä½¿ç”¨èäº‘)
-###### https://github.com/fanpan26/LayIM.OwinMiddleware/tree/master/MVCSample/Scripts/im/rc
+-- µÚËÄ²½£º½«ÏÂÔØµÄlayuiÎÄ¼ş¼Ğ·ÅÈëÏîÄ¿µÄ Scripts ÎÄ¼ş¼ĞÏÂ¡££¨²Î¿¼MVCSamplesÏîÄ¿£©
 
-###### LayIM å®˜ç½‘ï¼š http://layim.layui.com
+-- µÚÎå²½£ºÔËĞĞÏîÄ¿¡£ÔËĞĞ³É¹¦ºóÓÉÓÚÏîÄ¿ÖĞÉĞÎŞÊı¾İ¡£¿ÉÒÔ·ÃÎÊ http://localhost:6357/api ÖĞµÄÌí¼ÓÓÃ»§½Ó¿ÚÔö¼Ó²âÊÔÓÃ»§¡£
+![](http://img1.gurucv.com/image/2017/6/19/0c0b3974be244c41a8f20c14888de28f.png)
 
-#### æ¬¢è¿å¤§å®¶æ‰¾bugï¼Œstar â˜…
+-- Ìí¼ÓÍêÓÃ»§Ö®ºóÄ¬ÈÏµÚÒ»¸öÓÃ»§IDÎª 100000. È»ºó·ÃÎÊ http://localhost:6357/?uid=100000 ¼´¿ÉÕ¹ÏÖLayIMÒ³Ãæ¡£
+![](http://img1.gurucv.com/image/2017/6/19/2d8f5b5887eb4161aa13b74290b60976.png)
+
+-- Ê£ÏÂµÄÊÂÇé¾Í¿ÉÒÔ×Ô¼º¸ù¾İ½Ó¿ÚÖĞ×ö¸÷ÖÖ²âÊÔÀ²¡£±ÈÈç£¬Ìí¼ÓºÃÓÑ¡£
+![](http://img1.gurucv.com/image/2017/6/19/a9de2a5ea24a4b098c9496f5c4a447ca.png)
+
+--ÏîÄ¿½éÉÜµ½´ËÎªÖ¹¡£Ê£ÏÂÓĞÓöµ½ÎÊÌâ»òÕßbug µÄĞ¡»ï°é£¬¼ÓÈºÁË½â°É¡£ ÈººÅ£º303451512 
