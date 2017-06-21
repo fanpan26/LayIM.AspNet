@@ -54,7 +54,9 @@
     <Compile Include="Client\RongCloudExtensions.cs" />
     <Compile Include="Client\RongCloudSetting.cs" />
     <Compile Include="DefaultSerializer.cs" />
+    <Compile Include="Dispatcher\CombinedResourceDispatcher.cs" />
     <Compile Include="Dispatcher\CommandDispatcher.cs" />
+    <Compile Include="Dispatcher\EmbeddedResourceDispatcher.cs" />
     <Compile Include="Dispatcher\RazorPageDispatcher.cs" />
     <Compile Include="Dispatcher\SingleParameterQueryDispatcher.cs" />
     <Compile Include="Error.cs" />
@@ -98,6 +100,14 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Content\js\apply.js" />
+    <Content Include="Content\js\chatlog.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\js\protobuf.js" />
+    <EmbeddedResource Include="Content\js\rmlib.js" />
+    <EmbeddedResource Include="Content\js\socket.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

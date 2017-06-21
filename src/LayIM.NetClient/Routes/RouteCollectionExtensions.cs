@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -84,6 +85,33 @@ namespace LayIM.NetClient
             Error.ThrowIfNull(pageFunc, nameof(pageFunc));
 
             routes.Add(pathTemplate, new RazorPageDispatcher(pageFunc));
+        }
+
+        /// <summary>
+        /// 添加js文件
+        /// </summary>
+        /// <param name="routes"></param>
+        /// <param name="jsName"></param>
+        /// <param name="assembly"></param>
+        /// <param name="nameSpace"></param>
+        public static void AddJs(this RouteCollection routes, string jsName, Assembly assembly, string nameSpace)
+        {
+            routes.Add($"/{jsName}", new CombinedResourceDispatcher("application/javascript", assembly, nameSpace, jsName));
+        }
+
+        /// <summary>
+        /// 批量添加js路由
+        /// </summary>
+        /// <param name="routes"></param>
+        /// <param name="jsNames"></param>
+        /// <param name="assembly"></param>
+        /// <param name="nameSpace"></param>
+        public static void AddJsFolder(this RouteCollection routes, string[] jsNames, Assembly assembly, string nameSpace)
+        {
+            foreach (var js in jsNames)
+            {
+                routes.AddJs(js, assembly, nameSpace);
+            }
         }
 
     }

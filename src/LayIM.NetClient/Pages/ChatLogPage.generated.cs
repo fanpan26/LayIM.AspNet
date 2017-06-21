@@ -35,7 +35,7 @@ namespace LayIM.NetClient
             WriteLiteral("</div>\r\n");
 
             WriteLiteral("<script src=\"https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js\"></script>\r\n");
-            WriteLiteral("<script src=\"/Scripts/chatlog.min.js\"></script>\r\n");
+            WriteLiteral("<script src=\"/layim/chatlog.js\"></script>\r\n");
             WriteLiteral($"<script>chatLogParam.init('{Query("type")}', '{Query("id")}');</script>\r\n");
 
         }

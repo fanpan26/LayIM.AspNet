@@ -105,12 +105,8 @@
     <Content Include="css\layim.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\apply.js" />
-    <Content Include="Scripts\apply.min.js" />
     <Content Include="Scripts\chatlog.js" />
     <Content Include="Scripts\jquery.js" />
-    <Content Include="Scripts\im\rc\protobuf.js" />
-    <Content Include="Scripts\im\rc\rmlib.js" />
-    <Content Include="Scripts\im\rc\socket.js" />
     <Content Include="Scripts\layui\css\layui.css" />
     <Content Include="Scripts\layui\css\layui.mobile.css" />
     <Content Include="Scripts\layui\css\modules\code.css" />
@@ -262,7 +258,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Scripts\chatlog.min.js" />
     <Content Include="Views\Home\ApiTest.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>ApiTest.generated.cs</LastGenOutput>

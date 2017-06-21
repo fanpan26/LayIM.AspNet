@@ -23,12 +23,11 @@
     <script>
        
     var uid = '@uid';
-    var base = '/scripts/im/rc/';
     //扩展socket组件
     layui.extend({
-        rmlib: base + 'rmlib',
-        protobuf: base + 'protobuf',
-        socket: base + 'socket'
+        rmlib:   '/layim/rmlib',
+        protobuf: '/layim/protobuf',
+        socket: '/layim/socket'
     });
     //
     layui.use(['layim', 'socket'], function (layim, socket) {

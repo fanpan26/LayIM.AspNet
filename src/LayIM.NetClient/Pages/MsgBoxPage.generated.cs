@@ -64,7 +64,7 @@ namespace LayIM.NetClient
             }
             WriteLiteral("</ul>\r\n");
             WriteLiteral("<script src=\"/Scripts/layui/layui.js\"></script>\r\n");
-            WriteLiteral("<script src=\"/Scripts/apply.js\"></script>\r\n");
+            WriteLiteral("<script src=\"/layim/apply.js\"></script>\r\n");
             WriteLiteral("</body>\r\n");
             WriteLiteral("</html>\r\n");
 

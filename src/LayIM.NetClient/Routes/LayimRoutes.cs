@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,9 +16,15 @@ namespace LayIM.NetClient
         //对外共开
         public static RouteCollection Routes { get; }
 
+        private static readonly string[] Javascripts = { "protobuf.js", "rmlib.js", "socket.js","apply.js","chatlog.js" };
+
         static LayimRoutes()
         {
             Routes = new RouteCollection();
+
+            #region 资源文件
+            Routes.AddJsFolder(Javascripts, GetExecutingAssembly(), GetContentFolderNamespace("js"));
+            #endregion
 
             //获取用户好友列表
             Routes.AddQuery<long>("/init", "id", (context, uid) =>
@@ -107,6 +114,25 @@ namespace LayIM.NetClient
             Routes.AddRazorPage("/history", x => new HistoryMessagePage());
             //申请列表页面
             Routes.AddRazorPage("/msgbox", x => new MsgBoxPage());
+        }
+
+
+        internal static string GetContentFolderNamespace(string contentFolder)
+        {
+            var res = $"{typeof(LayimRoutes).Namespace}.Content.{contentFolder}";
+            return res;
+        }
+
+        internal static string GetContentResourceName(string contentFolder, string resourceName)
+        {
+            return $"{GetContentFolderNamespace(contentFolder)}.{resourceName}";
+        }
+
+
+
+        private static Assembly GetExecutingAssembly()
+        {
+            return typeof(LayimRoutes).GetTypeInfo().Assembly;
         }
     }
 }
