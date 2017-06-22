@@ -104,8 +104,6 @@
     <Content Include="css\apply.css" />
     <Content Include="css\layim.css" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\apply.js" />
-    <Content Include="Scripts\chatlog.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\layui\css\layui.css" />
     <Content Include="Scripts\layui\css\layui.mobile.css" />
@@ -221,6 +219,9 @@
     <Content Include="Scripts\layui\lay\modules\tree.js" />
     <Content Include="Scripts\layui\lay\modules\upload.js" />
     <Content Include="Scripts\layui\lay\modules\util.js" />
+    <Content Include="Scripts\protobuf.js" />
+    <Content Include="Scripts\rmlib.js" />
+    <Content Include="Scripts\socket.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

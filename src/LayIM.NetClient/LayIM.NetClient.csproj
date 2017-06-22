@@ -101,13 +101,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\js\apply.js" />
-    <Content Include="Content\js\chatlog.js" />
+    <EmbeddedResource Include="Content\js\apply.js" />
+    <EmbeddedResource Include="Content\js\chatlog.js" />
+    <EmbeddedResource Include="Content\js\jquery.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Content\js\protobuf.js" />
     <EmbeddedResource Include="Content\js\rmlib.js" />
     <EmbeddedResource Include="Content\js\socket.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\css\apply.css" />
+    <EmbeddedResource Include="Content\css\chatlog.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Content\css\layui.css" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

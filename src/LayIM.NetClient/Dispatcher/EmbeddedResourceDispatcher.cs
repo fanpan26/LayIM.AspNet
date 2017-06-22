@@ -44,6 +44,7 @@ namespace LayIM.NetClient
         {
             using (var inputStream = assembly.GetManifestResourceStream(resourceName)) {
                 if (inputStream == null) {
+                    //设置为嵌入的资源
                     throw new ArgumentException($@"在{assembly}中{resourceName} 资源未找到.");
                 }
                 inputStream.CopyTo(response.Body);

@@ -17,8 +17,8 @@ namespace LayIM.NetClient
             WriteLiteral("<meta charset=\"utf-8\">\r\n");
             WriteLiteral("<meta name=\"viewport\" content =\"width =device-width, initial-scale = 1, maximum-scale = 1\">\r\n");
             WriteLiteral("<title>消息盒子</title>\r\n");
-            WriteLiteral("<link href=\"/Scripts/layui/css/layui.css\" rel=\"stylesheet\" />\r\n");
-            WriteLiteral("<link href=\"/css/apply.css\" rel=\"stylesheet\" />\r\n");
+            WriteLiteral("<link href=\"/layim/css/layui\" rel=\"stylesheet\" />\r\n");
+            WriteLiteral("<link href=\"/layim/css/apply\" rel=\"stylesheet\" />\r\n");
             WriteLiteral("</head>\r\n");
             WriteLiteral("<body>\r\n");
             WriteLiteral("<ul class=\"layim-msgbox\" id=\"LAY_view\">\r\n");
@@ -64,7 +64,7 @@ namespace LayIM.NetClient
             }
             WriteLiteral("</ul>\r\n");
             WriteLiteral("<script src=\"/Scripts/layui/layui.js\"></script>\r\n");
-            WriteLiteral("<script src=\"/layim/apply.js\"></script>\r\n");
+            WriteLiteral("<script src=\"/layim/js/apply\"></script>\r\n");
             WriteLiteral("</body>\r\n");
             WriteLiteral("</html>\r\n");
 

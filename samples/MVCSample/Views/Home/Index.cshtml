@@ -25,10 +25,11 @@
     var uid = '@uid';
     //扩展socket组件
     layui.extend({
-        rmlib:   '/layim/rmlib',
-        protobuf: '/layim/protobuf',
-        socket: '/layim/socket'
+        rmlib:   '/scripts/rmlib',
+        protobuf: '/scripts/protobuf',
+        socket: '/scripts/socket'
     });
+    console.log(layui);
     //
     layui.use(['layim', 'socket'], function (layim, socket) {
         //监听socket内部事件

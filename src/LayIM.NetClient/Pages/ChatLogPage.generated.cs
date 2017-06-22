@@ -25,17 +25,17 @@ namespace LayIM.NetClient
             WriteLiteral("<head>\r\n");
             WriteLiteral("<meta charset=\"utf-8\">\r\n");
             WriteLiteral("<title>聊天记录</title>\r\n");
-            WriteLiteral("<link href=\"/Scripts/layui/css/layui.css\" rel=\"stylesheet\">\r\n");
+            WriteLiteral("<link href=\"/layim/css/layui\" rel=\"stylesheet\">\r\n");
             WriteLiteral("<style>body .layim-chat-main {height: auto;}</style>\r\n");
-            WriteLiteral("<link href=\"/css/layim.css\" rel=\"stylesheet\" />\r\n");
+            WriteLiteral("<link href=\"/layim/css/chatlog\" rel=\"stylesheet\" />\r\n");
             WriteLiteral("</head>\r\n");
 
             WriteLiteral("<div class=\"layim-chat-main\">\r\n");
             WriteLiteral("<ul id=\"LAY_view\"><div id=\"chatLogMore\" class=\"layim-chat-system\"><span>查看更多记录</span></div> </ul>\r\n");
             WriteLiteral("</div>\r\n");
 
-            WriteLiteral("<script src=\"https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js\"></script>\r\n");
-            WriteLiteral("<script src=\"/layim/chatlog.js\"></script>\r\n");
+            WriteLiteral("<script src=\"/layim/js/jquery\"></script>\r\n");
+            WriteLiteral("<script src=\"/layim/js/chatlog\"></script>\r\n");
             WriteLiteral($"<script>chatLogParam.init('{Query("type")}', '{Query("id")}');</script>\r\n");
 
         }

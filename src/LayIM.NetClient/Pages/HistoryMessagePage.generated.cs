@@ -43,11 +43,10 @@ namespace LayIM.NetClient
             initParam();
             //获取model列表
             var models = Storage.GetConnection().GetHistoryMessages(_param);
-            string classUser = "layim-chat-user";
             string classMine = "layim-chat-mine";
             foreach (var item in models)
             {
-                WriteLiteral($"<li trans=\"0\" class=\"{(item.self ? classMine : classUser) }\" data-timestamp=\"{item.timestamp}\">\r\n");
+                WriteLiteral($"<li trans=\"0\" class=\"{(item.self ? classMine : "") }\" data-timestamp=\"{item.timestamp}\">\r\n");
                 WriteLiteral("<div class=\"layim-chat-user\">\r\n");
                 WriteLiteral($"<img src=\"{item.avatar}\" />\r\n");
                 if (item.self)
