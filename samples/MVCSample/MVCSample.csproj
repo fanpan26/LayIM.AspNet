@@ -101,10 +101,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\apply.css" />
-    <Content Include="css\layim.css" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\layui\css\layui.css" />
     <Content Include="Scripts\layui\css\layui.mobile.css" />
     <Content Include="Scripts\layui\css\modules\code.css" />
