@@ -96,7 +96,19 @@ namespace LayIM.NetClient
         /// <param name="nameSpace"></param>
         public static void AddJs(this RouteCollection routes, string jsName, Assembly assembly, string nameSpace)
         {
-            routes.Add($"/{jsName}", new CombinedResourceDispatcher("application/javascript", assembly, nameSpace, jsName));
+            routes.Add($"/js/{jsName}", new CombinedResourceDispatcher("application/javascript", assembly, nameSpace, $"{jsName}.js"));
+        }
+
+        /// <summary>
+        /// 添加css文件
+        /// </summary>
+        /// <param name="routes"></param>
+        /// <param name="jsName"></param>
+        /// <param name="assembly"></param>
+        /// <param name="nameSpace"></param>
+        public static void AddCss(this RouteCollection routes, string jsName, Assembly assembly, string nameSpace)
+        {
+            routes.Add($"/css/{jsName}", new CombinedResourceDispatcher("text/css", assembly, nameSpace, $"{jsName}.css"));
         }
 
         /// <summary>
@@ -111,6 +123,21 @@ namespace LayIM.NetClient
             foreach (var js in jsNames)
             {
                 routes.AddJs(js, assembly, nameSpace);
+            }
+        }
+
+        /// <summary>
+        /// 添加css包
+        /// </summary>
+        /// <param name="routes"></param>
+        /// <param name="cssNames"></param>
+        /// <param name="assembly"></param>
+        /// <param name="nameSpace"></param>
+        public static void AddCssFolder(this RouteCollection routes, string[] cssNames, Assembly assembly, string nameSpace)
+        {
+            foreach (var css in cssNames)
+            {
+                routes.AddCss(css, assembly, nameSpace);
             }
         }
 

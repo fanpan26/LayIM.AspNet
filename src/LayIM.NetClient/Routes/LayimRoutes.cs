@@ -16,7 +16,9 @@ namespace LayIM.NetClient
         //对外共开
         public static RouteCollection Routes { get; }
 
-        private static readonly string[] Javascripts = { "protobuf.js", "rmlib.js", "socket.js","apply.js","chatlog.js" };
+        private static readonly string[] Javascripts = { "apply", "chatlog","jquery" };
+        private static readonly string[] StyleSheets = { "apply", "chatlog","layui" };
+
 
         static LayimRoutes()
         {
@@ -24,6 +26,7 @@ namespace LayIM.NetClient
 
             #region 资源文件
             Routes.AddJsFolder(Javascripts, GetExecutingAssembly(), GetContentFolderNamespace("js"));
+            Routes.AddCssFolder(StyleSheets, GetExecutingAssembly(), GetContentFolderNamespace("css"));
             #endregion
 
             //获取用户好友列表
