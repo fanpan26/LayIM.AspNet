@@ -45,7 +45,7 @@ namespace LayIM.NetClient
                 return $"{totalSeconds / 3600}小时前";
             }
             if (totalSeconds >= 3600 * 24 && totalSeconds < 3600 * 24 * 7) {
-                return $"{totalSeconds / 3600 * 24}天前";
+                return $"{totalSeconds / (3600 * 24)}天前";
             }
            
             return time.ToString("yyyy-MM-dd");
