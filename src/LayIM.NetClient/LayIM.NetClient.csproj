@@ -91,6 +91,10 @@
     <Compile Include="Dispatcher\ExecuteResultDispatcher.cs" />
     <Compile Include="Routes\RouteCollection.cs" />
     <Compile Include="Routes\RouteCollectionExtensions.cs" />
+    <Compile Include="ServiceDependency\ILayimServiceContainer.cs" />
+    <Compile Include="ServiceDependency\ILayimServiceProvider.cs" />
+    <Compile Include="ServiceDependency\ILayimServiceRegister.cs" />
+    <Compile Include="ServiceDependency\LayimServiceContainer.cs" />
     <Compile Include="Storage\IStorageConnection.cs" />
     <Compile Include="Storage\LayimStorage.cs" />
     <Compile Include="Storage\LayimStorageConnection.cs" />
