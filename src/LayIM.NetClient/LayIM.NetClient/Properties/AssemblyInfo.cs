@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("LayIM.SqlServer")]
+[assembly: AssemblyTitle("LayIM.NetClient")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("LayIM.SqlServer")]
+[assembly: AssemblyProduct("LayIM.NetClient")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("e41161cf-efef-4662-8cb0-a2818f8e4aa5")]
+[assembly: Guid("9a207791-1c4f-419f-8c3c-3dfead9de042")]
 
 // 程序集的版本信息由下列四个值组成: 
 //

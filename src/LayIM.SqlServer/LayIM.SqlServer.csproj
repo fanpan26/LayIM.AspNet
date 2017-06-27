@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0B1993F4-18AD-47F9-956C-8D5A74D7F2AE}</ProjectGuid>
+    <ProjectGuid>{E41161CF-EFEF-4662-8CB0-A2818F8E4AA5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LayIM.SqlServer</RootNamespace>
@@ -31,14 +31,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
+      <HintPath>..\LayIM.NetClient\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
@@ -51,21 +55,17 @@
     <Compile Include="SqlServerStorageOptions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LayIM.NetClient\LayIM.NetClient.csproj">
-      <Project>{ba0452fc-2fe3-4b03-857b-4e984c50141e}</Project>
+    <Content Include="Install.sql" />
+    <Content Include="layim.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LayIM.NetClient\LayIM.NetClient\LayIM.NetClient.csproj">
+      <Project>{9a207791-1c4f-419f-8c3c-3dfead9de042}</Project>
       <Name>LayIM.NetClient</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Install.sql">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="layim.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
