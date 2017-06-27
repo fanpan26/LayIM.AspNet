@@ -1,36 +1,36 @@
-### ÏîÄ¿¼ò½é
+### é¡¹ç›®ç®€ä»‹
 
-###### LayIM.NETClient ÊÇ¶ÔÓÚµ±Ç°Á÷ÐÐÇ°¶ËWebIM¿ò¼ÜLayIMºó¶ËµÄÊµÏÖ¡£
-###### LayIMÏîÄ¿µØÖ·£ºhttp://layim.layui.com/
--- ´ËÏîÄ¿½ö¹©Ñ§Ï°½»Á÷Ê¹ÓÃ£¬²»ÊÊºÏÓÃÔÚÉú²ú»·¾³¡£Êý¾Ý¿âÎªSQL Server 2008£¬¿ª·¢¹¤¾ßÎªVisual Studio 2015.
+###### LayIM.NETClient æ˜¯å¯¹äºŽå½“å‰æµè¡Œå‰ç«¯WebIMæ¡†æž¶LayIMåŽç«¯çš„å®žçŽ°ã€‚
+###### LayIMé¡¹ç›®åœ°å€ï¼šhttp://layim.layui.com/
+-- æ­¤é¡¹ç›®ä»…ä¾›å­¦ä¹ äº¤æµä½¿ç”¨ï¼Œä¸é€‚åˆç”¨åœ¨ç”Ÿäº§çŽ¯å¢ƒã€‚æ•°æ®åº“ä¸ºSQL Server 2008ï¼Œå¼€å‘å·¥å…·ä¸ºVisual Studio 2015.
 
-###### ¿ìËÙ¿ªÊ¼
+###### å¿«é€Ÿå¼€å§‹
 ---
- µÚÒ»²½£ºÐÂ½¨MVCÏîÄ¿»òÕßASP.NET WebFormÏîÄ¿£¬Ìí¼Ó Owin Startup Àà¡£
+ ç¬¬ä¸€æ­¥ï¼šæ–°å»ºMVCé¡¹ç›®æˆ–è€…ASP.NET WebFormé¡¹ç›®ï¼Œæ·»åŠ  Owin Startup ç±»ã€‚
 ```c#
  public class Startup
      {
         public void Configuration(IAppBuilder app)
         {
-            //Ê¹ÓÃSQL Server
+            //ä½¿ç”¨SQL Server
             GlobalConfiguration.Configuration.UseSqlServer("LayIM_Connection");
 
-            //Ê¹ÓÃlayim api 
+            //ä½¿ç”¨layim api 
             app.UseLayimApi();
         }
      }
 ```
 
 ---
-µÚ¶þ²½£ºÔËÐÐÊý¾Ý¿â½Å±¾£¨µ±Ç°Î´×Ô¶¯»¯£¬ÐèÒªÊÖ¶¯ÔËÐÐ£© LayIM.SqlServer/layim.sql
+ç¬¬äºŒæ­¥ï¼šè¿è¡Œæ•°æ®åº“è„šæœ¬ï¼ˆå½“å‰æœªè‡ªåŠ¨åŒ–ï¼Œéœ€è¦æ‰‹åŠ¨è¿è¡Œï¼‰ LayIM.SqlServer/layim.sql
 
 ---
-µÚÈý²½£ºÐÞ¸ÄÅäÖÃÎÄ¼þ£¬Ôö¼ÓÊý¾Ý¿âÁ¬½Ó×Ö·û´®ºÍÈÚÔÆµÄappkey£¬appsecret.(ÏÂÎÄÖÐµÄkeyºÍsecret¿ÉÒÔÖ±½ÓÄÃÈ¥×ö²âÊÔÊ¹ÓÃ,`Îª·ÀÖ¹ÓÃ»§ÏûÏ¢´®·¢»òÕßÕËºÅ¶¥µô£¬½¨Òé×Ô¼ºÉêÇëÈÚÔÆkeyºÍsecret`)
+ç¬¬ä¸‰æ­¥ï¼šä¿®æ”¹é…ç½®æ–‡ä»¶ï¼Œå¢žåŠ æ•°æ®åº“è¿žæŽ¥å­—ç¬¦ä¸²å’Œèžäº‘çš„appkeyï¼Œappsecret.(ä¸‹æ–‡ä¸­çš„keyå’Œsecretå¯ä»¥ç›´æŽ¥æ‹¿åŽ»åšæµ‹è¯•ä½¿ç”¨,`ä¸ºé˜²æ­¢ç”¨æˆ·æ¶ˆæ¯ä¸²å‘æˆ–è€…è´¦å·é¡¶æŽ‰ï¼Œå»ºè®®è‡ªå·±ç”³è¯·èžäº‘keyå’Œsecret`)
 
 ```
-	<!--ÈÚÔÆÅäÖÃ-->
+	<!--èžäº‘é…ç½®-->
     <add key="RongCloud_AppKey" value="pvxdm17jpv1or"/>
-    <add key="RongCloud_AppSecret" value="Co2RwQhzkL6G8i"/>
+ Â  Â <add key="RongCloud_AppSecret" value="*********"/>
 ```
 
 ```
@@ -40,19 +40,19 @@
 ```
 
 --- 
-µÚËÄ²½£º½«ÏÂÔØµÄlayuiÎÄ¼þ¼Ð·ÅÈëÏîÄ¿µÄ Scripts ÎÄ¼þ¼ÐÏÂ¡££¨²Î¿¼MVCSamplesÏîÄ¿£©
+ç¬¬å››æ­¥ï¼šå°†ä¸‹è½½çš„layuiæ–‡ä»¶å¤¹æ”¾å…¥é¡¹ç›®çš„ Scripts æ–‡ä»¶å¤¹ä¸‹ã€‚ï¼ˆå‚è€ƒMVCSamplesé¡¹ç›®ï¼‰
 
 --- 
-µÚÎå²½£ºÔËÐÐÏîÄ¿¡£ÔËÐÐ³É¹¦ºóÓÉÓÚÏîÄ¿ÖÐÉÐÎÞÊý¾Ý¡£¿ÉÒÔ·ÃÎÊ http://localhost:6357/api ÖÐµÄÌí¼ÓÓÃ»§½Ó¿ÚÔö¼Ó²âÊÔÓÃ»§¡£
+ç¬¬äº”æ­¥ï¼šè¿è¡Œé¡¹ç›®ã€‚è¿è¡ŒæˆåŠŸåŽç”±äºŽé¡¹ç›®ä¸­å°šæ— æ•°æ®ã€‚å¯ä»¥è®¿é—® http://localhost:6357/api ä¸­çš„æ·»åŠ ç”¨æˆ·æŽ¥å£å¢žåŠ æµ‹è¯•ç”¨æˆ·ã€‚
 
 --- 
-Ìí¼ÓÍêÓÃ»§Ö®ºóÄ¬ÈÏµÚÒ»¸öÓÃ»§IDÎª 100000. È»ºó·ÃÎÊ http://localhost:6357/?uid=100000 ¼´¿ÉÕ¹ÏÖLayIMÒ³Ãæ¡£
+æ·»åŠ å®Œç”¨æˆ·ä¹‹åŽé»˜è®¤ç¬¬ä¸€ä¸ªç”¨æˆ·IDä¸º 100000. ç„¶åŽè®¿é—® http://localhost:6357/?uid=100000 å³å¯å±•çŽ°LayIMé¡µé¢ã€‚
 
 ---
-ÏîÄ¿½éÉÜµ½´ËÎªÖ¹¡£Ê£ÏÂÓÐÓöµ½ÎÊÌâ»òÕßbug µÄÐ¡»ï°é£¬¼ÓÈºÁË½â°É¡£ ÈººÅ£º303451512 
+é¡¹ç›®ä»‹ç»åˆ°æ­¤ä¸ºæ­¢ã€‚å‰©ä¸‹æœ‰é‡åˆ°é—®é¢˜æˆ–è€…bug çš„å°ä¼™ä¼´ï¼ŒåŠ ç¾¤äº†è§£å§ã€‚ ç¾¤å·ï¼š303451512 
 
 --- 
-ÒÔÏÂÎª²âÊÔ½ØÍ¼£º
+ä»¥ä¸‹ä¸ºæµ‹è¯•æˆªå›¾ï¼š
 
 ![](http://img1.gurucv.com/image/2017/6/19/f045156db6744b5eb0c7e2598308c2e1.png)
 ![](http://img1.gurucv.com/image/2017/6/19/b64e793eec3a48fa9f060213970477c7.png)
