@@ -13,5 +13,8 @@ namespace LayIM.SqlServer
         public static readonly string ChatGroup = "group";
 
         public static readonly string ChatFriend = "friend";
+
+        public static readonly string ChatUserService = "kefu";
+
     }
 }

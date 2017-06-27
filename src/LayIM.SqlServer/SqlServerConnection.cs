@@ -515,7 +515,7 @@ VALUES(@uid, @tid, @type, @gid, 0, @other, 0);
                 return id2.ToString();
             }
 
-            if (type == Constants.ChatFriend)
+            if (type == Constants.ChatFriend || type == Constants.ChatUserService)
             {
                 if (id1 > id2)
                 {

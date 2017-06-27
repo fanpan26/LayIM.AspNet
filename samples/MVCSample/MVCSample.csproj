@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Scripts\kefu.jpg" />
     <Content Include="Scripts\layui\css\layui.css" />
     <Content Include="Scripts\layui\css\layui.mobile.css" />
     <Content Include="Scripts\layui\css\modules\code.css" />
@@ -219,6 +220,7 @@
     <Content Include="Scripts\protobuf.js" />
     <Content Include="Scripts\rmlib.js" />
     <Content Include="Scripts\socket.js" />
+    <Content Include="Scripts\user.jpg" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
