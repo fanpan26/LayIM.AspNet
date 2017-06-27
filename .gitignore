@@ -274,6 +274,6 @@ __pycache__/
 # Cake - Uncomment if you are using it
 # tools/
 
-/samples/MVCSample/Scripts/layui/
-/samples/MVCSample/Web.config
+/samples/HtmlSample/Scripts/layui/
+/samples/HtmlSample/Web.config
  

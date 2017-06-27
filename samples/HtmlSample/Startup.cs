@@ -1,15 +1,13 @@
-﻿
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Owin;
 using Owin;
-
 using LayIM.NetClient;
 using LayIM.SqlServer;
 
-[assembly: OwinStartup(typeof(MVCSample.Startup))]
+[assembly: OwinStartup(typeof(HtmlSample.Startup))]
 
-namespace MVCSample
+namespace HtmlSample
 {
     public class Startup
     {

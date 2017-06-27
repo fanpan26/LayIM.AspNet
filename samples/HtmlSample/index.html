@@ -1,16 +1,11 @@
-﻿
-@{ 
-    Layout = null;
-    var uid = Request.QueryString["uid"];
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>LayIM 3.x PC版本地演示</title>
 
-    <link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />
+    <link href="/Scripts/layui/css/layui.css" rel="stylesheet" />
     <style>
         html {
             background-color: #333;
@@ -19,9 +14,9 @@
 </head>
 <body>
     <script>
-    var uid = '@uid';
+    var uid = 100000;
     </script>
-    <script src="~/scripts/layui/layui.js"></script>
+    <script src="/scripts/layui/layui.js"></script>
     <script>
         var userService = true;//开启客服模式
         var kefuId = 10000001;
