@@ -28,6 +28,7 @@ namespace LayIM.NetClient
         {
             return builder.UseLayimApi("/layim");
         }
+
         /// <summary>
         /// 设置路径
         /// </summary>

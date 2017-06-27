@@ -123,7 +123,7 @@ namespace LayIM.NetClient.ServiceDependency
                 }
                 else
                 {
-                    throw new Exception(string.Format("服务类型 {0} 未注册", serviceType.Name));
+                    return null;
                 }
 
                 return (TService)service;

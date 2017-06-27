@@ -32,6 +32,7 @@ namespace LayIM.NetClient
             //获取用户好友列表
             Routes.AddQuery<long>("/init", "id", (context, uid) =>
              {
+                var provider = LayimFactory.GetUserIdProvider();
                  var client = new LayimUserClient(context.Storage, uid);
                  return client.GetInitInfo();
              });

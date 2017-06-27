@@ -54,6 +54,7 @@
     <Compile Include="Client\RongCloudExtensions.cs" />
     <Compile Include="Client\RongCloudSetting.cs" />
     <Compile Include="DefaultSerializer.cs" />
+    <Compile Include="DefaultUserIdProvider.cs" />
     <Compile Include="Dispatcher\CombinedResourceDispatcher.cs" />
     <Compile Include="Dispatcher\CommandDispatcher.cs" />
     <Compile Include="Dispatcher\EmbeddedResourceDispatcher.cs" />
@@ -66,7 +67,9 @@
     <Compile Include="Global\IGlobalConfiguration.cs" />
     <Compile Include="HtmlHelper.cs" />
     <Compile Include="IJsonSerializer.cs" />
+    <Compile Include="ILayimUserIdProvider.cs" />
     <Compile Include="LayIMContext.cs" />
+    <Compile Include="LayimFactory.cs" />
     <Compile Include="LayIMOptions.cs" />
     <Compile Include="LayIMRequest.cs" />
     <Compile Include="LayIMResponse.cs" />

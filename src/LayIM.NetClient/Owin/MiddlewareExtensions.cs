@@ -35,6 +35,9 @@ namespace LayIM.NetClient
             Error.ThrowIfNull(options, nameof(options));
             Error.ThrowIfNull(routes, nameof(routes));
 
+            //注册默认
+            //GlobalConfiguration.ServiceContainer.Register<ILayimUserIdProvider, DefaultUserIdProvider>();
+
             return next =>
                    env =>
             {
