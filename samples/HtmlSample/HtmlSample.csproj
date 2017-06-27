@@ -91,6 +91,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="api.html" />
     <Content Include="index.html" />
     <Content Include="Scripts\kefu.jpg" />
     <Content Include="Scripts\layui\css\layui.css" />
