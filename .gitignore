@@ -276,4 +276,5 @@ __pycache__/
 # tools/
 
 /samples/MVCSample/Scripts/layui/
+/samples/MVCSample/Web.config
  
