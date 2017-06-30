@@ -119,9 +119,9 @@
     <Content Include="Content\css\apply.css" />
     <Content Include="Content\css\chatlog.css" />
     <Content Include="Content\css\layui.css" />
-    <Content Include="Content\js\apply.js" />
-    <Content Include="Content\js\chatlog.js" />
-    <Content Include="Content\js\jquery.js" />
+    <EmbeddedResource Include="Content\js\apply.js" />
+    <EmbeddedResource Include="Content\js\chatlog.js" />
+    <EmbeddedResource Include="Content\js\jquery.js" />
     <Content Include="Content\js\protobuf.js" />
     <Content Include="Content\js\rmlib.js" />
     <Content Include="Content\js\socket.js" />

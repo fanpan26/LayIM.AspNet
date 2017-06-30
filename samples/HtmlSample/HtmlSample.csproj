@@ -78,6 +78,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="mobile.html" />
     <Content Include="packages.config" />
     <Content Include="Scripts\layui\css\modules\layim\html\getmsg.json" />
     <Content Include="Scripts\layui\font\iconfont.eot" />
