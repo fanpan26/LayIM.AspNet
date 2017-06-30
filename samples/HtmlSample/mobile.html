@@ -12,29 +12,21 @@ layui.use(['mobile','jquery'], function(){
   var mobile = layui.mobile
   , layim = mobile.layim;
 
-  $.get('/layim/init?uid=100000', function (res) {
-      console.log(res);
+  $.get('/layim/init?id=100000', function (res) {
+      //基础配置
+      layim.config({
+          init: res.data,
+          isgroup:true
+      });
   });
-  //基础配置
-  layim.config({
-    init: {
-      //设置我的基础信息
-      mine: {
-        "username": "佟丽娅" //我的昵称
-        ,"id": 123 //我的ID
-        ,"avatar": "http://tp4.sinaimg.cn/1345566427/180/5730976522/0" //我的头像
-      }
-      //好友列表数据
-      ,friend: [] //见下文：init数据格式
-    }
-  });
+ 
   //创建一个会话
-  layim.chat({
-    id: 111111
-    ,name: '许闲心'
-    ,type: 'kefu' //friend、group等字符，如果是group，则创建的是群聊
-    ,avatar: 'http://tp1.sinaimg.cn/1571889140/180/40030060651/1'
-  });
+  //layim.chat({
+  //  id: 111111
+  //  ,name: '许闲心'
+  //  ,type: 'kefu' //friend、group等字符，如果是group，则创建的是群聊
+  //  ,avatar: 'http://tp1.sinaimg.cn/1571889140/180/40030060651/1'
+  //});
 });
     </script>
 </head>
