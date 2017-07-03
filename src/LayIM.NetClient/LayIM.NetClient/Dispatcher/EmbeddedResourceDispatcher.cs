@@ -5,6 +5,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
+/*
+ * 嵌入资源加载的实现
+ */
 namespace LayIM.NetClient
 {
     internal class EmbeddedResourceDispatcher : ILayimDispatcher

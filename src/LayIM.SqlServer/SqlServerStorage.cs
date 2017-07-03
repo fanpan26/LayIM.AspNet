@@ -68,44 +68,18 @@ namespace LayIM.SqlServer
         /// <returns></returns>
         internal T UseConnection<T>(Func<DbConnection, T> func)
         {
-            DbConnection connection = null;
-
-            try
+            using (var connection = new SqlConnection(_connectionString))
             {
-                connection = CreateAndOpenConnection();
                 return func(connection);
-            }
-            finally
-            {
-                ReleaseConnection(connection);
             }
         }
 
         internal Task<T> UseConnectionAsync<T>(Func<DbConnection, Task<T>> func)
         {
-            DbConnection connection = null;
-
-            try
+            using (var connection = new SqlConnection(_connectionString))
             {
-                connection = CreateAndOpenConnection();
                 return func(connection);
             }
-            finally
-            {
-                ReleaseConnection(connection);
-            }
-        }
-
-        /// <summary>
-        /// 创建并打开一个连接
-        /// </summary>
-        /// <returns></returns>
-        internal DbConnection CreateAndOpenConnection()
-        {
-            var connection = new SqlConnection(_connectionString);
-            connection.Open();
-
-            return connection;
         }
 
         /// <summary>
