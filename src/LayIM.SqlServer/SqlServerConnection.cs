@@ -37,6 +37,7 @@ namespace LayIM.SqlServer
             return  _storage.UseConnectionAsync(async connection =>
             {
                 long Id = await connection.ExecuteScalarAsync<long>(sql, param);
+                _storage.ReleaseConnection(connection);
                 return Id;
             });
         }
@@ -169,6 +170,7 @@ FROM    dbo.chat_msg A
                     var result = await connection.ExecuteAsync(userSql, new { uid = userId, gid = groupId });
                     return CreateResult(result > 0);
                 }
+                _storage.ReleaseConnection(connection);
                 return CreateResult(false);
             });
         }
@@ -186,7 +188,7 @@ FROM    dbo.chat_msg A
                 string friendGroupSql = "INSERT INTO dbo.friend_group([user_id], name )VALUES(@uid, '我的好友')";
 
                 var result = await connection.ExecuteAsync(friendGroupSql, new { uid = userId });
-
+                _storage.ReleaseConnection(connection);
                 return CreateResult(result > 0);
             });
         }
@@ -214,6 +216,7 @@ FROM    dbo.chat_msg A
             {
                 var sql = "SELECT apply_count FROM dbo.apply_summary WHERE [user_id]=@uid";
                 int count = await connection.ExecuteScalarAsync<int>(sql, new { uid = userId });
+                _storage.ReleaseConnection(connection);
                 return new CommonResult { code = 0, data = new { apply = count } };
             });
         }
@@ -226,6 +229,7 @@ FROM    dbo.chat_msg A
             {
                 var sql = "SELECT COUNT([user_id]) FROM dbo.friend_group_detail WHERE group_id IN (SELECT pk_id FROM dbo.friend_group WHERE [USER_ID]=@uid) AND [user_id]=@fid";
                 ushort count = await connection.ExecuteScalarAsync<ushort>(sql, new { uid = userId, fid = friendId });
+                _storage.ReleaseConnection(connection);
                 return count > 0;
             });
         }
@@ -238,6 +242,7 @@ FROM    dbo.chat_msg A
             {
                 var sql = "SELECT count(*) FROM dbo.big_group_detail WHERE [user_id]=@uid AND group_id=@gid";
                 ushort count = await connection.ExecuteScalarAsync<ushort>(sql, new { uid = userId, gid = groupId });
+                _storage.ReleaseConnection(connection);
                 return count > 0;
             });
         }
@@ -312,6 +317,7 @@ ELSE
                         HandleApplyUser(appInfo, userId, uidGroup);
                     }
                 }
+                _storage.ReleaseConnection(connection);
                 return new CommonResult { code = 0 };
             });
         }
@@ -425,6 +431,7 @@ ORDER BY X.create_at DESC;";
             {
                 var sql = GetApplyListSQL();
                 var applylist = await connection.QueryAsync<LayimApplyModel>(sql, new { uid = userId });
+                _storage.ReleaseConnection(connection);
                 return new CommonResult { code = 0, data = applylist };
             });
         }
@@ -446,7 +453,9 @@ ORDER BY X.create_at DESC;";
             return await _storage.UseConnectionAsync<long>(async connection =>
             {
                 var sql = "SELECT owner_id FROM dbo.big_group WHERE pk_id=@gid";
-                return await connection.ExecuteScalarAsync<long>(sql, new { gid = groupId });
+                var res = await connection.ExecuteScalarAsync<long>(sql, new { gid = groupId });
+                _storage.ReleaseConnection(connection);
+                return res;
             });
         }
         #endregion 
@@ -464,6 +473,7 @@ WHERE   X.rowId BETWEEN @start AND @end; ";
             return await _storage.UseConnectionAsync(async connection =>
             {
                 var list = await connection.QueryAsync<UserModel>(sql, new { start = start, end = start + num, key = $"%{key}%" });
+                _storage.ReleaseConnection(connection);
                 return new CommonResult { code = 0, data = list };
             });
         }
@@ -484,6 +494,7 @@ WHERE   X.rowId BETWEEN @start AND @end; ";
             return await _storage.UseConnectionAsync(async connection =>
             {
                 var list = await connection.QueryAsync<BigGroupModel>(sql, new { start = start, end = start + num, key = $"%{key}%" });
+                _storage.ReleaseConnection(connection);
                 return new CommonResult { code = 0, data = list };
             });
         }
@@ -499,7 +510,9 @@ VALUES(@uid, @tid, @type, @gid, 0, @other, 0);
   IF EXISTS ( SELECT [user_id] FROM  dbo.apply_summary WHERE [user_id] = @tid )
     BEGIN UPDATE  dbo.apply_summary SET apply_count = apply_count + 1 ,update_at = GETDATE() WHERE [user_id] = @tid END;
   ELSE BEGIN INSERT INTO dbo.apply_summary ([user_id], apply_count) VALUES (@tid,1) END;";
-                 return await connection.ExecuteAsync(sql, new { uid = userId, tid = toId, type = type, gid = groupId, other = other });
+                 var res= await connection.ExecuteAsync(sql, new { uid = userId, tid = toId, type = type, gid = groupId, other = other });
+                 _storage.ReleaseConnection(connection);
+                 return res;
              });
             return result;
         }
