@@ -14,7 +14,10 @@
 </head>
 <body>
     <script>
-    var uid = 100000;
+        var uid = localStorage.getItem("layim_uid") || 0;
+        if (!uid) {
+            location.href = "/login.html";
+        }
     </script>
     <script src="/scripts/layui/layui.js"></script>
     <script>
