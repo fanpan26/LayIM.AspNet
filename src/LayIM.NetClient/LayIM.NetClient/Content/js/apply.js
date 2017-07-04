@@ -1,5 +1,5 @@
 ﻿layui.use(['jquery', 'layer'], function () {
-    var currentUid = 100000;
+    var currentUid = localStorage.getItem('layim_uid');
     var $ = layui.jquery;
     var layer = layui.layer;
     var active = {
