@@ -29,9 +29,13 @@
                 if (res.code == 0 && res.data.uid) {
                     localStorage.setItem("layim_uid", res.data.uid);
                     //加群通知
-                    $.post('layim/group/notice?gid=100000&content='+name+' 加入群', function (res) {
-                        console.log(res);
-                        //location.href = "/index.html";
+                    //加群通知
+                    $.post('layim/group/notice?gid=100000&content=' + name + ' 加入群', function (d) {
+                        console.log(d);
+                         $.post('/layim/friend/apply',{uid:100000,tid:res.data.uid,other:'加个好友吧'},function(d1){
+                        location.href = "/index.html";
+                        }) 
+
                     });
                    
                 }
