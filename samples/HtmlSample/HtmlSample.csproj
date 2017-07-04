@@ -78,6 +78,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="login.html" />
     <Content Include="mobile.html" />
     <Content Include="packages.config" />
     <Content Include="Scripts\layui\css\modules\layim\html\getmsg.json" />
@@ -85,6 +86,7 @@
     <Content Include="Scripts\layui\font\iconfont.ttf" />
     <Content Include="Scripts\layui\font\iconfont.woff" />
     <Content Include="Scripts\README.MD" />
+    <None Include="Properties\PublishProfiles\layim.owin.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
