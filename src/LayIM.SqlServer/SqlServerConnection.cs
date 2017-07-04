@@ -185,11 +185,11 @@ FROM    dbo.chat_msg A
                 var sql = "INSERT INTO dbo.[user]( name, [sign], avatar) VALUES  (@name,@sign,@avatar);";
                 long userId = await ExecuteReturnIdAsync(sql, new { name = userName, avatar = userAvatar, sign = userSign });
 
-                string friendGroupSql = "INSERT INTO dbo.friend_group([user_id], name )VALUES(@uid, '我的好友')";
+                string friendGroupSql = "INSERT INTO dbo.friend_group([user_id], name )VALUES(@uid, '我的好友');INSERT INTO LayIM.dbo.big_group_detail(group_id, user_id, create_at) VALUES (100000, @uid, GETDATE())";
 
                 var result = await connection.ExecuteAsync(friendGroupSql, new { uid = userId });
                 _storage.ReleaseConnection(connection);
-                return CreateResult(result > 0);
+                return new CommonResult { code = 0, data = new { uid = userId } };
             });
         }
         #endregion
