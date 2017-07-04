@@ -70,6 +70,12 @@ namespace LayIM.NetClient
                  var client = new LayimUserClient(context.Storage, context.Request);
                  return await client.CreateUser();
              });
+            //进入群通知
+            Routes.AddCommand("/group/notice", context =>
+            {
+                var cloud = RongCloudContainer.CreateInstance(context.Options?.RongCloudSetting);
+                return cloud.SendGroupMessage("0", context.Request.GetQuery("gid"), context.Request.GetQuery("content"));
+            });
             //申请好友
             Routes.AddCommandExecute("/friend/apply", async context =>
              {

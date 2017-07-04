@@ -13,6 +13,7 @@ namespace LayIM.NetClient
     {
         //融云接口
         private static readonly string domain = "http://api.cn.ronghub.com";
+        private static readonly IJsonSerializer serializer = new DefaultSerializer();
 
         private static object _rcLock = new object();
 
@@ -118,6 +119,20 @@ namespace LayIM.NetClient
 
             return new { token = token?.token };
         }
+
+        public bool SendGroupMessage(string fromId, string groupId, string content)
+        {
+            var message = new { username = "", id = groupId, type = "group", content = content,system=true };// ["username", "avatar", "id", "type", "content"]
+            var json = serializer.SerializeObject(message);
+            var parameter = new Dictionary<string, object> {
+                { "fromUserId", 0 },
+                { "toGroupId", groupId },
+                { "objectName", "LAYIM:CHAT" },
+                { "content",json}
+            };
+            var result = Execute<RongCloudRequestResult>("/message/group/publish.json", Method.POST, parameter);
+            return result?.code == 200;
+        }
     }
 
     internal static class RongCloudContainer
@@ -139,10 +154,14 @@ namespace LayIM.NetClient
         }
     }
 
-    internal class RongCloudToken
-    {
-        public int code { get; set; }
+    internal class RongCloudToken: RongCloudRequestResult
+    { 
         public long userId { get; set; }
         public string token { get; set; }
+    }
+
+    internal class RongCloudRequestResult
+    {
+        public int code { get; set; }
     }
 }

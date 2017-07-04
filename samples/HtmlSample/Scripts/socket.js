@@ -307,6 +307,9 @@
                     switch (message.messageType) {
                         case RongIMClient.MessageType.LAYIM_TEXT_MESSAGE:
                             //message.content.timestamp = message.sentTime;
+                            if (message.username == "system") {
+                                message.content.system = true;
+                            }
                             conf.layim.getMessage(message.content);
                             break;
 
@@ -324,7 +327,7 @@
                 msgName: 'LAYIM_TEXT_MESSAGE',
                 objName: 'LAYIM:CHAT',
                 msgTag: new lib.MessageTag(false, false),
-                msgProperties: ["username", "avatar", "id", "type", "content"]
+                msgProperties: ["username", "avatar", "id", "type", "content","system"]
             };
             //注册
             log('注册用户自定义消息类型：LAYIM_TEXT_MESSAGE');
