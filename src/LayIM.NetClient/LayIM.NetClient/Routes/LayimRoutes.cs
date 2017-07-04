@@ -53,10 +53,10 @@ namespace LayIM.NetClient
             });
 
             //添加历史记录
-            Routes.AddCommand("/chat", context =>
+            Routes.AddCommandExecute("/chat", async context =>
             {
                 var client = new LayimUserClient(context.Storage, context.Request);
-                return client.AddMsg().Result;
+                return  await client.AddMsg();
             });
             //添加群组
             Routes.AddCommandExecute("/group/add", async context =>
