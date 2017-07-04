@@ -116,9 +116,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\apply.css" />
-    <Content Include="Content\css\chatlog.css" />
-    <Content Include="Content\css\layui.css" />
+    <EmbeddedResource Include="Content\css\apply.css" />
+    <EmbeddedResource Include="Content\css\chatlog.css" />
+    <EmbeddedResource Include="Content\css\layui.css" />
     <EmbeddedResource Include="Content\js\apply.js" />
     <EmbeddedResource Include="Content\js\chatlog.js" />
     <EmbeddedResource Include="Content\js\jquery.js" />
