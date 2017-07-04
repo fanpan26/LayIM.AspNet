@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+    <input placeholder="用户昵称" type="text" id="userName">
+    <input placeholder="头像地址" type="text" value="/scripts/user.jpg" id="userPhoto">
+    <input placeholder="签名" type="text" id="userSign">
+    <input type="button" id="btnJoin" value="进入">
+
+    <script type="text/javascript" src="/layim/js/jquery"></script>
+    <script>
+        $(function () {
+            var uid = localStorage.getItem('layim_uid') || 0;
+            if (uid) {
+                location.href = "/index.html";
+            }
+        })
+        $(document).on('click', '#btnJoin', function () {
+            var name = $('#userName').val() || '游客' + Math.random().toString().substr(2, 4);
+            $.post('/layim/user/add', {
+                name: name,
+                avatar: $('#userPhoto').val() || '/scripts/user.jpg',
+                sign: $('#userSign').val() || '我的签名我做主'
+            }, function (res) {
+                if (res.code == 0 && res.data.uid) {
+                    localStorage.setItem("layim_uid", res.data.uid);
+                    //加群通知
+                    $.post('layim/group/notice?gid=100000&content='+name+' 加入群', function (res) {
+                        console.log(res);
+                        //location.href = "/index.html";
+                    });
+                   
+                }
+            });
+        });
+
+        function autoJoinGroup(uid) {
+
+        }
+
+    </script>
+</body>
+</html>
